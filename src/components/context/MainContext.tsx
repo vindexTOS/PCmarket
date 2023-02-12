@@ -14,7 +14,7 @@ type Cell = {
   dispatch: React.Dispatch<Action>
 }
 type Action = {
-  type: string
+  type: string | []
   payload?: any
 }
 type State = {
@@ -30,7 +30,7 @@ export const MainContextProvider = ({
   //slider lorgic
   // slider index state
   const [slideIndex, setSlideIndex] = useState<number>(0)
-  // slider  reducer function
+  // slider  reducer function ////////////////////////////////////////////////////////////////////////////////////////
   const sliderReducer = (state: State, action: Action) => {
     switch (action.type) {
       case 'UP_INDEX':
@@ -47,6 +47,11 @@ export const MainContextProvider = ({
               ? (state.index = Photodata.length)
               : state.index - 1,
         }
+      case 'POINTER_INDEX':
+        return {
+          index: state.index = action.payload,
+        }
+
       default:
         return state
     }
@@ -55,6 +60,16 @@ export const MainContextProvider = ({
   const [state, dispatch] = useReducer<Reducer<State, Action>>(sliderReducer, {
     index: 0,
   })
+  // useEffect for slide ///////////////////////////////////////////////
+  const [tiemFire, setTimeFire] = useState(false)
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch({ type: 'UP_INDEX' })
+      setTimeFire(!tiemFire)
+    }, 5000)
+  }, [tiemFire])
+  //slider reducer end /////////////////////////////////////////////////////////////////
+
   return (
     <MainContext.Provider value={{ slideIndex, state, dispatch }}>
       {children}

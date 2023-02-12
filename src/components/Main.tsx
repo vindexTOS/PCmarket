@@ -4,13 +4,12 @@ import { Outlet } from 'react-router-dom'
 import Slider from './Slider'
 function Main() {
   const style = {
-    section: `overflow-hidden`,
+    section: `overflow-hidden flex justify-between`,
   }
   return (
     <section className={style.section}>
-      <Slider />
       <SideNav />
-
+      <Slider />
       <Outlet />
     </section>
   )
