@@ -11,6 +11,7 @@ function SliderPoints({ Photodata }: { Photodata: {}[] }) {
       {Photodata.map((val, index) => {
         return (
           <div
+            key={index}
             onClick={() => dispatch({ type: 'POINTER_INDEX', payload: index })}
             className={` w-[30px] h-[30px] rounded-[50%] z-30  cursor-pointer ${
               state.index == index ? 'bg-red-600' : 'bg-white '

@@ -6,12 +6,17 @@ import React, {
   createContext,
   useReducer,
   Reducer,
+  JSXElementConstructor,
 } from 'react'
+import { PaletteColors, usePalette } from 'react-palette'
 import { Photodata } from '../../utils/data/Photos'
+
 type Cell = {
   slideIndex: number
   state: State
   dispatch: React.Dispatch<Action>
+  img: string
+  data: PaletteColors
 }
 type Action = {
   type: string | []
@@ -68,10 +73,15 @@ export const MainContextProvider = ({
       setTimeFire(!tiemFire)
     }, 5000)
   }, [tiemFire])
+
+  const { img } = Photodata[state.index]
+  // slider color
+  const { data, loading, error } = usePalette(img)
+
   //slider reducer end /////////////////////////////////////////////////////////////////
 
   return (
-    <MainContext.Provider value={{ slideIndex, state, dispatch }}>
+    <MainContext.Provider value={{ slideIndex, state, dispatch, img, data }}>
       {children}
     </MainContext.Provider>
   )

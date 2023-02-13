@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Slider from './Slider'
 function Main() {
   const style = {
-    section: `overflow-hidden flex justify-between`,
+    section: `  flex justify-between mt-5 `,
   }
   return (
     <section className={style.section}>

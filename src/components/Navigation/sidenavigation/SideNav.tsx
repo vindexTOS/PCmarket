@@ -1,25 +1,39 @@
 import React from 'react'
+import { Icons } from '../../../utils/data/Photos'
 import { Link } from 'react-router-dom'
+import { IoIosArrowForward } from 'react-icons/io'
+import { UseMainContext } from '../../context/MainContext'
+
 function SideNav() {
+  const context = UseMainContext()
+  if (!context) {
+    return null
+  }
+  const { img, data } = context
   const links = [
-    { titles: 'Dasktop', link: '' },
-    { titles: 'Laptop', link: '' },
-    { titles: 'Components', link: '' },
-    { titles: 'Phones', link: '' },
-    { titles: 'Electronics', link: '' },
+    { titles: 'Dasktop', link: '', icon: Icons.gaming },
+    { titles: 'Laptop', link: '', icon: Icons.laptop },
+    { titles: 'Components', link: '', icon: Icons.fan },
+    { titles: 'Phones', link: '', icon: Icons.phone },
+    { titles: 'Electronics', link: '', icon: Icons.headphone },
   ]
   const style = {
-    nav: `w-[280px] h-[600px] p-10 ml-3   bg-gray-200    bg-opacity-95`,
-    linkDiv: `flex flex-col gap-5`,
-    link: `p-3 hover:bg-gray-400 hover:bg-opacity-40 hover:text-blue-500 cursor-pointer z-40`,
+    nav: `w-[280px] h-[600px] p-10 ml-3   bg-black rounded-l-[10px] z-20  bg-opacity-70`,
+    linkDiv: `flex flex-col gap-5 w-[100%]`,
+    link: `p-2 text-start text-[1.3rem] hover:bg-gray-300 text-red-600 hover:bg-opacity-30 hover:text-white cursor-pointer z-40 w-[100%] rounded-[12px] flex items-col items-center justify-center gap-2`,
+    icon: `w-[20px] h-[20px] `,
   }
+
   return (
     <nav className={style.nav}>
       <div className={style.linkDiv}>
         {links.map((val) => {
           return (
-            <Link className={style.link} to={val.link}>
-              {val.titles}
+            <Link key={val.titles} className={style.link} to={val.link}>
+              {val.icon}
+
+              <h1 className="w-[7rem]">{val.titles}</h1>
+              <IoIosArrowForward />
             </Link>
           )
         })}
