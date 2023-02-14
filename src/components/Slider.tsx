@@ -14,7 +14,7 @@ function Palette({ img }: { img: string }) {
     <div
       className="absolute ml-3 rounded-l-[10px]   h-[600px] w-[280px]  "
       style={{
-        boxShadow: `0px 0px 20px 0px ${data.vibrant}`,
+        boxShadow: `0px 0px 10px 0px ${data.vibrant}`,
       }}
     >
       <div
@@ -38,7 +38,7 @@ function Slider() {
   const style = {
     mainDiv: `flex flex-row items-center justify-center  z-30 w-[90%]  h-[600px] `,
     img: `w-[100%] h-[600px]`,
-    btnDiv: `absolute z-30 w-[80%] h-[50%] flex items-center justify-between   `,
+    btnDiv: `absolute z-30 w-[75%] h-[50%] flex items-center justify-between   `,
   }
 
   return (
@@ -48,7 +48,7 @@ function Slider() {
       <div
         className={style.mainDiv}
         style={{
-          boxShadow: ` 0px 0px 20px 0px ${data.vibrant}`,
+          boxShadow: `0px 0px 15px 0px ${data.vibrant}`,
         }}
       >
         <img className={style.img} src={img} />

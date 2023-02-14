@@ -9,6 +9,8 @@ import { RiComputerLine } from 'react-icons/ri'
 import { GiComputerFan } from 'react-icons/gi'
 import { MdOutlinePhoneAndroid } from 'react-icons/md'
 import { ImHeadphones } from 'react-icons/im'
+import CPU from '../icons/cpu.png'
+import Chip from '../icons/microchip.png'
 export const Photodata = [
   { img: AMDCput },
   { img: AMDGpu },
@@ -26,4 +28,6 @@ export const Icons = {
   fan: <GiComputerFan />,
   phone: <MdOutlinePhoneAndroid />,
   headphone: <ImHeadphones />,
+  CPU: CPU,
+  Chip: Chip,
 }

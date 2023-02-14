@@ -10,6 +10,14 @@ import React, {
 } from 'react'
 import { PaletteColors, usePalette } from 'react-palette'
 import { Photodata } from '../../utils/data/Photos'
+import { auth } from '../firebase/firebaseconfig'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 type Cell = {
   slideIndex: number
@@ -17,6 +25,11 @@ type Cell = {
   dispatch: React.Dispatch<Action>
   img: string
   data: PaletteColors
+  Register: (email: string, password: string) => void
+  LogIn: (email: string, password: string) => void
+  user: {} | unknown
+  handleLogOut: () => void
+  navigate: NavigateFunction
 }
 type Action = {
   type: string | []
@@ -32,6 +45,46 @@ export const MainContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const navigate = useNavigate()
+  // register and login
+  const Register = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+  // login
+  const LogIn = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password)
+  }
+  // logout
+  const LogOut = () => {
+    signOut(auth)
+  }
+  //error message state
+  const [err, setErr] = useState<unknown>()
+  // handle logout async function
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth)
+      navigate('/')
+      console.log(user)
+    } catch (err) {
+      let message
+      if (err instanceof Error) message = err.message
+      else message = String(err)
+      console.log(message)
+      setErr({ message })
+    }
+  }
+  // user auth data
+  const [user, setUser] = useState<{} | unknown>({})
+  useEffect(() => {
+    const sub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      console.log(user)
+    })
+
+    return sub()
+  }, [])
+
   //slider lorgic
   // slider index state
   const [slideIndex, setSlideIndex] = useState<number>(0)
@@ -81,7 +134,20 @@ export const MainContextProvider = ({
   //slider reducer end /////////////////////////////////////////////////////////////////
 
   return (
-    <MainContext.Provider value={{ slideIndex, state, dispatch, img, data }}>
+    <MainContext.Provider
+      value={{
+        slideIndex,
+        state,
+        dispatch,
+        img,
+        data,
+        Register,
+        LogIn,
+        handleLogOut,
+        user,
+        navigate,
+      }}
+    >
       {children}
     </MainContext.Provider>
   )
