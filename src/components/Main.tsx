@@ -1,15 +1,18 @@
 import React from 'react'
 import SideNav from './Navigation/sidenavigation/SideNav'
 import { Outlet } from 'react-router-dom'
-import Slider from './Slider'
+import Slider from '../Slider/Slider'
 function Main() {
   const style = {
-    section: `  flex justify-between mt-10 p-5 `,
+    section: ` w-[100%] flex items-center justify-center mt-10 p-5 `,
+    sliderNav: `flex flex-row w-[85%]`,
   }
   return (
     <section className={style.section}>
-      <SideNav />
-      <Slider />
+      <div className={style.sliderNav}>
+        <SideNav />
+        <Slider />
+      </div>
       <Outlet />
     </section>
   )

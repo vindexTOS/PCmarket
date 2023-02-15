@@ -5,25 +5,24 @@ interface FormType {
   submit: (email: string, password: string) => void
 }
 const LogForm: React.FC<FormType> = ({ submit }) => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [err, setErr] = useState<string>('')
   const context = UseMainContext()
-
-  if (!context) {
-    return null
-  }
-  const { user, navigate } = context
+  if (!context) return null
+  const { setUserAuth, user, navigate } = context
 
   const style = {
     form: `flex flex-col gap-4`,
   }
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [err, setErr] = useState<string>('')
 
   const handleLogAuth = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     try {
       await submit(email, password)
       navigate('/')
+      console.log(user)
+      setUserAuth(true)
     } catch (error) {
       setErr('User Already Exists Or Input Feald Is Empty')
       setTimeout(() => {

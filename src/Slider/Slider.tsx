@@ -1,6 +1,6 @@
 import React from 'react'
 import { Photodata } from '../utils/data/Photos'
-import { UseMainContext } from './context/MainContext'
+import { UseMainContext } from '../components/context/MainContext'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import ArrowBtn from './ArrowBtn'
 import SliderPoints from './SliderPoints'
@@ -36,9 +36,9 @@ function Slider() {
   const { img, data } = context
 
   const style = {
-    mainDiv: `flex flex-row items-center justify-center  z-30 w-[90%]  h-[600px] `,
-    img: `w-[100%] h-[600px]`,
-    btnDiv: `absolute z-30 w-[75%] h-[50%] flex items-center justify-between   `,
+    mainDiv: `flex flex-row items-center justify-center  z-30 w-[90%]  h-[600px] rounded-r-[15px] `,
+    img: `w-[100%] h-[600px] rounded-r-[15px] `,
+    btnDiv: `absolute z-30 w-[60%] h-[50%] flex items-center justify-between   `,
   }
 
   return (

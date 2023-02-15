@@ -18,9 +18,9 @@ function SideNav() {
     { titles: 'Electronics', link: '', icon: Icons.headphone },
   ]
   const style = {
-    nav: `w-[280px] h-[600px] p-10 ml-3   bg-gray-100 rounded-l-[10px] z-20  bg-opacity-70`,
+    nav: `w-[280px] h-[600px] p-10 ml-3     bg-gray-100 rounded-l-[12px] z-20  bg-opacity-70`,
     linkDiv: `flex flex-col gap-5 w-[100%]`,
-    link: `p-2 text-start text-[1.3rem] hover:bg-gray-500 text-red-600 hover:bg-opacity-30 hover:text-white cursor-pointer z-40 w-[100%] rounded-[12px] flex items-col items-center justify-center gap-2`,
+    link: `p-2 text-start text-[1.3rem] hover:bg-gray-500 text-red-600 hover:bg-opacity-30 hover:text-white cursor-pointer z-40 w-[100%] rounded-[15px] flex items-col items-center justify-center gap-2`,
     icon: `w-[20px] h-[20px] `,
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseMainContext } from './context/MainContext'
+import { UseMainContext } from '../components/context/MainContext'
 function SliderPoints({ Photodata }: { Photodata: {}[] }) {
   const context = UseMainContext()
   if (!context) {

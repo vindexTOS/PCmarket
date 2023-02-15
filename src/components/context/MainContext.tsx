@@ -16,7 +16,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User as FirebaseUser,
 } from 'firebase/auth'
+
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 type Cell = {
@@ -27,9 +29,12 @@ type Cell = {
   data: PaletteColors
   Register: (email: string, password: string) => void
   LogIn: (email: string, password: string) => void
-  user: {} | unknown
+  user: FirebaseUser | null
   handleLogOut: () => void
   navigate: NavigateFunction
+  userAuth: boolean
+  setUserAuth: React.Dispatch<React.SetStateAction<boolean>>
+  loadingRegister: boolean
 }
 type Action = {
   type: string | []
@@ -61,11 +66,13 @@ export const MainContextProvider = ({
   //error message state
   const [err, setErr] = useState<unknown>()
   // handle logout async function
+  const [userAuth, setUserAuth] = useState<boolean>(false)
   const handleLogOut = async () => {
     try {
-      await signOut(auth)
+      await LogOut()
       navigate('/')
       console.log(user)
+      setUserAuth(false)
     } catch (err) {
       let message
       if (err instanceof Error) message = err.message
@@ -74,8 +81,19 @@ export const MainContextProvider = ({
       setErr({ message })
     }
   }
+  const [user, setUser] = useState<FirebaseUser | null>(null)
+  const [loadingRegister, setLoadingRegister] = useState<boolean>(true)
+  useEffect(() => {
+    if (user !== null) {
+      setUserAuth(true)
+    } else if (!user) {
+      setUserAuth(false)
+    }
+    setTimeout(() => {
+      setLoadingRegister(false)
+    }, 2000)
+  }, [user])
   // user auth data
-  const [user, setUser] = useState<{} | unknown>({})
   useEffect(() => {
     const sub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
@@ -146,6 +164,9 @@ export const MainContextProvider = ({
         handleLogOut,
         user,
         navigate,
+        userAuth,
+        setUserAuth,
+        loadingRegister,
       }}
     >
       {children}

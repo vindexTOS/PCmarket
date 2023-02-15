@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseMainContext } from './context/MainContext'
+import { UseMainContext } from '../components/context/MainContext'
 export interface ActionType {
   actiontype: string
   children: React.ReactNode
