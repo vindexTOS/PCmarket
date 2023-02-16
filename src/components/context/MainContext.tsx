@@ -37,8 +37,10 @@ type Cell = {
   loadingRegister: boolean
   lang: boolean
   setLang: React.Dispatch<React.SetStateAction<boolean>>
-  imgUpload: (e: React.ChangeEvent<HTMLInputElement>) => void
-  image: {} | unknown
+  imgUpload: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
+  image: (File | null)[]
+  imageHtml: (String | null)[]
+  imgRemove: (index: number) => void
 }
 type Action = {
   type: string | []
@@ -158,10 +160,44 @@ export const MainContextProvider = ({
   //language change
   const [lang, setLang] = useState<boolean>(false)
   // img upload
-  const [image, setImage] = useState<{} | unknown>({})
-  const imgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // img state for fire base
+  const [image, setImage] = useState<(File | null)[]>([
+    null,
+    null,
+    null,
+    null,
+    null,
+  ])
+  // img state for imageHtlm
+  const [imageHtml, setImageHtml] = useState<(String | null)[]>([
+    null,
+    null,
+    null,
+    null,
+    null,
+  ])
+  // saving on state function
+  const imgUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0])
+      let newHtmlImg = [...imageHtml]
+      let newImg = [...image]
+
+      newHtmlImg[index] = URL.createObjectURL(e.target.files[0])
+      newImg[index] = e.target.files[0]
+
+      setImage(newImg)
+      setImageHtml(newHtmlImg)
+    }
+  }
+  // delete img from form
+  const imgRemove = (index: number) => {
+    setImageHtml((prevImageHtml) => {
+      const newImageHtml = [...prevImageHtml]
+      newImageHtml.splice(index, 1)
+      return newImageHtml
+    })
+    if (imageHtml.length === 0) {
+      setImageHtml(new Array(image.length).fill(null))
     }
   }
 
@@ -185,6 +221,8 @@ export const MainContextProvider = ({
         setLang,
         image,
         imgUpload,
+        imageHtml,
+        imgRemove,
       }}
     >
       {children}
