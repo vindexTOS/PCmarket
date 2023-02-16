@@ -31,11 +31,11 @@ function ImgCard() {
   }
   return (
     <div className={style.title}>
-      <div className="flex flex-row items-center justify-center gap-2 w-[90%] h-[3rem] bg-gray-100 rounded-[17px]">
-        <p className="w-[2rem] h-[2rem] bg-white rounded-[50%] flex items-center justify-center">
-          <TfiHandPointDown className="text-orange-300" />
+      <div className="flex flex-row items-center justify-center gap-5  w-[90%] h-[3rem] bg-gray-100 rounded-[17px]">
+        <p className="w-[2rem] h-[2rem] bg-white rounded-[50%]  flex items-center justify-center">
+          <TfiHandPointDown className="text-orange-300 " />
         </p>
-        <p>
+        <p className="text-[13px] pr-40  ">
           {lang
             ? 'More people will be interested in properly selected photos'
             : 'სწორად შერჩეული ფოტოებით მეტ ადამიანს დააინტერესებ.'}

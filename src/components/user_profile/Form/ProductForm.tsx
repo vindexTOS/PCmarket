@@ -1,16 +1,24 @@
 import React from 'react'
+import MainHeader from './MainHeader'
 import TitleCard from './TitleCard'
 import CategorysCard from './CategorysCard'
 import ImgCard from './ImgCard'
+import { UseMainContext } from '../../context/MainContext'
+
 function ProductForm() {
+  const context = UseMainContext()
+  if (!context) {
+    return null
+  }
+  const { lang } = context
   const style = {
     form: `flex flex-col items-center justify-center w-[60%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
-    formDiv: `flex flex-col w-[80%] bg-gray-200 h-[100%] gap-5  max_sm:w-[100%]`,
+    formDiv: `flex flex-col w-[80%] h-[100%] gap-5  mt-20 max_sm:w-[100%]`,
   }
   return (
     <form className={style.form}>
-      <h1>განცხადების დამატება / add new product </h1>
       <div className={style.formDiv}>
+        <MainHeader />
         <CategorysCard />
         <ImgCard />
         <TitleCard />
