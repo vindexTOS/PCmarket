@@ -8,7 +8,14 @@ function NavBar() {
   if (!context) {
     return null
   }
-  const { userAuth, handleLogOut, user, loadingRegister } = context
+  const {
+    userAuth,
+    handleLogOut,
+    user,
+    loadingRegister,
+    setLang,
+    lang,
+  } = context
   const style = {
     nav: `w-[100vw] h-[70px] bg-gray-300 flex items-center justify-between flex-row p-5 `,
     searchDiv: `bg-white w-[300px] h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-2 border-red-600`,
@@ -47,6 +54,7 @@ function NavBar() {
           <button onClick={handleLogOut}>Log Out</button>
         </div>
       )}
+      <button onClick={() => setLang(!lang)}>Lang</button>
     </nav>
   )
 }

@@ -35,6 +35,10 @@ type Cell = {
   userAuth: boolean
   setUserAuth: React.Dispatch<React.SetStateAction<boolean>>
   loadingRegister: boolean
+  lang: boolean
+  setLang: React.Dispatch<React.SetStateAction<boolean>>
+  imgUpload: (e: React.ChangeEvent<HTMLInputElement>) => void
+  image: {} | unknown
 }
 type Action = {
   type: string | []
@@ -151,6 +155,16 @@ export const MainContextProvider = ({
 
   //slider reducer end /////////////////////////////////////////////////////////////////
 
+  //language change
+  const [lang, setLang] = useState<boolean>(false)
+  // img upload
+  const [image, setImage] = useState<{} | unknown>({})
+  const imgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+
   return (
     <MainContext.Provider
       value={{
@@ -167,6 +181,10 @@ export const MainContextProvider = ({
         userAuth,
         setUserAuth,
         loadingRegister,
+        lang,
+        setLang,
+        image,
+        imgUpload,
       }}
     >
       {children}

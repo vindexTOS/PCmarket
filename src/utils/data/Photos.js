@@ -11,6 +11,7 @@ import { MdOutlinePhoneAndroid } from 'react-icons/md'
 import { ImHeadphones } from 'react-icons/im'
 import CPU from '../icons/cpu.png'
 import Chip from '../icons/microchip.png'
+import Picture from '../icons/picture.png'
 export const Photodata = [
   { img: AMDCput },
   { img: AMDGpu },
@@ -30,4 +31,5 @@ export const Icons = {
   headphone: <ImHeadphones />,
   CPU: CPU,
   Chip: Chip,
+  Picture: Picture,
 }

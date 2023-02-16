@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@600&display=swap');
 .btnshaddow {
   text-shadow: 4px 2px 2px #ffffff;
 }
+* {
+  font-family: 'Noto Serif Georgian', serif;
+}
+
 body {
   background-color: rgb(236, 236, 236);
 }
