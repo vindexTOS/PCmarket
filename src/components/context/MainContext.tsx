@@ -41,6 +41,12 @@ type Cell = {
   image: (File | null)[]
   imageHtml: (String | null)[]
   imgRemove: (index: number) => void
+  handleDragImg: (e: React.DragEvent<HTMLInputElement>, index: number) => void
+  handleMouseEnter: (index: number) => void
+  handleMouseLeave: (index: number) => void
+  isHovering: boolean[]
+  imgReupload: boolean
+  setImgReupload: React.Dispatch<React.SetStateAction<boolean>>
 }
 type Action = {
   type: string | []
@@ -169,13 +175,7 @@ export const MainContextProvider = ({
     null,
   ])
   // img state for imageHtlm
-  const [imageHtml, setImageHtml] = useState<(String | null)[]>([
-    null,
-    null,
-    null,
-    null,
-    null,
-  ])
+  const [imageHtml, setImageHtml] = useState<(String | null)[]>([])
   // saving on state function
   const imgUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (e.target.files && e.target.files[0]) {
@@ -189,6 +189,31 @@ export const MainContextProvider = ({
       setImageHtml(newHtmlImg)
     }
   }
+  // on drag upload
+  const handleDragImg = (
+    e: React.DragEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    e.preventDefault()
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      let newHtmlImg = [...imageHtml]
+      let newImg = [...image]
+
+      newHtmlImg[index] = URL.createObjectURL(e.dataTransfer.files[0])
+      newImg[index] = e.dataTransfer.files[0]
+
+      setImage(newImg)
+      setImageHtml(newHtmlImg)
+    }
+    if (!imageHtml[0]) {
+      setImageHtml([])
+      setImgReupload(!imgReupload)
+    }
+  }
+  const [imgReupload, setImgReupload] = useState<boolean>(false)
+  useEffect(() => {
+    console.log(imageHtml)
+  }, [imgReupload])
   // delete img from form
   const imgRemove = (index: number) => {
     setImageHtml((prevImageHtml) => {
@@ -196,9 +221,22 @@ export const MainContextProvider = ({
       newImageHtml.splice(index, 1)
       return newImageHtml
     })
-    if (imageHtml.length === 0) {
-      setImageHtml(new Array(image.length).fill(null))
-    }
+  }
+  // img hover
+  const [isHovering, setIsHovering] = useState<boolean[]>(
+    new Array(imageHtml.length).fill(false),
+  )
+
+  function handleMouseEnter(index: number) {
+    let newval = [...isHovering]
+    newval[index] = true
+    setIsHovering([...newval])
+  }
+
+  function handleMouseLeave(index: number) {
+    let newval = [...isHovering]
+    newval[index] = false
+    setIsHovering([...newval])
   }
 
   return (
@@ -223,6 +261,12 @@ export const MainContextProvider = ({
         imgUpload,
         imageHtml,
         imgRemove,
+        handleDragImg,
+        handleMouseEnter,
+        handleMouseLeave,
+        isHovering,
+        imgReupload,
+        setImgReupload,
       }}
     >
       {children}
