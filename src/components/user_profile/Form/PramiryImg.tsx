@@ -2,11 +2,7 @@ import React from 'react'
 import { UseMainContext } from '../../context/MainContext'
 import { Icons } from '../../../utils/data/Photos'
 function PramiryImg() {
-  const context = UseMainContext()
-  if (!context) {
-    return null
-  }
-  const { imageHtml } = context
+  const { imageHtml } = UseMainContext()
   const style = {
     imgDivWrapper: `  mb-[34.2rem] ml-[72rem] fixed flex justify-end items-start pr-[7.4rem] max_Xll:pr-[3.6rem] max_xl:hidden`,
     imgDiv: `   `,

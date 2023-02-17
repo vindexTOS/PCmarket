@@ -4,11 +4,7 @@ import { IoMdArrowDropright } from 'react-icons/io'
 import { UseMainContext } from '../../context/MainContext'
 
 function MainHeader() {
-  const context = UseMainContext()
-  if (!context) {
-    return null
-  }
-  const { lang } = context
+  const { lang } = UseMainContext()
   return (
     <div className=" ml-5">
       <div className="flex items-center gap-1">

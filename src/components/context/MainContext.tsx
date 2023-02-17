@@ -47,6 +47,8 @@ type Cell = {
   isHovering: boolean[]
   imgReupload: boolean
   setImgReupload: React.Dispatch<React.SetStateAction<boolean>>
+  getPrice: number
+  setGetPrice: React.Dispatch<React.SetStateAction<number>>
 }
 type Action = {
   type: string | []
@@ -238,6 +240,8 @@ export const MainContextProvider = ({
     newval[index] = false
     setIsHovering([...newval])
   }
+  //form states
+  const [getPrice, setGetPrice] = useState<number>(0)
 
   return (
     <MainContext.Provider
@@ -267,6 +271,8 @@ export const MainContextProvider = ({
         isHovering,
         imgReupload,
         setImgReupload,
+        getPrice,
+        setGetPrice,
       }}
     >
       {children}
@@ -275,5 +281,9 @@ export const MainContextProvider = ({
 }
 
 export const UseMainContext = () => {
-  return useContext(MainContext)
+  const context = useContext(MainContext)
+  if (!context) {
+    throw new Error('ITs not wrapped etc')
+  }
+  return context
 }

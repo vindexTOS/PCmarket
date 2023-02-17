@@ -11,7 +11,7 @@
 }
 
 body {
-  background-color: rgb(236, 236, 236);
+  background-color: #f1f3f6;
 }
 
 .blurCs {
@@ -21,4 +21,18 @@ body {
   box-shadow: 0 4px 3px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
+}
+
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.boxShaddow {
+  box-shadow: 7px 5px 13px -5px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 7px 5px 13px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 5px 13px -5px rgba(0, 0, 0, 0.75);
 }

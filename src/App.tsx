@@ -8,6 +8,7 @@ import Register from './components/auth_log/Register'
 import Login from './components/auth_log/LogIn'
 import ProtectedRoute from './components/ProtectedRoute'
 import UserProfile from './components/user_profile/UserProfile'
+import Footer from './components/Footer'
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+        <Footer />
       </MainContextProvider>
     </BrowserRouter>
   )

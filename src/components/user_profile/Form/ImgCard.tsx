@@ -4,10 +4,6 @@ import { UseMainContext } from '../../context/MainContext'
 import { TfiHandPointDown } from 'react-icons/tfi'
 import { IoCameraReverseOutline } from 'react-icons/io5'
 function ImgCard() {
-  const context = UseMainContext()
-  if (!context) {
-    return null
-  }
   const {
     lang,
     image,
@@ -20,7 +16,7 @@ function ImgCard() {
     isHovering,
     setImgReupload,
     imgReupload,
-  } = context
+  } = UseMainContext()
   const style = {
     title: `flex flex-col items-center justify-center w-[100%] h-[400px] bg-white rounded-[19px]    gap-7`,
     imgDrop: ` w-[90%] h-[150px] gap-2 border-2 border-dashed border-orange-400  rounded-[17px] flex flex-col items-center justify-center cursor-pointer`,
@@ -31,11 +27,11 @@ function ImgCard() {
   }
   return (
     <div className={style.title}>
-      <div className="flex flex-row items-center justify-center gap-5  w-[90%] h-[3rem] bg-gray-100 rounded-[17px]">
-        <p className="w-[2rem] h-[2rem] bg-white rounded-[50%]  flex items-center justify-center">
+      <div className="flex flex-row items-center justify-center gap-5  w-[90%] h-[3rem] bg-gray-100 rounded-[17px] max_lg:pl-2 ">
+        <p className="w-[2rem] h-[2rem] bg-white rounded-[50%] flex items-center justify-center">
           <TfiHandPointDown className="text-orange-300 " />
         </p>
-        <p className="text-[13px] pr-40  ">
+        <p className="text-[13px] pr-38   ">
           {lang
             ? 'More people will be interested in properly selected photos'
             : 'სწორად შერჩეული ფოტოებით მეტ ადამიანს დააინტერესებ.'}

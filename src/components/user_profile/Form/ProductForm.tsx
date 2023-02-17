@@ -4,15 +4,12 @@ import TitleCard from './TitleCard'
 import CategorysCard from './CategorysCard'
 import ImgCard from './ImgCard'
 import { UseMainContext } from '../../context/MainContext'
-
+import Cost from './Cost'
+import Contact from './Contact'
 function ProductForm() {
-  const context = UseMainContext()
-  if (!context) {
-    return null
-  }
-  const { lang } = context
+  const { lang } = UseMainContext()
   const style = {
-    form: `flex flex-col items-center justify-center w-[60%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
+    form: `flex flex-col items-center justify-center w-[53%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
     formDiv: `flex flex-col w-[80%] h-[100%] gap-5  mt-20 max_sm:w-[100%]`,
   }
   return (
@@ -22,6 +19,8 @@ function ProductForm() {
         <CategorysCard />
         <ImgCard />
         <TitleCard />
+        <Cost />
+        <Contact />
       </div>
     </form>
   )
