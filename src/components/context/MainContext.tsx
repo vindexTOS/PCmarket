@@ -49,6 +49,9 @@ type Cell = {
   setImgReupload: React.Dispatch<React.SetStateAction<boolean>>
   getPrice: number
   setGetPrice: React.Dispatch<React.SetStateAction<number>>
+  handleDragOver: (e: React.DragEvent<HTMLLabelElement>) => void
+  handleDrop: (e: React.DragEvent<HTMLLabelElement>) => void
+  innerHandleDrop: (e: React.DragEvent<HTMLLabelElement>, index: number) => void
 }
 type Action = {
   type: string | []
@@ -229,16 +232,35 @@ export const MainContextProvider = ({
     new Array(imageHtml.length).fill(false),
   )
 
-  function handleMouseEnter(index: number) {
+  const handleMouseEnter = (index: number) => {
     let newval = [...isHovering]
     newval[index] = true
     setIsHovering([...newval])
   }
 
-  function handleMouseLeave(index: number) {
+  const handleMouseLeave = (index: number) => {
     let newval = [...isHovering]
     newval[index] = false
     setIsHovering([...newval])
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault()
+  }
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault()
+    let newHtmlImg = [...imageHtml]
+    newHtmlImg[0] = URL.createObjectURL(e.dataTransfer.files[0])
+    setImageHtml(newHtmlImg)
+  }
+  const innerHandleDrop = (
+    e: React.DragEvent<HTMLLabelElement>,
+    index: number,
+  ) => {
+    e.preventDefault()
+    let newHtmlImg = [...imageHtml]
+    newHtmlImg[index] = URL.createObjectURL(e.dataTransfer.files[0])
+    setImageHtml(newHtmlImg)
   }
   //form states
   const [getPrice, setGetPrice] = useState<number>(0)
@@ -273,6 +295,9 @@ export const MainContextProvider = ({
         setImgReupload,
         getPrice,
         setGetPrice,
+        handleDragOver,
+        handleDrop,
+        innerHandleDrop,
       }}
     >
       {children}

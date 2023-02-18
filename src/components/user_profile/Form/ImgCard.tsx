@@ -14,8 +14,9 @@ function ImgCard() {
     handleMouseEnter,
     handleMouseLeave,
     isHovering,
-    setImgReupload,
-    imgReupload,
+    handleDragOver,
+    handleDrop,
+    innerHandleDrop,
   } = UseMainContext()
   const style = {
     title: `flex flex-col items-center justify-center w-[100%] h-[400px] bg-white rounded-[19px]    gap-7`,
@@ -25,8 +26,12 @@ function ImgCard() {
     uploadedImage: `w-[120px] h-[120px] rounded-[17px] max_sm:w-[85px] max_sm:h-[85px] hover:bg-gray-300 cursor-pointer `,
     imgOverLayHover: `w-[120px] h-[120px] rounded-[17px] max_sm:w-[85px] max_sm:h-[85px]  absolute z-10  flex items-center justify-center `,
   }
+  // onDrop={(e) => innerHandleDrop(e, 2)}
+  const i = !imageHtml[1] ? 1 : !imageHtml[2] ? 2 : !imageHtml[3] ? 3 : 4
+
   return (
     <div className={style.title}>
+      <h1 onClick={() => console.log(i)}>On click </h1>
       <div className="flex flex-row items-center justify-center gap-5  w-[90%] h-[3rem] bg-gray-100 rounded-[17px] max_lg:pl-2 ">
         <p className="w-[2rem] h-[2rem] bg-white rounded-[50%] flex items-center justify-center">
           <TfiHandPointDown className="text-orange-300 " />
@@ -39,7 +44,12 @@ function ImgCard() {
       </div>
 
       {imageHtml[0] == null ? (
-        <label className={style.imgDrop} htmlFor="img">
+        <label
+          onDragOver={(e) => handleDragOver(e)}
+          onDrop={handleDrop}
+          className={style.imgDrop}
+          htmlFor="img"
+        >
           <img className={style.img} src={Icons.Picture} />
           <h1 className="font-bold text-[14px]">
             {lang ? 'Upload Photo' : 'სურათის ატვირთვა'}
@@ -59,7 +69,9 @@ function ImgCard() {
         <div className="flex items-start justify-start w-[90%]   gap-5">
           <div className="flex flex-row flex-wrap max_sm:gap-3 gap-5">
             <label
+              onDragOver={(e) => handleDragOver(e)}
               className={style.imgSecUp}
+              onDrop={(e) => innerHandleDrop(e, i)}
               title={`${lang ? 'Add photo' : 'ფოტოს დამატება'}`}
               htmlFor={`${
                 !imageHtml[0]
