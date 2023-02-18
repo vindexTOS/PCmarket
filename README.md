@@ -10,7 +10,7 @@ Once you have installed these tools, you can clone the repository and install th
 
 sh
 Copy code
-git clone https://github.com/YOUR-USERNAME/pc-market-app.git
+git clone https://github.com/vindexTOS/PCmarket.git
 cd pc-market-app
 npm install
 You will also need to create a Firebase project and add the configuration details to a .env file in the root directory of the project. You can find more information on how to set up a Firebase project in the Firebase documentation.
