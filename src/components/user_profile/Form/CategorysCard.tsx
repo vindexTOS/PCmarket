@@ -2,34 +2,10 @@ import React, { useState, useReducer, Reducer } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { UseMainContext } from '../../context/MainContext'
 
-type Action = {
-  type: string | []
-}
-type State = {
-  btn1: boolean
-  btn2: boolean
-}
-
 function CategorysCard() {
   const [selectDown, setSelectDown] = useState<boolean>(false)
 
-  const btnReducer = (state: State, action: Action) => {
-    switch (action.type) {
-      case 'btn1':
-        return { btn1: state.btn1 = true, btn2: state.btn2 = false }
-      case 'btn2':
-        return { btn1: state.btn1 = false, btn2: state.btn2 = true }
-      default:
-        return state
-    }
-  }
-
-  const [state, dispatch] = useReducer<Reducer<State, Action>>(btnReducer, {
-    btn1: true,
-    btn2: false,
-  })
-
-  const { lang, setLang } = UseMainContext()
+  const { lang, register, btnstate, btndispatch } = UseMainContext()
   const categorys = [
     {
       title: 'Personal Computer',
@@ -90,18 +66,23 @@ function CategorysCard() {
           {lang ? 'Product Detales' : 'განცხადების ტიპი'}
         </h1>
         <div className={style.btnDiv}>
-          <div
-            onClick={() => dispatch({ type: 'btn1' })}
+          <button
+            type="button"
+            onClick={() => btndispatch({ type: 'btn1' })}
             className={`${style.btnSale} ${
-              state.btn1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
+              btnstate.btn1
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-black'
             }`}
           >
             {lang ? 'Sale' : 'გაყიდვა'}
-          </div>
+          </button>
           <div
-            onClick={() => dispatch({ type: 'btn2' })}
+            onClick={() => btndispatch({ type: 'btn2' })}
             className={`${style.btnSale} ${
-              state.btn2 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
+              btnstate.btn2
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-black'
             }`}
           >
             {lang ? 'Buy' : 'ყიდვა'}
@@ -115,6 +96,7 @@ function CategorysCard() {
         <select
           className={style.select}
           onClick={() => setSelectDown(!selectDown)}
+          {...register('category')}
         >
           {categorys?.map((val, i) => {
             return (

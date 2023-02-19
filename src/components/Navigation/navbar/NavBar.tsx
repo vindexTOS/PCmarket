@@ -15,12 +15,14 @@ function NavBar() {
     loadingRegister,
     setLang,
     lang,
+    userData,
   } = context
   const style = {
     nav: `w-[100vw] h-[70px] bg-[#ffffff] flex items-center justify-between flex-row p-5 `,
     searchDiv: `bg-white w-[300px] h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-2 border-red-600`,
     searchInput: `w-[80%]  outline-none`,
     icon: `w-[70px] h-[70px] `,
+    img: `w-[70px] h-[70px] rounded-[50%]`,
   }
   return (
     <nav className={style.nav}>
@@ -39,17 +41,27 @@ function NavBar() {
         `}
         >
           {loadingRegister ? (
-            <div>Loading</div>
+            <div className="bg-red-600">Loading</div>
           ) : (
             <div>
-              <Link to="/register">Register</Link>
-              <Link to="/login">Login</Link>
+              {' '}
+              <Link to="/register" className="text-black z-50">
+                Register
+              </Link>
+              <Link className="text-black z-50" to="/login">
+                Login
+              </Link>
             </div>
           )}
         </div>
       ) : (
         <div className="flex flex-row gap-4">
           <p>{user?.email}</p>
+          <img
+            className={style.img}
+            src={userData ? userData[0]?.imgUrl : Icons.Picture}
+          />
+
           <Link to="/myproduct">Add Product</Link>
           <button onClick={handleLogOut}>Log Out</button>
         </div>

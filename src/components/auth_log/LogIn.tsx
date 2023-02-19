@@ -13,7 +13,7 @@ function Login() {
   return (
     <section className={style.section}>
       log in
-      <LogForm submit={LogIn} />
+      <LogForm submit={LogIn} path={'/'} />
     </section>
   )
 }

@@ -14,7 +14,6 @@ type State = {
 
 function Cost() {
   const [dropDown, setDropDown] = useState<boolean>(false)
-  const [price, setPrice] = useState<string>('')
 
   const priceReducer: React.Reducer<State, Action> = (state, action) => {
     switch (action.type) {
@@ -39,7 +38,14 @@ function Cost() {
     },
   )
 
-  const { lang, getPrice, setGetPrice } = UseMainContext()
+  const {
+    lang,
+    getPrice,
+    setGetPrice,
+    register,
+    priceCur,
+    setPrice,
+  } = UseMainContext()
   const style = {
     mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[270px] bg-white rounded-[19px] `,
     header: `w-[90%] flex items-center justify-start font-bold`,
@@ -69,6 +75,7 @@ function Cost() {
           {!state.negotiation ? (
             <div className={style.priceinputDiv}>
               <input
+                {...register('price')}
                 onChange={(e) => setGetPrice(e.target.valueAsNumber)}
                 value={state.negotiation ? 0 : getPrice}
                 type="number"
@@ -83,7 +90,7 @@ function Cost() {
             onClick={() => setDropDown(!dropDown)}
             className={style.priceDrop}
           >
-            {price}
+            {priceCur}
             {dropDown ? (
               <IoIosArrowUp className={style.icon} />
             ) : (
@@ -104,7 +111,7 @@ function Cost() {
         <p
           onClick={() => dispatch({ type: 'price' })}
           className={`${style.btn} ${
-            state.price ? 'bg-blue-400 text-white' : ''
+            state.price ? 'bg-green-500 text-white' : ''
           }`}
         >
           {lang ? 'Price quote' : 'ფასიშ შეთავაზება'}
@@ -112,7 +119,7 @@ function Cost() {
         <p
           onClick={() => dispatch({ type: 'negotiation' })}
           className={`${style.btn} ${
-            state.negotiation ? 'bg-blue-400 text-white' : ''
+            state.negotiation ? 'bg-green-500 text-white' : ''
           }`}
         >
           {lang ? 'Price negotiable' : 'ფაში შეთანხმებით'}

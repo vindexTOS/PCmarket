@@ -3,8 +3,9 @@ import { UseMainContext } from '../context/MainContext'
 
 interface FormType {
   submit: (email: string, password: string) => void
+  path: string
 }
-const LogForm: React.FC<FormType> = ({ submit }) => {
+const LogForm: React.FC<FormType> = ({ submit, path }) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [err, setErr] = useState<string>('')
@@ -20,7 +21,7 @@ const LogForm: React.FC<FormType> = ({ submit }) => {
     e.preventDefault()
     try {
       await submit(email, password)
-      navigate('/')
+      navigate(path)
       console.log(user)
       setUserAuth(true)
     } catch (error) {

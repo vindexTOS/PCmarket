@@ -10,7 +10,6 @@ function ImgCard() {
     imgUpload,
     imageHtml,
     imgRemove,
-    handleDragImg,
     handleMouseEnter,
     handleMouseLeave,
     isHovering,
@@ -28,10 +27,19 @@ function ImgCard() {
   }
   // onDrop={(e) => innerHandleDrop(e, 2)}
   const i = !imageHtml[1] ? 1 : !imageHtml[2] ? 2 : !imageHtml[3] ? 3 : 4
-
+  const id = !imageHtml[0]
+    ? 'img'
+    : !imageHtml[1]
+    ? 'img1'
+    : !imageHtml[2]
+    ? 'img2'
+    : !imageHtml[3]
+    ? 'img3'
+    : !imageHtml[4]
+    ? 'img4'
+    : 'img'
   return (
     <div className={style.title}>
-      <h1 onClick={() => console.log(i)}>On click </h1>
       <div className="flex flex-row items-center justify-center gap-5  w-[90%] h-[3rem] bg-gray-100 rounded-[17px] max_lg:pl-2 ">
         <p className="w-[2rem] h-[2rem] bg-white rounded-[50%] flex items-center justify-center">
           <TfiHandPointDown className="text-orange-300 " />
@@ -73,19 +81,7 @@ function ImgCard() {
               className={style.imgSecUp}
               onDrop={(e) => innerHandleDrop(e, i)}
               title={`${lang ? 'Add photo' : 'ფოტოს დამატება'}`}
-              htmlFor={`${
-                !imageHtml[0]
-                  ? 'img'
-                  : !imageHtml[1]
-                  ? 'img1'
-                  : !imageHtml[2]
-                  ? 'img2'
-                  : !imageHtml[3]
-                  ? 'img3'
-                  : !imageHtml[4]
-                  ? 'img4'
-                  : 'img'
-              }`}
+              htmlFor={`${id}`}
             >
               <img className={style.img} src={Icons.Picture} />
             </label>

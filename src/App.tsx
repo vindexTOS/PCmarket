@@ -9,6 +9,7 @@ import Login from './components/auth_log/LogIn'
 import ProtectedRoute from './components/ProtectedRoute'
 import UserProfile from './components/user_profile/UserProfile'
 import Footer from './components/Footer'
+import UserInfo from './components/auth_log/UserInfo'
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/user_info" element={<UserInfo />} />
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

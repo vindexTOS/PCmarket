@@ -12,6 +12,8 @@ import { ImHeadphones } from 'react-icons/im'
 import CPU from '../icons/cpu.png'
 import Chip from '../icons/microchip.png'
 import Picture from '../icons/picture.png'
+import userpfp from '../userpfp.png'
+import camera from '../camera.png'
 export const Photodata = [
   { img: AMDCput },
   { img: AMDGpu },
@@ -32,4 +34,9 @@ export const Icons = {
   CPU: CPU,
   Chip: Chip,
   Picture: Picture,
+}
+
+export const Utils = {
+  userpfp,
+  camera,
 }

@@ -7,13 +7,16 @@ import { UseMainContext } from '../../context/MainContext'
 import Cost from './Cost'
 import Contact from './Contact'
 function ProductForm() {
-  const { lang } = UseMainContext()
+  const { lang, handleFormSubmit, handleSubmit } = UseMainContext()
   const style = {
     form: `flex flex-col items-center justify-center w-[53%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
     formDiv: `flex flex-col w-[80%] h-[100%] gap-5  mt-20 max_sm:w-[100%]`,
   }
   return (
-    <form className={style.form}>
+    <form
+      className={style.form}
+      onSubmit={(e) => handleFormSubmit(e, handleSubmit)}
+    >
       <div className={style.formDiv}>
         <MainHeader />
         <CategorysCard />
@@ -21,6 +24,7 @@ function ProductForm() {
         <TitleCard />
         <Cost />
         <Contact />
+        <button type="submit">submit</button>
       </div>
     </form>
   )

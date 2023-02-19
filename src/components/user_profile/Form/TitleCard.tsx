@@ -34,7 +34,7 @@ function TitleCard() {
     },
   )
 
-  const { lang } = UseMainContext()
+  const { lang, register } = UseMainContext()
 
   const style = {
     title: `flex flex-col gap-5 items-center justify-center w-[100%] h-[490px] pb-20 pt-20 bg-white rounded-[19px]`,
@@ -66,7 +66,10 @@ function TitleCard() {
         <p className="text-gray-400 text-[12px] ml-2">
           {lang ? 'Title' : 'სათაური'}
         </p>
-        <input className=" w-[100%] h-[2.4rem] border-2 rounded-[17px]" />
+        <input
+          {...register('title')}
+          className=" w-[100%] h-[2.4rem] border-2 rounded-[17px]"
+        />
       </div>
       <div className="w-[100%] flex flex-col items-center justify-center gap-3">
         <p className="text-gray-400 text-[12px] ml-2 w-[90%] flex items-start justify-start">
@@ -94,7 +97,10 @@ function TitleCard() {
             />
           </div>
           <div className="w-[95%] h-[0.2px] bg-gray-400"></div>
-          <textarea className={`${style.textarea} `}></textarea>
+          <textarea
+            {...register('description')}
+            className={`${style.textarea} `}
+          ></textarea>
         </div>
       </div>
     </div>
