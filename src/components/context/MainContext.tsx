@@ -45,6 +45,7 @@ import {
 } from 'react-hook-form'
 
 import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { sign } from 'crypto'
 
 type Cell = {
   slideIndex: number
@@ -95,6 +96,8 @@ type Cell = {
   userName: string
   userInfo: (e: React.FormEvent<HTMLFormElement>) => void
   userData: unknown | any
+  productData: unknown | any
+  allUsers: unknown | any
 }
 type Action = {
   type: string | []
@@ -128,18 +131,33 @@ export const MainContextProvider = ({
   const { handleSubmit, register, getValues } = useForm()
 
   const navigate = useNavigate()
+  // loading state
+  const [loadingRegister, setLoadingRegister] = useState<boolean>(true)
+
   // register and login
   const Register = (email: string, password: string) => {
+    setUserAuth(true)
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
     return createUserWithEmailAndPassword(auth, email, password)
   }
   // login RegisterOptions<FieldValues, string> | undefined
   const LogIn = (email: string, password: string) => {
+    setUserAuth(true)
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
     return signInWithEmailAndPassword(auth, email, password)
   }
   // logout
   const LogOut = () => {
     signOut(auth)
   }
+
+  const [user, setUser] = useState<FirebaseUser | null>(null)
   //error message state
   const [err, setErr] = useState<unknown>()
   // handle logout async function
@@ -148,8 +166,9 @@ export const MainContextProvider = ({
     try {
       await LogOut()
       navigate('/')
-      console.log(user)
       setUserAuth(false)
+      setLoadingRegister(false)
+      console.log(user)
     } catch (err) {
       let message
       if (err instanceof Error) message = err.message
@@ -158,8 +177,7 @@ export const MainContextProvider = ({
       setErr({ message })
     }
   }
-  const [user, setUser] = useState<FirebaseUser | null>(null)
-  const [loadingRegister, setLoadingRegister] = useState<boolean>(true)
+
   useEffect(() => {
     if (user !== null) {
       setUserAuth(true)
@@ -218,14 +236,14 @@ export const MainContextProvider = ({
           timestamp: serverTimestamp(),
           uid,
         })
-        navigate('/')
+        navigate('home')
       }
     } catch (error) {}
   }
   //getting user info from fire base
 
   const [userData, setUserData] = useState<unknown | any>()
-
+  const [allUsers, setAllUsers] = useState<unknown | any>()
   useEffect(() => {
     const q = query(collection(db, 'user_info'), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querrySnapShot) => {
@@ -245,6 +263,7 @@ export const MainContextProvider = ({
         }
       })
       setUserData(uidData)
+      setAllUsers(data)
     })
 
     return () => unsub()
@@ -388,8 +407,12 @@ export const MainContextProvider = ({
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault()
     let newHtmlImg = [...imageHtml]
+    let newImg = [...image]
     newHtmlImg[0] = URL.createObjectURL(e.dataTransfer.files[0])
     setImageHtml(newHtmlImg)
+    newImg[0] = e.dataTransfer.files[0]
+
+    setImage(newImg)
   }
   const innerHandleDrop = (
     e: React.DragEvent<HTMLLabelElement>,
@@ -397,8 +420,13 @@ export const MainContextProvider = ({
   ) => {
     e.preventDefault()
     let newHtmlImg = [...imageHtml]
+    let newImg = [...image]
     newHtmlImg[index] = URL.createObjectURL(e.dataTransfer.files[0])
     setImageHtml(newHtmlImg)
+
+    newImg[index] = e.dataTransfer.files[0]
+
+    setImage(newImg)
   }
   //form states
   const [getPrice, setGetPrice] = useState<number>(0)
@@ -425,7 +453,7 @@ export const MainContextProvider = ({
       const file = image[i]
       if (file !== null) {
         const storageRef = imageRef
-
+        console.log(image[i])
         promises.push(
           uploadBytesResumable(storageRef, file).then((uploadResult) => {
             return getDownloadURL(uploadResult.ref)
@@ -435,7 +463,7 @@ export const MainContextProvider = ({
     }
     // Get all the downloadURLs
     const photos = await Promise.all(promises)
-
+    console.log(photos)
     let category = getValues('category')
     let title = getValues('title')
     let description = getValues('description')
@@ -462,6 +490,23 @@ export const MainContextProvider = ({
       })
     } catch (error) {}
   }
+
+  // pulling product data from firebase
+
+  const [productData, setProductData] = useState<unknown | any>()
+  useEffect(() => {
+    const q = query(collection(db, 'user_product'), orderBy('timestamp'))
+    const unsub = onSnapshot(q, (querrySnapShot) => {
+      let data: {}[] = []
+
+      querrySnapShot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id })
+      })
+      setProductData(data)
+    })
+    return () => unsub()
+  }, [user])
+
   return (
     <MainContext.Provider
       value={{
@@ -510,6 +555,8 @@ export const MainContextProvider = ({
         userInfo,
         profilePic,
         userData,
+        productData,
+        allUsers,
       }}
     >
       {children}

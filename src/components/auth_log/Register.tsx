@@ -27,7 +27,6 @@ const Register: React.FC = () => {
       }, 3000)
     }
   }
-  // ეს ფორმა შეცვალე და ცალ ცალკე გაუკეთი რეგისტრაციას და შესვლას
   return (
     <form className={style.form} onSubmit={handleLogAuth}>
       <input

@@ -66,6 +66,7 @@ function ImgCard() {
             {lang ? 'Max 5 photos' : 'მაქსიმუმ 5 ფოტო'}
           </p>
           <input
+            multiple
             title={`${lang ? 'Add photo' : 'ფოტოს დამატება'}`}
             onChange={(e) => imgUpload(e, 0)}
             id="img"
@@ -117,24 +118,28 @@ function ImgCard() {
             })}
           </div>
           <input
+            multiple
             onChange={(e) => imgUpload(e, 1)}
             id="img1"
             className="hidden"
             type="file"
           />
           <input
+            multiple
             onChange={(e) => imgUpload(e, 2)}
             id="img2"
             className="hidden"
             type="file"
           />
           <input
+            multiple
             onChange={(e) => imgUpload(e, 3)}
             id="img3"
             className="hidden"
             type="file"
           />
           <input
+            multiple
             onChange={(e) => imgUpload(e, 4)}
             id="img4"
             className="hidden"

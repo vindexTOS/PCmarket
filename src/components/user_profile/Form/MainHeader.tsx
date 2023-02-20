@@ -4,13 +4,17 @@ import { IoMdArrowDropright } from 'react-icons/io'
 import { UseMainContext } from '../../context/MainContext'
 
 function MainHeader() {
-  const { lang } = UseMainContext()
+  const { lang, navigate } = UseMainContext()
   return (
     <div className=" ml-5">
       <div className="flex items-center gap-1">
-        <Link to="/" className="text-[12px] text-gray-400">
+        <button
+          onClick={() => navigate('home')}
+          type="button"
+          className="text-[12px] text-gray-400"
+        >
           {lang ? 'Home' : 'მთავარი'}
-        </Link>
+        </button>
         <IoMdArrowDropright className="text-gray-400 text-[12px] text-center" />
         <Link className="text-[12px] text-gray-400" to="/myproduct">
           {lang ? 'Add New Product' : 'განცხადების დამატება'}

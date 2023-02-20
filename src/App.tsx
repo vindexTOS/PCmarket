@@ -10,13 +10,16 @@ import ProtectedRoute from './components/ProtectedRoute'
 import UserProfile from './components/user_profile/UserProfile'
 import Footer from './components/Footer'
 import UserInfo from './components/auth_log/UserInfo'
+import MainProductPage from './components/Products/MainProductPage'
 function App() {
   return (
     <BrowserRouter>
       <MainContextProvider>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main />}>
+            <Route path="home" element={<MainProductPage />} />
+          </Route>
           <Route
             path="/myproduct"
             element={
