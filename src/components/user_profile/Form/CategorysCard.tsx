@@ -5,15 +5,18 @@ import { UseMainContext } from '../../context/MainContext'
 function CategorysCard() {
   const [selectDown, setSelectDown] = useState<boolean>(false)
 
-  const { lang, register, btnstate, btndispatch } = UseMainContext()
+  const {
+    lang,
+    register,
+    btnstate,
+    btndispatch,
+    getValues,
+    setSpecs,
+  } = UseMainContext()
   const categorys = [
     {
       title: 'Personal Computer',
-      category: [
-        { option: 'Pre built' },
-        { option: 'Used Pc' },
-        { option: 'Build Your Own' },
-      ],
+      category: [{ option: 'Pre built' }, { option: 'Used Pc' }],
     },
     {
       title: 'Laptop',
@@ -96,7 +99,7 @@ function CategorysCard() {
         <select
           className={style.select}
           onClick={() => setSelectDown(!selectDown)}
-          {...register('category')}
+          onChange={(e) => setSpecs(e.target.value)}
         >
           {categorys?.map((val, i) => {
             return (

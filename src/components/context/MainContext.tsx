@@ -40,12 +40,13 @@ import {
 import {
   FieldValues,
   useForm,
+  UseFormGetValues,
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form'
 
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import { sign } from 'crypto'
+import { randomData } from './ContextUtils'
 
 type Cell = {
   slideIndex: number
@@ -77,6 +78,7 @@ type Cell = {
   innerHandleDrop: (e: React.DragEvent<HTMLLabelElement>, index: number) => void
   handleSubmit: UseFormHandleSubmit<FieldValues>
   register: UseFormRegister<FieldValues>
+  getValues: UseFormGetValues<FieldValues>
   setProDetales: React.Dispatch<React.SetStateAction<string>>
   btnstate: StateCategoryBtn
   btndispatch: React.Dispatch<Action>
@@ -98,6 +100,18 @@ type Cell = {
   userData: unknown | any
   productData: unknown | any
   allUsers: unknown | any
+  specCheck: boolean
+  setSpecs: React.Dispatch<React.SetStateAction<string>>
+  CPUmodel: string
+  setCPUModel: React.Dispatch<React.SetStateAction<string>>
+  CPUcompany: boolean
+  inputCPU: boolean
+  setInputCPU: React.Dispatch<React.SetStateAction<boolean>>
+  GPUmodel: string
+  GPUcompany: boolean
+  inputGPU: boolean
+  setInputGPU: React.Dispatch<React.SetStateAction<boolean>>
+  setGPUModel: React.Dispatch<React.SetStateAction<string>>
 }
 type Action = {
   type: string | []
@@ -349,6 +363,43 @@ export const MainContextProvider = ({
     }
   }, [btnstate])
 
+  // category check for specs card
+  const [specCheck, setSpecCheck] = useState<boolean>(false)
+  const [specs, setSpecs] = useState<string>('Pre built')
+
+  useEffect(() => {
+    //if specs == PC or something or getValues(Category) == pc or laptop
+    if (specs == 'Used Pc' || specs == 'Pre built') {
+      setSpecCheck(true)
+    } else {
+      setSpecCheck(false)
+    }
+    console.log(specs)
+  }, [specs])
+
+  //cpu finder //
+  //other CPU model checker
+  const [CPUmodel, setCPUModel] = useState<string>('')
+  const [CPUcompany, setCPUcompany] = useState<boolean>(true)
+  const [inputCPU, setInputCPU] = useState<boolean>(false)
+  useEffect(() => {
+    if (CPUmodel == 'Intel') {
+      setCPUcompany(true)
+    } else if (CPUmodel == 'Amd') {
+      setCPUcompany(false)
+    }
+  }, [CPUmodel])
+  // GPU model checker
+  const [GPUmodel, setGPUModel] = useState<string>('')
+  const [GPUcompany, setGPUcompany] = useState<boolean>(true)
+  const [inputGPU, setInputGPU] = useState<boolean>(false)
+  useEffect(() => {
+    if (GPUmodel == 'Nvidia') {
+      setGPUcompany(true)
+    } else if (GPUmodel == 'AMD') {
+      setGPUcompany(false)
+    }
+  }, [GPUmodel])
   // img upload
   // img state for fire base
   const [image, setImage] = useState<(File | null)[]>([
@@ -445,13 +496,21 @@ export const MainContextProvider = ({
     data: UseFormHandleSubmit<FieldValues>,
   ) => {
     e.preventDefault()
+
     const storage = getStorage()
-    const imageRef = ref(storage, `image${user?.uid}`)
     const promises = []
 
     for (let i = 0; i < image.length; i++) {
       const file = image[i]
       if (file !== null) {
+        let RandomID = ''
+        for (let i = 0; i < 19; i++) {
+          let randomId = Math.floor(Math.random() * randomData.length)
+
+          RandomID += randomData[randomId]
+        }
+        const imageRef = ref(storage, `product/${RandomID}`)
+
         const storageRef = imageRef
         console.log(image[i])
         promises.push(
@@ -464,7 +523,7 @@ export const MainContextProvider = ({
     // Get all the downloadURLs
     const photos = await Promise.all(promises)
     console.log(photos)
-    let category = getValues('category')
+    // let category = getValues('category')
     let title = getValues('title')
     let description = getValues('description')
     let price = getValues('price')
@@ -478,7 +537,7 @@ export const MainContextProvider = ({
         date: Date(),
         timestamp: serverTimestamp(),
         sallType: proDetales,
-        category,
+        category: specs,
         imgs: photos,
         title,
         description,
@@ -540,6 +599,7 @@ export const MainContextProvider = ({
         innerHandleDrop,
         handleSubmit,
         register,
+        getValues,
         setProDetales,
         btnstate,
         btndispatch,
@@ -557,6 +617,18 @@ export const MainContextProvider = ({
         userData,
         productData,
         allUsers,
+        specCheck,
+        setSpecs,
+        CPUmodel,
+        setCPUModel,
+        CPUcompany,
+        inputCPU,
+        setInputCPU,
+        GPUmodel,
+        GPUcompany,
+        inputGPU,
+        setInputGPU,
+        setGPUModel,
       }}
     >
       {children}
