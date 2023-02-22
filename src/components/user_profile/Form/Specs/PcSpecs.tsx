@@ -164,14 +164,12 @@ function PcSpecs() {
                 >
                   {laptopChack ? (
                     <>
-                      {' '}
                       {laptopAMDCPU.map((chip) => (
                         <option key={chip}>{chip}</option>
                       ))}
                     </>
                   ) : (
                     <>
-                      {' '}
                       {AMDChips.map((chip) => (
                         <option key={chip}>{chip}</option>
                       ))}

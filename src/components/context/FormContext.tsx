@@ -384,6 +384,10 @@ export const FormContextProvider = ({
       setSpecCheck(false)
       setLaptopChack(false)
       setCpuCheck(true)
+    } else if (specs == 'PC parts') {
+      setLaptopChack(false)
+    } else if (specs == 'Laptop parts') {
+      setLaptopChack(true)
     } else {
       setSpecCheck(false)
     }
