@@ -1,8 +1,8 @@
 import React from 'react'
-import { UseMainContext } from '../components/context/MainContext'
+import { UseFormContext } from './context/FormContext'
 import { Navigate } from 'react-router-dom'
 function ProtectedRoute({ children }: { children: JSX.Element }) {
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) {
     return null
   }

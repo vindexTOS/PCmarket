@@ -1,8 +1,8 @@
 import React from 'react'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import { Icons } from '../../../utils/data/Photos'
 function PramiryImg() {
-  const { imageHtml } = UseMainContext()
+  const { imageHtml } = UseFormContext()
   const style = {
     imgDivWrapper: `  mb-[77.2rem] ml-[72rem] fixed flex justify-end items-start pr-[7.4rem] max_Xll:pr-[3.6rem] max_xl:hidden`,
     imgDiv: `   `,

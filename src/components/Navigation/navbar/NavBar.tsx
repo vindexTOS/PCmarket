@@ -2,7 +2,7 @@ import React from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import { Icons } from '../../../utils/data/Photos'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import UserSettings from './UserSettings'
 import LoadingCircle from './LoadingCircle'
 import LoginRegister from './LoginRegister'
@@ -16,7 +16,7 @@ function NavBar() {
     lang,
     userData,
     navigate,
-  } = UseMainContext()
+  } = UseFormContext()
   const style = {
     nav: `w-[100vw] h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 `,
     searchDiv: `bg-white w-[300px] h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-2 border-red-600`,

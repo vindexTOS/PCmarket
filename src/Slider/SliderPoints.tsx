@@ -1,7 +1,7 @@
 import React from 'react'
-import { UseMainContext } from '../components/context/MainContext'
+import { UseFormContext } from '../components/context/FormContext'
 function SliderPoints({ Photodata }: { Photodata: {}[] }) {
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) {
     return null
   }

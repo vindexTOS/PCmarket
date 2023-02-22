@@ -1,6 +1,6 @@
 import React from 'react'
 import { Utils } from '../../utils/data/Photos'
-import { UseMainContext } from '../context/MainContext'
+import { UseFormContext } from '../context/FormContext'
 import { motion as m } from 'framer-motion'
 function UserInfo() {
   const {
@@ -10,7 +10,7 @@ function UserInfo() {
     userInfo,
     profilePic,
     userName,
-  } = UseMainContext()
+  } = UseFormContext()
 
   const style = {
     form: `flex flex-col items-center w-[100%] h-[100vh] justify-center    `,

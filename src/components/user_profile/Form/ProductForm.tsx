@@ -3,15 +3,16 @@ import MainHeader from './MainHeader'
 import TitleCard from './TitleCard'
 import CategorysCard from './CategorysCard'
 import ImgCard from './ImgCard'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import Cost from './Cost'
 import Contact from './Contact'
-import PcSpecs from './PcSpecs'
+import PcSpecs from './Specs/PcSpecs'
+import SpecsMain from './Specs/SpecsMain'
 function ProductForm() {
-  const { lang, handleFormSubmit, handleSubmit, specCheck } = UseMainContext()
+  const { lang, handleFormSubmit, handleSubmit, specCheck } = UseFormContext()
   const style = {
     form: `flex flex-col items-center justify-center w-[53%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
-    formDiv: `flex flex-col w-[80%] h-[100%] gap-5  mt-20 max_sm:w-[100%]`,
+    formDiv: `flex flex-col w-[80%] h-[100%] gap-5 max_lg:w-[100%]    sm:w-[110%]  max_md2:w-[120%] max_Xl:w-[120%] mt-20 max_sm:w-[100%]`,
   }
   return (
     <form
@@ -21,7 +22,8 @@ function ProductForm() {
       <div className={style.formDiv}>
         <MainHeader />
         <CategorysCard />
-        {specCheck && <PcSpecs />}
+        <SpecsMain />
+
         <ImgCard />
         <TitleCard />
         <Cost />

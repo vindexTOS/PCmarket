@@ -1,7 +1,7 @@
 import React, { useState, useReducer, Reducer } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 
 type Action = {
   type: 'price' | 'negotiation'
@@ -45,7 +45,7 @@ function Cost() {
     register,
     priceCur,
     setPrice,
-  } = UseMainContext()
+  } = UseFormContext()
   const style = {
     mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[270px] bg-white rounded-[19px] `,
     header: `w-[90%] flex items-center justify-start font-bold`,

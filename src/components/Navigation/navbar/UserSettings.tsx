@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import { Link } from 'react-router-dom'
 
 function UserSettings() {
@@ -11,7 +11,7 @@ function UserSettings() {
     setLang,
     lang,
     userData,
-  } = UseMainContext()
+  } = UseFormContext()
   const style = {
     mainDiv: `absolute w-[350px] h-[310px]     bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
     img: `w-[70px] h-[70px] rounded-[50%]`,

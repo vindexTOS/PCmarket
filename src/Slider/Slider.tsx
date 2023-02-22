@@ -1,6 +1,6 @@
 import React from 'react'
 import { Photodata } from '../utils/data/Photos'
-import { UseMainContext } from '../components/context/MainContext'
+import { UseFormContext } from '../components/context/FormContext'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import ArrowBtn from './ArrowBtn'
 import SliderPoints from './SliderPoints'
@@ -29,7 +29,7 @@ function Palette({ img }: { img: string }) {
 }
 
 function Slider() {
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) {
     return null
   }

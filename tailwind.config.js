@@ -32,7 +32,7 @@ module.exports = {
 
       max_lg: { max: '1023px' },
       // => @media (max-width: 1023px) { ... }
-
+      max_md2: { max: '900px' },
       max_md: { max: '767px' },
       // => @media (max-width: 767px) { ... }
 

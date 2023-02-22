@@ -98,7 +98,6 @@ type Cell = {
   userName: string
   userInfo: (e: React.FormEvent<HTMLFormElement>) => void
   userData: unknown | any
-  productData: unknown | any
   allUsers: unknown | any
   specCheck: boolean
   setSpecs: React.Dispatch<React.SetStateAction<string>>
@@ -112,6 +111,8 @@ type Cell = {
   inputGPU: boolean
   setInputGPU: React.Dispatch<React.SetStateAction<boolean>>
   setGPUModel: React.Dispatch<React.SetStateAction<string>>
+  laptopChack: boolean
+  cputCheck: boolean
 }
 type Action = {
   type: string | []
@@ -134,9 +135,9 @@ type Location = {
   key: string
   keyen: string
 }
-const MainContext = createContext<Cell | null>(null)
+const FormContext = createContext<Cell | null>(null)
 
-export const MainContextProvider = ({
+export const FormContextProvider = ({
   children,
 }: {
   children: React.ReactNode
@@ -366,11 +367,23 @@ export const MainContextProvider = ({
   // category check for specs card
   const [specCheck, setSpecCheck] = useState<boolean>(false)
   const [specs, setSpecs] = useState<string>('Pre built')
+  const [laptopChack, setLaptopChack] = useState<boolean>(false)
 
+  const [cputCheck, setCpuCheck] = useState<boolean>(false)
   useEffect(() => {
     //if specs == PC or something or getValues(Category) == pc or laptop
     if (specs == 'Used Pc' || specs == 'Pre built') {
       setSpecCheck(true)
+      setLaptopChack(false)
+      setCpuCheck(false)
+    } else if (specs == 'New Laptop' || specs == 'Used Laptop') {
+      setLaptopChack(true)
+      setSpecCheck(true)
+      setCpuCheck(false)
+    } else if (specs == 'CPU') {
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(true)
     } else {
       setSpecCheck(false)
     }
@@ -392,7 +405,7 @@ export const MainContextProvider = ({
   // GPU model checker
   const [GPUmodel, setGPUModel] = useState<string>('')
   const [GPUcompany, setGPUcompany] = useState<boolean>(true)
-  const [inputGPU, setInputGPU] = useState<boolean>(false)
+  const [inputGPU, setInputGPU] = useState<boolean>(true)
   useEffect(() => {
     if (GPUmodel == 'Nvidia') {
       setGPUcompany(true)
@@ -529,6 +542,32 @@ export const MainContextProvider = ({
     let price = getValues('price')
     let name = getValues('name')
     let number = getValues('number')
+    // PC specs
+    let chip = getValues('chip')
+    let ddr = getValues('ddr')
+    let ramGb = getValues('ramGb')
+    let gpu = getValues('gpu')
+    let mb = getValues('mb')
+    let mbSocket = getValues('mbSocket')
+    let ramSlot = getValues('ramSlot')
+    let harddrive = getValues('harddrive')
+    let harddriveGB = getValues('harddriveGB')
+    let psu = getValues('psu')
+    let screen = getValues('screen')
+    const specObj = {
+      chip,
+      ddr,
+      ramGb,
+
+      gpu,
+      mb,
+      mbSocket,
+      ramSlot,
+      harddrive,
+      harddriveGB,
+      psu,
+      screen,
+    }
 
     try {
       const { uid } = auth.currentUser as { uid: string }
@@ -546,28 +585,13 @@ export const MainContextProvider = ({
         location,
         name,
         number,
+        specObj,
       })
     } catch (error) {}
   }
 
-  // pulling product data from firebase
-
-  const [productData, setProductData] = useState<unknown | any>()
-  useEffect(() => {
-    const q = query(collection(db, 'user_product'), orderBy('timestamp'))
-    const unsub = onSnapshot(q, (querrySnapShot) => {
-      let data: {}[] = []
-
-      querrySnapShot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id })
-      })
-      setProductData(data)
-    })
-    return () => unsub()
-  }, [user])
-
   return (
-    <MainContext.Provider
+    <FormContext.Provider
       value={{
         slideIndex,
         state,
@@ -615,7 +639,7 @@ export const MainContextProvider = ({
         userInfo,
         profilePic,
         userData,
-        productData,
+
         allUsers,
         specCheck,
         setSpecs,
@@ -629,15 +653,17 @@ export const MainContextProvider = ({
         inputGPU,
         setInputGPU,
         setGPUModel,
+        laptopChack,
+        cputCheck,
       }}
     >
       {children}
-    </MainContext.Provider>
+    </FormContext.Provider>
   )
 }
 
-export const UseMainContext = () => {
-  const context = useContext(MainContext)
+export const UseFormContext = () => {
+  const context = useContext(FormContext)
   if (!context) {
     throw new Error('ITs not wrapped etc')
   }

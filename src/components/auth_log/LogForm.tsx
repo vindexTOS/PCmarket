@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { UseMainContext } from '../context/MainContext'
+import { UseFormContext } from '../context/FormContext'
 
 interface FormType {
   submit: (email: string, password: string) => void
@@ -9,7 +9,7 @@ const LogForm: React.FC<FormType> = ({ submit, path }) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [err, setErr] = useState<string>('')
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) return null
   const { setUserAuth, user, navigate } = context
 

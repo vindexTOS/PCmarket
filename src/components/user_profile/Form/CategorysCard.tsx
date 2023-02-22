@@ -1,6 +1,6 @@
 import React, { useState, useReducer, Reducer } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 
 function CategorysCard() {
   const [selectDown, setSelectDown] = useState<boolean>(false)
@@ -12,7 +12,7 @@ function CategorysCard() {
     btndispatch,
     getValues,
     setSpecs,
-  } = UseMainContext()
+  } = UseFormContext()
   const categorys = [
     {
       title: 'Personal Computer',

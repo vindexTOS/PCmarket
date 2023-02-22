@@ -1,11 +1,11 @@
 import React from 'react'
-import { UseMainContext } from '../components/context/MainContext'
+import { UseFormContext } from '../components/context/FormContext'
 export interface ActionType {
   actiontype: string
   children: React.ReactNode
 }
 const ArrowBtn: React.FC<ActionType> = ({ children, actiontype }) => {
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) {
     return null
   }

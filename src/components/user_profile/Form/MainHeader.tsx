@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdArrowDropright } from 'react-icons/io'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 
 function MainHeader() {
-  const { lang, navigate } = UseMainContext()
+  const { lang, navigate } = UseFormContext()
   return (
     <div className=" ml-5">
       <div className="flex items-center gap-1">

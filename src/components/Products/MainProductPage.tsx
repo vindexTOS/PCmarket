@@ -1,8 +1,10 @@
 import React from 'react'
-import { UseMainContext } from '../context/MainContext'
 import ProductCard from './ProductCard'
+import { UseProductContext } from '../context/ProductContext'
+import { useParams } from 'react-router-dom'
 function MainProductPage() {
-  const { productData } = UseMainContext()
+  const { productData } = UseProductContext()
+
   const style = {
     section: `w-[100vw] h-[1500px] mt-10 flex flex-wrap items-center justify-center  gap-10`,
   }
@@ -14,6 +16,8 @@ function MainProductPage() {
 
   return (
     <section className={style.section}>
+      {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
+
       {reverseData?.map((val: any) => {
         return <ProductCard val={val} />
       })}

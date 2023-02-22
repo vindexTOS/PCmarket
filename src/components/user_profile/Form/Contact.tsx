@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { georgianCities } from './formData'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 interface Georgia {
   cityge: string
@@ -8,7 +8,7 @@ interface Georgia {
 }
 
 function Contact() {
-  const { lang, register, LocationTrack, location } = UseMainContext()
+  const { lang, register, LocationTrack, location } = UseFormContext()
 
   const style = {
     mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[320px]  pb-20 pt-20 pt-20 bg-white rounded-[19px]`,

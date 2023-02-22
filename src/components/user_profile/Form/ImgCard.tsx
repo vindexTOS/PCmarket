@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Icons } from '../../../utils/data/Photos'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import { TfiHandPointDown } from 'react-icons/tfi'
 import { IoCameraReverseOutline } from 'react-icons/io5'
 function ImgCard() {
@@ -16,7 +16,7 @@ function ImgCard() {
     handleDragOver,
     handleDrop,
     innerHandleDrop,
-  } = UseMainContext()
+  } = UseFormContext()
   const style = {
     title: `flex flex-col items-center justify-center w-[100%] h-[400px] bg-white rounded-[19px]    gap-7`,
     imgDrop: ` w-[90%] h-[150px] gap-2 border-2 border-dashed border-orange-400  rounded-[17px] flex flex-col items-center justify-center cursor-pointer`,

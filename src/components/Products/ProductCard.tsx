@@ -1,10 +1,21 @@
 import React from 'react'
 import { Icons } from '../../utils/data/Photos'
-import { UseMainContext } from '../context/MainContext'
+import { UseFormContext } from '../context/FormContext'
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 function ProductCard({ val }: { val: any }) {
-  const { lang, allUsers } = UseMainContext()
-  const { title, price, priceCur, imgs, date, location, sallType, uid } = val
+  const { lang, allUsers } = UseFormContext()
+  const {
+    title,
+    price,
+    priceCur,
+    imgs,
+    date,
+    location,
+    sallType,
+    uid,
+    id,
+  } = val
 
   const user_name = allUsers?.filter((user: any) => {
     if (user.uid === uid) {
@@ -42,11 +53,14 @@ function ProductCard({ val }: { val: any }) {
     }
     console.log(imgs[imgIndex])
   }
+
   return (
-    <div className={style.productCard}>
+    <div key={id} className={style.productCard}>
       {/* <h1 onClick={() => console.log()}>LOg</h1> */}
-      <h1 className={style.header}>{title}</h1>
-      <button onClick={slideIncrese}>Right</button>
+      <Link to={`/${id}`} className={style.header}>
+        {title}
+      </Link>
+
       {imgs ? (
         <div className={style.imgWrapper}>
           <img className={style.img} src={imgs[imgIndex]} />

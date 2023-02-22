@@ -1,6 +1,6 @@
 import React, { Reducer, useReducer, useState } from 'react'
 import { TbBold, TbItalic, TbUnderline } from 'react-icons/tb'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 import { TfiHandPointDown } from 'react-icons/tfi'
 
 type State = {
@@ -34,7 +34,7 @@ function TitleCard() {
     },
   )
 
-  const { lang, register } = UseMainContext()
+  const { lang, register } = UseFormContext()
 
   const style = {
     title: `flex flex-col gap-5 items-center justify-center w-[100%] h-[490px] pb-20 pt-20 bg-white rounded-[19px]`,
@@ -98,6 +98,11 @@ function TitleCard() {
           </div>
           <div className="w-[95%] h-[0.2px] bg-gray-400"></div>
           <textarea
+            placeholder={
+              lang
+                ? ' Add more information about the product'
+                : ' დაამატეთ მეტი ინფორმაცია პროდუქტის შესახებ'
+            }
             {...register('description')}
             className={`${style.textarea} `}
           ></textarea>

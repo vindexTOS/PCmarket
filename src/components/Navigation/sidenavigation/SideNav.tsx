@@ -2,10 +2,10 @@ import React from 'react'
 import { Icons } from '../../../utils/data/Photos'
 import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from 'react-icons/io'
-import { UseMainContext } from '../../context/MainContext'
+import { UseFormContext } from '../../context/FormContext'
 
 function SideNav() {
-  const context = UseMainContext()
+  const context = UseFormContext()
   if (!context) {
     return null
   }
