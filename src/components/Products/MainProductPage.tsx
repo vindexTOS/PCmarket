@@ -2,8 +2,10 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import { UseProductContext } from '../context/ProductContext'
 import { useParams } from 'react-router-dom'
+import { UseFormContext } from '../context/FormContext'
 function MainProductPage() {
   const { productData } = UseProductContext()
+  const { user } = UseFormContext()
 
   const style = {
     section: `w-[100vw] h-[100%] mt-10 flex flex-wrap items-center justify-center  gap-10`,
@@ -12,13 +14,13 @@ function MainProductPage() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     setReversData(productData?.reverse())
-  }, [productData])
+  }, [user])
 
   return (
     <section className={style.section}>
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
-      {reverseData?.map((val: any) => {
+      {productData?.map((val: any) => {
         return <ProductCard val={val} />
       })}
     </section>

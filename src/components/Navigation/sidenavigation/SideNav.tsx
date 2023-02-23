@@ -3,12 +3,14 @@ import { Icons } from '../../../utils/data/Photos'
 import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from 'react-icons/io'
 import { UseNavContext } from '../../context/NavContext'
+import { UseProductContext } from '../../context/ProductContext'
 function SideNav() {
   const {} = UseNavContext()
+  const {} = UseProductContext()
   const links = [
     { titles: 'Dasktop', link: '/desktop', icon: Icons.gaming },
-    { titles: 'Laptop', link: '', icon: Icons.laptop },
-    { titles: 'Components', link: '', icon: Icons.fan },
+    { titles: 'Laptop', link: '/laptop', icon: Icons.laptop },
+    { titles: 'Components', link: '/components', icon: Icons.fan },
     { titles: 'Phones', link: '', icon: Icons.phone },
     { titles: 'Electronics', link: '', icon: Icons.headphone },
   ]

@@ -52,14 +52,12 @@ function NavBar() {
                   className={style.divImg}
                   onClick={() => setDropDown(!dropDown)}
                 >
-                  {' '}
                   <img
                     className={style.img}
                     src={userData ? userData[0]?.imgUrl : Icons.Picture}
                   />
-                </div>{' '}
+                </div>
                 <div className="flex flex-col">
-                  {' '}
                   <p className="text-gray-400">
                     {userData && userData[0]?.userName}
                   </p>

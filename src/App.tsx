@@ -15,6 +15,8 @@ import UserInfo from './components/auth_log/UserInfo'
 import MainProductPage from './components/Products/MainProductPage'
 import SingleProduct from './components/Products/SingleProduct'
 import PC from './components/Products/productCategory/PC'
+import LAPTOP from './components/Products/productCategory/LAPTOP'
+import COMPONENTS from './components/Products/productCategory/COMPONENTS'
 function App() {
   return (
     <BrowserRouter>
@@ -26,8 +28,10 @@ function App() {
               <Route path="/" element={<Main />}>
                 <Route path="" element={<MainProductPage />} />
                 <Route path="/desktop" element={<PC />} />
+                <Route path="/laptop" element={<LAPTOP />} />
+                <Route path="/components" element={<COMPONENTS />} />
               </Route>
-              <Route path="/:products/:productId" element={<SingleProduct />} />
+              <Route path="/:productId" element={<SingleProduct />} />
               <Route
                 path="/myproduct"
                 element={

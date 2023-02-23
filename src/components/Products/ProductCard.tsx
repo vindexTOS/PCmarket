@@ -64,7 +64,7 @@ function ProductCard({ val }: { val: any }) {
   return (
     <div key={id} className={style.productCard}>
       {/* <h1 onClick={() => console.log(location)}>LOg</h1> */}
-      <Link to={`${typeLink()}/${id}`} className={style.header}>
+      <Link to={`/${id}`} className={style.header}>
         {title.length >= 60 ? `${title.slice(0, 60)}...` : title}
       </Link>
       <p className={style.location}>
