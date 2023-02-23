@@ -5,6 +5,7 @@ import {
   IntelChips,
   laptopINTELCPU,
   laptopAMDCPU,
+  CPUGHZ,
 } from '../../../context/ContextUtils'
 function CPU() {
   const {
@@ -27,17 +28,50 @@ function CPU() {
   }
   return (
     <div className={style.mainDiv}>
+      <h1>{lang ? 'CPU Specs' : 'აღწერა'}</h1>
+      <div className="flex w-[90%]">
+        <div className={style.parts}>
+          <p className="text-[10px] ml-5 text-gray-500  ">
+            {lang ? 'cores' : 'ბირთვების რაოდენობა'}
+          </p>
+          <select
+            {...register('CORE')}
+            className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
+          >
+            <option>2</option>
+            <option>4</option>
+            <option>6</option>
+            <option>8</option>
+            <option>12</option>
+            <option>16+</option>
+          </select>
+        </div>
+        <div className={style.parts}>
+          <p className="text-[10px] ml-5 text-gray-500  ">
+            {lang ? 'Ghz' : 'ჰერცი'}
+          </p>
+          <select
+            {...register('CPUGHZ')}
+            className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
+          >
+            {CPUGHZ.map((ghz) => (
+              <option>{ghz}</option>
+            ))}
+          </select>
+        </div>
+      </div>
       <div className={style.partCompanyWrapper}>
         <div className={style.parts}>
           <p className="text-[10px] ml-5 text-gray-500  ">
             {lang ? 'platform' : 'პლატფორმა'}
           </p>
           <select
-            className="w-[6rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
+            {...register('CPUPLATFORM')}
+            className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
             onChange={(e) => setSpecs(e.target.value)}
           >
-            <option>PC parts</option>
-            <option>Laptop parts</option>
+            <option>PC</option>
+            <option>Laptop</option>
           </select>
         </div>
         <div className={style.company}>
@@ -46,10 +80,11 @@ function CPU() {
           </p>
           <select
             className="w-[5rem]  text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
+            {...register('CPUCOMPANY')}
             onChange={(e) => setCPUModel(e.target.value)}
           >
             <option>Intel</option>
-            <option>Amd</option>
+            <option>AMD</option>
           </select>
         </div>
       </div>
@@ -69,7 +104,6 @@ function CPU() {
                 >
                   {laptopChack ? (
                     <>
-                      {' '}
                       {laptopINTELCPU.map((chip) => (
                         <option key={chip}>{chip}</option>
                       ))}

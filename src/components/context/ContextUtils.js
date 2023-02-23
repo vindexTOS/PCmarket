@@ -341,3 +341,54 @@ export const laptopScreenSizes = [
   '16 In',
   '17.3 In',
 ]
+
+export const CPUGHZ = [
+  '2.6GHz',
+  '3GHz',
+  '3.2GHz',
+  '3.5GHz',
+  '3.7GHz',
+  '4GHz',
+  '4.2GHz',
+  '4.5GHz',
+  '4.7GHz',
+  '5GHz',
+]
+
+export const GPUMHZ = [
+  '1000MHz',
+  '1200MHz',
+  '1400MHz',
+  '1600MHz',
+  '1800MHz',
+  '2000MHz',
+  '2200MHz',
+  '2400MHz',
+  '2600MHz',
+  '2800MHz',
+]
+
+export const ramMHZArray = [
+  '800 MHz',
+  '1066 MHz',
+  '1333 MHz',
+  '1600 MHz',
+  '1866 MHz',
+  '2133 MHz',
+  '2400 MHz',
+  '2666 MHz',
+  '2933 MHz',
+  '3200 MHz',
+]
+export const ramDDRArray = ['DDR2', 'DDR3', 'DDR4', 'DDR5', 'DDR6']
+
+export const ramGBArray = [
+  '2 GB',
+  '4 GB',
+  '8 GB',
+  '16 GB',
+  '32 GB',
+  '64 GB',
+  '128 GB',
+  '256 GB',
+]

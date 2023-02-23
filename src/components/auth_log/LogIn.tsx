@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     e.preventDefault()
     try {
       await LogIn(email, password)
-      navigate('home')
+      navigate('/')
     } catch (error) {
       setErr('User Already Exists Or Input Feald Is Empty')
       setTimeout(() => {

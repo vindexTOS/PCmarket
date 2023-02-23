@@ -9,7 +9,7 @@ function MainHeader() {
     <div className=" ml-5">
       <div className="flex items-center gap-1">
         <button
-          onClick={() => navigate('home')}
+          onClick={() => navigate('/')}
           type="button"
           className="text-[12px] text-gray-400"
         >

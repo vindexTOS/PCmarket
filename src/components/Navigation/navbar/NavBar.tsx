@@ -29,7 +29,7 @@ function NavBar() {
   const [dropDown, setDropDown] = React.useState<boolean>(false)
   return (
     <nav className={style.nav}>
-      <button onClick={() => navigate('home')} type="button">
+      <button onClick={() => navigate('/')} type="button">
         <img className={style.icon} src={Icons.Chip} />
       </button>
 

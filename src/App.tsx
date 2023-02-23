@@ -21,7 +21,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Main />}>
-              <Route path="home" element={<MainProductPage />} />
+              <Route path="" element={<MainProductPage />} />
             </Route>
             <Route path="/:productId" element={<SingleProduct />} />
             <Route

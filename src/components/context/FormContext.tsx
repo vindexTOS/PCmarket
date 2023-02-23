@@ -113,6 +113,9 @@ type Cell = {
   setGPUModel: React.Dispatch<React.SetStateAction<string>>
   laptopChack: boolean
   cputCheck: boolean
+  gputCheck: boolean
+  RAMCheck: boolean
+  MbCheck: boolean
 }
 type Action = {
   type: string | []
@@ -251,7 +254,7 @@ export const FormContextProvider = ({
           timestamp: serverTimestamp(),
           uid,
         })
-        navigate('home')
+        navigate('/')
       }
     } catch (error) {}
   }
@@ -370,23 +373,56 @@ export const FormContextProvider = ({
   const [laptopChack, setLaptopChack] = useState<boolean>(false)
 
   const [cputCheck, setCpuCheck] = useState<boolean>(false)
+  const [gputCheck, setGpuCheck] = useState<boolean>(false)
+  const [RAMCheck, setRAMCheck] = useState<boolean>(false)
+  const [MbCheck, setMBCheck] = useState<boolean>(false)
   useEffect(() => {
     //if specs == PC or something or getValues(Category) == pc or laptop
     if (specs == 'Used Pc' || specs == 'Pre built') {
       setSpecCheck(true)
       setLaptopChack(false)
       setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setMBCheck(false)
     } else if (specs == 'New Laptop' || specs == 'Used Laptop') {
       setLaptopChack(true)
       setSpecCheck(true)
       setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setMBCheck(false)
     } else if (specs == 'CPU') {
       setSpecCheck(false)
       setLaptopChack(false)
       setCpuCheck(true)
-    } else if (specs == 'PC parts') {
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setMBCheck(false)
+    } else if (specs == 'GPU') {
+      setSpecCheck(false)
       setLaptopChack(false)
-    } else if (specs == 'Laptop parts') {
+      setCpuCheck(false)
+      setGpuCheck(true)
+      setRAMCheck(false)
+      setMBCheck(false)
+    } else if (specs == 'RAM') {
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(true)
+      setMBCheck(false)
+    } else if (specs == 'Mother Board') {
+      setMBCheck(true)
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+    } else if (specs == 'PC') {
+      setLaptopChack(false)
+    } else if (specs == 'Laptop') {
       setLaptopChack(true)
     } else {
       setSpecCheck(false)
@@ -402,7 +438,7 @@ export const FormContextProvider = ({
   useEffect(() => {
     if (CPUmodel == 'Intel') {
       setCPUcompany(true)
-    } else if (CPUmodel == 'Amd') {
+    } else if (CPUmodel == 'AMD') {
       setCPUcompany(false)
     }
   }, [CPUmodel])
@@ -558,11 +594,11 @@ export const FormContextProvider = ({
     let harddriveGB = getValues('harddriveGB')
     let psu = getValues('psu')
     let screen = getValues('screen')
-    const specObj = {
+    // specs object////////////////////////////
+    const PCspecObj = {
       chip,
       ddr,
       ramGb,
-
       gpu,
       mb,
       mbSocket,
@@ -570,12 +606,69 @@ export const FormContextProvider = ({
       harddrive,
       harddriveGB,
       psu,
+    }
+    /// laptop object difference is PC obj has pus and laptop obj has screen
+    const LaptopspecObj = {
+      chip,
+      ddr,
+      ramGb,
+      gpu,
+      mb,
+      mbSocket,
+      ramSlot,
+      harddrive,
+      harddriveGB,
       screen,
     }
 
-    try {
-      const { uid } = auth.currentUser as { uid: string }
-      await addDoc(collection(db, 'user_product'), {
+    //GPU specs//////////////////////
+    let GPU = getValues('GPU')
+    let GPUCOMPANY = getValues('GPUCOMPANY')
+    let GPUPLATFORM = getValues('GPUPLATFORM')
+    let GPUMHZ = getValues('GPUMHZ')
+    let GPURAM = getValues('GPURAM')
+    // GPU OBJECT
+    const gpuObj = {
+      GPU,
+      GPUCOMPANY,
+      GPUPLATFORM,
+      GPUMHZ,
+      GPURAM,
+    }
+
+    //CPU specs///////////////////
+    let CPU = getValues('chip')
+    let CPUCOMPANY = getValues('CPUCOMPANY')
+    let CPUPLATFORM = getValues('CPUPLATFORM')
+    let CPUGHZ = getValues('CPUGHZ')
+    let CPUCORES = getValues('CORE')
+    //CPU OBJECT
+    const cpuObj = {
+      CPU,
+      CPUCOMPANY,
+      CPUPLATFORM,
+      CPUGHZ,
+      CPUCORES,
+    }
+
+    // RAM specs/////////
+    let RAMGB = getValues('RAMGBS')
+    let RAMPLATFORM = getValues('RAMPLATFORM')
+    let RAMMHZ = getValues('RAMMHZ')
+    let RAMDDR = getValues('RAMDDR')
+    //RAM Obj
+    const ramObj = {
+      RAMGB,
+      RAMPLATFORM,
+      RAMMHZ,
+      RAMDDR,
+    }
+    // user ID for refrencing
+    const { uid } = auth.currentUser as { uid: string }
+    // function that returns main data with aditionalObj returning specifice category
+    const mainObjectReturn = (aditionalObj: unknown) => {
+      // aditional object is for different categorys
+      const mainData = {
         uid,
         date: Date(),
         timestamp: serverTimestamp(),
@@ -589,9 +682,31 @@ export const FormContextProvider = ({
         location,
         name,
         number,
-        specObj,
-      })
-    } catch (error) {}
+        aditionalObj,
+      }
+      return mainData
+    }
+    try {
+      if (RAMCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(ramObj))
+      } else if (cputCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(cpuObj))
+      } else if (gputCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(gpuObj))
+      } else if (!laptopChack) {
+        await addDoc(
+          collection(db, 'user_product'),
+          mainObjectReturn(PCspecObj),
+        )
+      } else if (laptopChack) {
+        await addDoc(
+          collection(db, 'user_product'),
+          mainObjectReturn(LaptopspecObj),
+        )
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -659,6 +774,9 @@ export const FormContextProvider = ({
         setGPUModel,
         laptopChack,
         cputCheck,
+        gputCheck,
+        RAMCheck,
+        MbCheck,
       }}
     >
       {children}

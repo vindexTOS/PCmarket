@@ -1,19 +1,15 @@
 import React from 'react'
 import { UseFormContext } from '../../../context/FormContext'
 import {
-  ramDDRArray,
-  ramMHZArray,
+  motherboardCompanies,
+  motherboardSockets,
   ramGBArray,
 } from '../../../context/ContextUtils'
-function RAM() {
+function MOTHERBOARD() {
   const {
-    inputGPU,
-    GPUcompany,
     lang,
     register,
-    laptopChack,
-    setInputGPU,
-    setGPUModel,
+
     setSpecs,
   } = UseFormContext()
   const style = {
@@ -26,31 +22,31 @@ function RAM() {
   }
   return (
     <div className={style.mainDiv}>
-      <h1>{lang ? 'RAM Specs' : ' ოპერატიული მეხსიერების აღწერა'}</h1>
+      <h1>{lang ? 'MotherBoard Specs' : 'დედა დაფის აღწერა'}</h1>
       <div className="flex w-[90%]">
         <div className={style.parts}>
           <p className="text-[10px] ml-5 text-gray-500  ">
-            {lang ? 'RAM' : 'ოპერატიული მეხსიერება'}
+            {lang ? 'Manufacturer' : 'მწარმოებელი კომპანია'}
           </p>
           <select
-            {...register('RAMDDR')}
+            {...register('MBCOMPANY')}
             className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
           >
-            {ramDDRArray.map((ddr) => (
-              <option>{ddr}</option>
+            {motherboardCompanies.map((com) => (
+              <option>{com}</option>
             ))}
           </select>
         </div>
         <div className={style.parts}>
           <p className="text-[10px] ml-5 text-gray-500  ">
-            {lang ? 'Ghz' : 'ჰერცი'}
+            {lang ? 'Socket' : 'სოკეტი'}
           </p>
           <select
-            {...register('RAMMHZ')}
-            className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
+            {...register('MBSOCKET')}
+            className="w-[8rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
           >
-            {ramMHZArray.map((mhz) => (
-              <option>{mhz}</option>
+            {motherboardSockets.map((socket) => (
+              <option>{socket}</option>
             ))}
           </select>
         </div>
@@ -61,7 +57,7 @@ function RAM() {
             {lang ? 'platform' : 'პლატფორმა'}
           </p>
           <select
-            {...register('RAMPLATFORM')}
+            {...register('MBPLATFORM')}
             className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
             onChange={(e) => setSpecs(e.target.value)}
           >
@@ -71,16 +67,16 @@ function RAM() {
         </div>
         <div className={style.company}>
           <p className="text-[10px] ml-5 text-gray-500  ">
-            {lang ? 'capacity' : 'მახსოვრობა'}
+            {lang ? 'Ram Slots' : 'ოპერატიულის სლოტები'}
           </p>
           <select
-            {...register('RAMGBS')}
+            {...register('MBRAMSLOTS')}
             className="w-[5rem]  text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
-            onChange={(e) => setGPUModel(e.target.value)}
           >
-            {ramGBArray.map((gb) => (
-              <option>{gb}</option>
-            ))}
+            <option>2</option>
+            <option>4</option>
+            <option>6</option>
+            <option>8+</option>
           </select>
         </div>
       </div>
@@ -90,4 +86,4 @@ function RAM() {
   )
 }
 
-export default RAM
+export default MOTHERBOARD
