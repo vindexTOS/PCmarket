@@ -116,6 +116,7 @@ type Cell = {
   gputCheck: boolean
   RAMCheck: boolean
   MbCheck: boolean
+  DISKCheck: boolean
 }
 type Action = {
   type: string | []
@@ -376,6 +377,8 @@ export const FormContextProvider = ({
   const [gputCheck, setGpuCheck] = useState<boolean>(false)
   const [RAMCheck, setRAMCheck] = useState<boolean>(false)
   const [MbCheck, setMBCheck] = useState<boolean>(false)
+  const [DISKCheck, setDISKCheck] = useState<boolean>(false)
+
   useEffect(() => {
     //if specs == PC or something or getValues(Category) == pc or laptop
     if (specs == 'Used Pc' || specs == 'Pre built') {
@@ -385,6 +388,7 @@ export const FormContextProvider = ({
       setGpuCheck(false)
       setRAMCheck(false)
       setMBCheck(false)
+      setDISKCheck(false)
     } else if (specs == 'New Laptop' || specs == 'Used Laptop') {
       setLaptopChack(true)
       setSpecCheck(true)
@@ -392,6 +396,7 @@ export const FormContextProvider = ({
       setGpuCheck(false)
       setRAMCheck(false)
       setMBCheck(false)
+      setDISKCheck(false)
     } else if (specs == 'CPU') {
       setSpecCheck(false)
       setLaptopChack(false)
@@ -399,6 +404,7 @@ export const FormContextProvider = ({
       setGpuCheck(false)
       setRAMCheck(false)
       setMBCheck(false)
+      setDISKCheck(false)
     } else if (specs == 'GPU') {
       setSpecCheck(false)
       setLaptopChack(false)
@@ -413,8 +419,18 @@ export const FormContextProvider = ({
       setGpuCheck(false)
       setRAMCheck(true)
       setMBCheck(false)
+      setDISKCheck(false)
     } else if (specs == 'Mother Board') {
       setMBCheck(true)
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setDISKCheck(false)
+    } else if (specs == 'HDD/SSD') {
+      setDISKCheck(true)
+      setMBCheck(false)
       setSpecCheck(false)
       setLaptopChack(false)
       setCpuCheck(false)
@@ -426,6 +442,13 @@ export const FormContextProvider = ({
       setLaptopChack(true)
     } else {
       setSpecCheck(false)
+      setLaptopChack(false)
+      setSpecCheck(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setMBCheck(false)
+      setDISKCheck(false)
     }
     console.log(specs)
   }, [specs])
@@ -606,6 +629,7 @@ export const FormContextProvider = ({
       harddrive,
       harddriveGB,
       psu,
+      Link: 'desktop',
     }
     /// laptop object difference is PC obj has pus and laptop obj has screen
     const LaptopspecObj = {
@@ -619,6 +643,7 @@ export const FormContextProvider = ({
       harddrive,
       harddriveGB,
       screen,
+      Link: `laptop`,
     }
 
     //GPU specs//////////////////////
@@ -634,6 +659,7 @@ export const FormContextProvider = ({
       GPUPLATFORM,
       GPUMHZ,
       GPURAM,
+      Link: 'component',
     }
 
     //CPU specs///////////////////
@@ -649,6 +675,7 @@ export const FormContextProvider = ({
       CPUPLATFORM,
       CPUGHZ,
       CPUCORES,
+      Link: 'component',
     }
 
     // RAM specs/////////
@@ -662,6 +689,18 @@ export const FormContextProvider = ({
       RAMPLATFORM,
       RAMMHZ,
       RAMDDR,
+      Link: 'component',
+    }
+    /// hard drive SSD HDD  specs///
+    let DISKcapasity = getValues('DISKCAPACITY')
+    let DISKtype = getValues('DISKTYPE')
+    let DISKplatform = getValues('DISKPLATFORM')
+    // hard drive object
+    const diskObj = {
+      DISKcapasity,
+      DISKtype,
+      DISKplatform,
+      Link: 'component',
     }
     // user ID for refrencing
     const { uid } = auth.currentUser as { uid: string }
@@ -687,7 +726,9 @@ export const FormContextProvider = ({
       return mainData
     }
     try {
-      if (RAMCheck) {
+      if (DISKCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(diskObj))
+      } else if (RAMCheck) {
         await addDoc(collection(db, 'user_product'), mainObjectReturn(ramObj))
       } else if (cputCheck) {
         await addDoc(collection(db, 'user_product'), mainObjectReturn(cpuObj))
@@ -777,6 +818,7 @@ export const FormContextProvider = ({
         gputCheck,
         RAMCheck,
         MbCheck,
+        DISKCheck,
       }}
     >
       {children}

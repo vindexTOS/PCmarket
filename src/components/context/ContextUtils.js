@@ -228,7 +228,16 @@ export const motherboardCompanies = [
   'Shuttle',
 ]
 
-export const ssdCapacities = ['80GB', '128GB', '256GB', '512GB', '1TB', '2TB']
+export const ssdCapacities = [
+  '80GB',
+  '128GB',
+  '256GB',
+  '512GB',
+  '1TB',
+  '2TB',
+  '4TB',
+  '8TB+',
+]
 
 export const powerSupplyWatts = [
   '300W',
@@ -366,6 +375,11 @@ export const GPUMHZ = [
   '2400MHz',
   '2600MHz',
   '2800MHz',
+  '3000Mhz',
+  '4000MHz',
+  '5000MHz',
+  '6000MHz',
+  '7000MHz',
 ]
 
 export const ramMHZArray = [

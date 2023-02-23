@@ -2,16 +2,11 @@ import React from 'react'
 import { Icons } from '../../../utils/data/Photos'
 import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from 'react-icons/io'
-import { UseFormContext } from '../../context/FormContext'
-
+import { UseNavContext } from '../../context/NavContext'
 function SideNav() {
-  const context = UseFormContext()
-  if (!context) {
-    return null
-  }
-  const { img, data } = context
+  const {} = UseNavContext()
   const links = [
-    { titles: 'Dasktop', link: '', icon: Icons.gaming },
+    { titles: 'Dasktop', link: '/desktop', icon: Icons.gaming },
     { titles: 'Laptop', link: '', icon: Icons.laptop },
     { titles: 'Components', link: '', icon: Icons.fan },
     { titles: 'Phones', link: '', icon: Icons.phone },

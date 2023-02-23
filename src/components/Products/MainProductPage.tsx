@@ -6,7 +6,7 @@ function MainProductPage() {
   const { productData } = UseProductContext()
 
   const style = {
-    section: `w-[100vw] h-[1500px] mt-10 flex flex-wrap items-center justify-center  gap-10`,
+    section: `w-[100vw] h-[100%] mt-10 flex flex-wrap items-center justify-center  gap-10`,
   }
 
   const [reverseData, setReversData] = React.useState([])
