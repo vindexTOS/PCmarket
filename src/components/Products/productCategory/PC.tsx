@@ -18,7 +18,7 @@ function PC() {
       {/* <h1 onClick={() => console.log(PCData)}>LOg</h1> */}
 
       {reverseData?.map((val: any) => {
-        return <ProductCard val={val} />
+        return <ProductCard key={val.id} val={val} />
       })}
     </section>
   )

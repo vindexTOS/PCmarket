@@ -25,10 +25,13 @@ type Cell = {
   ElectronicsData: unknown | any
   setFilterDropDown: React.Dispatch<React.SetStateAction<boolean>>
   filterDropDown: boolean
-  filterVal: string
-  setFilterVal: React.Dispatch<React.SetStateAction<string>>
+  filterVal: { keyge: string; keyen: string }
+  FilterTracker: (keyge: string, keyen: string) => void
 }
-
+type FilterVal = {
+  keyge: string
+  keyen: string
+}
 const ProductContext = createContext<Cell | null>(null)
 
 export const ProductContextProvider = ({
@@ -42,11 +45,7 @@ export const ProductContextProvider = ({
   // pulling product data from firebase
 
   const [productData, setProductData] = useState<unknown | any>()
-  const [PCData, setPCData] = useState<unknown | any>()
-  const [LaptopData, setLaptopData] = useState<unknown | any>()
-  const [ComponentsData, setComponentsData] = useState<unknown | any>()
-  const [PhoneData, setPhoneData] = useState<unknown | any>()
-  const [ElectronicsData, setElectronicsData] = useState<unknown | any>()
+
   useEffect(() => {
     const q = query(collection(db, 'user_product'), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querrySnapShot) => {
@@ -61,6 +60,71 @@ export const ProductContextProvider = ({
     return () => unsub()
   }, [user])
 
+  // drop down button for date and price filter
+  const [filterDropDown, setFilterDropDown] = useState<boolean>(false)
+  // drop down value state
+  const [filterVal, setFilterVal] = useState<FilterVal>({
+    keyge: 'თარიღის კლება',
+    keyen: 'Date decreasing',
+  })
+  const FilterTracker = (keyge: string, keyen: string) => {
+    setFilterVal({ keyge, keyen })
+    setFilterDropDown(false)
+  }
+  // use effect to trigger filter
+  useEffect(() => {
+    // checking filter value in both languages to determan filters action
+    if (
+      filterVal.keyen === 'Date decreasing' ||
+      filterVal.keyge === 'თარიღის კლება'
+    ) {
+      //sorting firebase server data secoends to sort an array from newest to oldest
+      setProductData(
+        productData?.sort(
+          (a: any, b: any) => b.timestamp.seconds - a.timestamp.seconds,
+        ),
+      )
+    } else if (
+      filterVal.keyen === 'Date ascending' ||
+      filterVal.keyge === 'თარიღის ზრდა'
+    ) {
+      //sorting firebase server data secoends to sort an array from oldest to newest
+
+      setProductData(
+        productData?.sort(
+          (a: any, b: any) => a.timestamp.seconds - b.timestamp.seconds,
+        ),
+      )
+    } else if (
+      filterVal.keyen === 'Price decreasing' ||
+      filterVal.keyge === 'ფასის კლება'
+    ) {
+      // this converets string in to a number and roundes it down or up and then sorts it to lowest to highest
+      setProductData(
+        productData?.sort(
+          (a: any, b: any) => parseInt(a.price) - parseInt(b.price),
+        ),
+      )
+    } else if (
+      filterVal.keyen === 'Price ascending' ||
+      filterVal.keyge === 'ფასის ზრდა'
+    ) {
+      // this converets string in to a number and roundes it down or up and then sorts it to highest to lowest
+      setProductData(
+        productData?.sort(
+          (a: any, b: any) => parseInt(b.price) - parseInt(a.price),
+        ),
+      )
+    }
+  }, [filterVal])
+
+  //spliting data in to different categorys
+  const [PCData, setPCData] = useState<unknown | any>()
+  const [LaptopData, setLaptopData] = useState<unknown | any>()
+  const [ComponentsData, setComponentsData] = useState<unknown | any>()
+  const [PhoneData, setPhoneData] = useState<unknown | any>()
+  const [ElectronicsData, setElectronicsData] = useState<unknown | any>()
+  // use effect for filtering data based on there values
   useEffect(() => {
     //pre filtering data and sending them to there respective files
     setPCData(
@@ -105,12 +169,8 @@ export const ProductContextProvider = ({
       ),
     )
     //pre filtering data and sending them to there respective files
-  }, [productData]) //every time productData is fetched from firebase its going to filter and update each state for there specifice categorys
-
-  // drop down button for date and price filter
-  const [filterDropDown, setFilterDropDown] = useState<boolean>(false)
-  // drop down value state
-  const [filterVal, setFilterVal] = useState<string>('')
+  }, [productData, filterVal]) //every time productData is fetched from firebase its going to filter and update each state for there specifice categorys
+  // filterVal re triggers useEffect every time we filter filterVal
 
   return (
     <ProductContext.Provider
@@ -125,7 +185,7 @@ export const ProductContextProvider = ({
         filterDropDown,
         setFilterDropDown,
         filterVal,
-        setFilterVal,
+        FilterTracker,
       }}
     >
       {children}

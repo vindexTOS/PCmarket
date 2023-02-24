@@ -21,7 +21,7 @@ function MainProductPage() {
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
       {productData?.map((val: any) => {
-        return <ProductCard val={val} />
+        return <ProductCard key={val.id} val={val} />
       })}
     </section>
   )

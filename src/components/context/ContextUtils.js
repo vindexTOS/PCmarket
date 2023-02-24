@@ -558,5 +558,19 @@ export const filterOptions = [
   { keyge: 'თარიღის კლება', keyen: 'Date decreasing' },
   { keyge: 'თარიღის ზრდა', keyen: 'Date ascending' },
   { keyge: 'ფასის კლება', keyen: 'Price decreasing' },
-  { keyge: 'ფასის კლება', keyen: 'Price decreasing' },
+  { keyge: 'ფასის ზრდა', keyen: 'Price ascending' },
+]
+export const month_names_short = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ]
