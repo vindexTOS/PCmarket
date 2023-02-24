@@ -5,7 +5,7 @@ function SingleProduct() {
   const { productData } = UseProductContext()
   const { productId } = useParams()
 
-  const product = productData.find(
+  const product = productData?.find(
     (producte: { id: any }) => String(producte.id) === productId,
   )
 

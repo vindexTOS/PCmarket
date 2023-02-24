@@ -188,7 +188,7 @@ export const FormContextProvider = ({
       navigate('/')
       setUserAuth(false)
       setLoadingRegister(false)
-      console.log(user)
+      // console.log(user)
     } catch (err) {
       let message
       if (err instanceof Error) message = err.message
@@ -490,7 +490,7 @@ export const FormContextProvider = ({
       setMBCheck(false)
       setDISKCheck(false)
     }
-    console.log(specs)
+    // console.log(specs)
   }, [specs])
 
   //cpu finder //
@@ -628,7 +628,7 @@ export const FormContextProvider = ({
         const imageRef = ref(storage, `product/${RandomID}`)
 
         const storageRef = imageRef
-        console.log(image[i])
+        // console.log(image[i])
         promises.push(
           uploadBytesResumable(storageRef, file).then((uploadResult) => {
             return getDownloadURL(uploadResult.ref)
@@ -638,7 +638,7 @@ export const FormContextProvider = ({
     }
     // Get all the downloadURLs
     const photos = await Promise.all(promises)
-    console.log(photos)
+    // console.log(photos)
     // let category = getValues('category')
     let title = getValues('title')
     let description = getValues('description')

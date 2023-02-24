@@ -1,14 +1,21 @@
 import React from 'react'
 import ProductCard from './ProductCard'
+import ProductCardRow from './ProductCardRow'
 import { UseProductContext } from '../context/ProductContext'
 import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../context/FormContext'
+
 function MainProductPage() {
-  const { productData } = UseProductContext()
+  const { productData, gridLayOut, setGridLayOut } = UseProductContext()
   const { user } = UseFormContext()
 
   const style = {
-    section: `w-[100vw] h-[100%] mt-10 flex flex-wrap items-center justify-center  gap-10`,
+    section: `    ${
+      gridLayOut
+        ? 'w-[100vw] h-[100%] mt-10 productGrid items-center justify-center  gap-10'
+        : 'w-[100%] h-[100%] mt-10 productGridRow  items-center justify-start ml-[10rem] '
+    }
+         `,
   }
 
   const [reverseData, setReversData] = React.useState([])
@@ -21,7 +28,15 @@ function MainProductPage() {
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
       {productData?.map((val: any) => {
-        return <ProductCard key={val.id} val={val} />
+        return (
+          <div className="w-[100vw] h-[100%]">
+            {gridLayOut ? (
+              <ProductCard key={val.id} val={val} />
+            ) : (
+              <ProductCardRow key={val.id} val={val} />
+            )}
+          </div>
+        )
       })}
     </section>
   )

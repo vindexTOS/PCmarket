@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BsGridFill } from 'react-icons/bs'
 import { MdTableRows } from 'react-icons/md'
 import { motion as m } from 'framer-motion'
@@ -13,15 +13,29 @@ function Mainfilter() {
     setFilterDropDown,
     filterVal,
     FilterTracker,
+    gridLayOut,
+    setGridLayOut,
   } = UseProductContext()
   const style = {
     mainDiv: `w-[95%] h-[100px] bg-gray-100 rounded-[12px] flex items-center justify-end filtershaddow  gap-5`,
     dropdown: `w-[220px] h-[50px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer  `,
     iconDiv: ` flex gap-2 mr-3`,
-    icon: `text-[1rem] text-gray-400 bg-gray-300 cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center`,
+    iconGrid: `text-[1rem]  cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${
+      gridLayOut
+        ? 'text-white bg-yellow-400'
+        : ' text-gray-400 bg-gray-300 hover:bg-yellow-400 hover:text-white '
+    }`,
+    iconRow: `text-[1rem]   cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${
+      !gridLayOut
+        ? 'text-white bg-yellow-400'
+        : ' text-gray-400 bg-gray-300  hover:bg-yellow-400 hover:text-white'
+    }`,
     dropdownDiv: `bg-white z-50 absolute border-[1px] w-[220px] h-[120px] rounded-[12px] boxShaddow flex flex-col px-2   `,
     dropDownInnerDiv: `w-[100%] hover:bg-gray-300 p-[2px] px-2 cursor-pointer rounded-[12px] hover:text-blue-500`,
   }
+  useEffect(() => {
+    console.log(gridLayOut)
+  }, [gridLayOut])
   return (
     <div className={style.mainDiv}>
       <div>
@@ -54,26 +68,15 @@ function Mainfilter() {
         )}
       </div>
       <div className={style.iconDiv}>
-        <m.p
-          whileHover={{
-            backgroundColor: '#ffd102',
-            color: '#ffffff',
-          }}
-          transition={{ duration: 0.3 }}
-          className={style.icon}
+        <p
+          onClick={() => setGridLayOut(!gridLayOut)}
+          className={style.iconGrid}
         >
           <BsGridFill />
-        </m.p>
-        <m.p
-          whileHover={{
-            backgroundColor: '#ffd102',
-            color: '#ffffff',
-          }}
-          transition={{ duration: 0.3 }}
-          className={style.icon}
-        >
+        </p>
+        <p onClick={() => setGridLayOut(!gridLayOut)} className={style.iconRow}>
           <MdTableRows />
-        </m.p>
+        </p>
       </div>
     </div>
   )

@@ -27,7 +27,6 @@ function Contact() {
     infoInput: `outline-0 border-[1px] w-[100%] h-[3rem] rounded-[17px]`,
   }
 
-  const [filterArr, setFiltterArr] = useState<{}[]>([])
   const [dropDown, setDropDown] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState(georgianCities)

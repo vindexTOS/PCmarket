@@ -27,6 +27,8 @@ type Cell = {
   filterDropDown: boolean
   filterVal: { keyge: string; keyen: string }
   FilterTracker: (keyge: string, keyen: string) => void
+  gridLayOut: boolean
+  setGridLayOut: React.Dispatch<React.SetStateAction<boolean>>
 }
 type FilterVal = {
   keyge: string
@@ -172,6 +174,8 @@ export const ProductContextProvider = ({
   }, [productData, filterVal]) //every time productData is fetched from firebase its going to filter and update each state for there specifice categorys
   // filterVal re triggers useEffect every time we filter filterVal
 
+  // product layout change
+  const [gridLayOut, setGridLayOut] = useState<boolean>(true)
   return (
     <ProductContext.Provider
       value={{
@@ -186,6 +190,8 @@ export const ProductContextProvider = ({
         setFilterDropDown,
         filterVal,
         FilterTracker,
+        gridLayOut,
+        setGridLayOut,
       }}
     >
       {children}
