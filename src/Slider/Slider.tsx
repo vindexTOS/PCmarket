@@ -13,16 +13,16 @@ function Palette({ img }: { img: string }) {
   return (
     <div
       className="absolute ml-3 rounded-l-[10px]   h-[600px] w-[280px]  "
-      style={{
-        boxShadow: `0px 0px 10px 0px ${data.vibrant}`,
-      }}
+      // style={{
+      //   boxShadow: `0px 0px 10px 0px ${data.darkVibrant}`,
+      // }}
     >
       <div
         className="absolute rounded-l-[10px]   h-[600px] w-[280px]"
-        style={{
-          backgroundColor: `${data.vibrant}`,
-          opacity: '0.8',
-        }}
+        // style={{
+        //   backgroundColor: `${data.darkVibrant}`,
+        //   opacity: '0.8',
+        // }}
       ></div>
     </div>
   )
@@ -36,7 +36,7 @@ function Slider() {
   const { img, data } = context
 
   const style = {
-    mainDiv: `flex flex-row items-center justify-center  z-30 w-[90%]  h-[600px] rounded-r-[15px] `,
+    mainDiv: `flex flex-row items-center justify-center   z-30 w-[96%]  h-[600px] rounded-r-[15px] `,
     img: `w-[100%] h-[600px] rounded-r-[15px] `,
     btnDiv: `absolute z-30 w-[60%] h-[50%] flex items-center justify-between   `,
   }
@@ -48,10 +48,18 @@ function Slider() {
       <div
         className={style.mainDiv}
         style={{
+          borderTopRightRadius: '160px',
+
           boxShadow: `0px 0px 15px 0px ${data.vibrant}`,
         }}
       >
-        <img className={style.img} src={img} />
+        <img
+          style={{
+            borderTopRightRadius: '160px',
+          }}
+          className={style.img}
+          src={img}
+        />
 
         <div className={style.btnDiv}>
           <ArrowBtn actiontype={'DOWN_INDEX'}>

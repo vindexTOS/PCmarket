@@ -115,7 +115,7 @@ function PcSpecs() {
             onChange={(e) => setCPUModel(e.target.value)}
           >
             <option>Intel</option>
-            <option>Amd</option>
+            <option>AMD</option>
           </select>
         </div>
 

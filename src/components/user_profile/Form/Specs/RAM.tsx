@@ -7,13 +7,9 @@ import {
 } from '../../../context/ContextUtils'
 function RAM() {
   const {
-    inputGPU,
-    GPUcompany,
     lang,
     register,
-    laptopChack,
-    setInputGPU,
-    setGPUModel,
+
     setSpecs,
   } = UseFormContext()
   const style = {
@@ -76,7 +72,6 @@ function RAM() {
           <select
             {...register('RAMGBS')}
             className="w-[5rem]  text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
-            onChange={(e) => setGPUModel(e.target.value)}
           >
             {ramGBArray.map((gb) => (
               <option>{gb}</option>

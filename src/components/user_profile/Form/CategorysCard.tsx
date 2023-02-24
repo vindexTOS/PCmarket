@@ -1,7 +1,7 @@
 import React, { useState, useReducer, Reducer } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { UseFormContext } from '../../context/FormContext'
-
+import { categorys } from '../../context/ContextUtils'
 function CategorysCard() {
   const [selectDown, setSelectDown] = useState<boolean>(false)
 
@@ -13,40 +13,7 @@ function CategorysCard() {
     getValues,
     setSpecs,
   } = UseFormContext()
-  const categorys = [
-    {
-      title: 'Personal Computer',
-      category: [{ option: 'Pre built' }, { option: 'Used Pc' }],
-    },
-    {
-      title: 'Laptop',
-      category: [{ option: 'New Laptop' }, { option: 'Used Laptop' }],
-    },
 
-    ,
-    {
-      title: 'PC components',
-      category: [
-        { option: 'CPU' },
-        { option: 'GPU' },
-        { option: 'RAM' },
-        { option: 'HDD/SSD' },
-        { option: 'Mother Board' },
-        { option: 'PSU' },
-        { option: 'Cases' },
-        { option: 'Others' },
-      ],
-    },
-    { title: 'Phones', category: [{ option: 'New' }, { option: 'Used' }] },
-    {
-      title: 'Electronics',
-      category: [
-        { option: 'Audio' },
-        { option: 'Keyboard/mouse' },
-        { option: 'Others' },
-      ],
-    },
-  ]
   const style = {
     category: `flex flex-col items-center justify-center h-[250px] bg-white rounded-[19px] pb-5  max_sm:w-[100%]`,
     header: `w-[100%] text-start p-5 bolder pl-10`,

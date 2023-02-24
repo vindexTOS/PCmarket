@@ -10,7 +10,7 @@ function PC() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     // val.category == 'Pre built' || val.category == 'Used Pc'
-    setReversData(PCData.reverse())
+    setReversData(PCData?.reverse())
   }, [PCData])
 
   return (

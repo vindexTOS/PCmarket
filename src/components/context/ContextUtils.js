@@ -1,3 +1,78 @@
+export const categoriesGe = [
+  {
+    title: 'პერსონალური კომპიუტერი',
+    category: [
+      { option: 'ახალი კომპიუტერები' },
+      { option: 'მეორადი კომპიუტერები' },
+    ],
+  },
+  {
+    title: 'ლეპტოპი',
+    category: [{ option: 'ახალი ლეპტოპები' }, { option: 'მეორადი ლეპტოპები' }],
+  },
+  {
+    title: 'კომპონენტები',
+    category: [
+      { option: 'პროცესორი' },
+      { option: 'ვიდეობარათი' },
+      { option: 'RAM' },
+      { option: 'HDD/SSD' },
+      { option: 'დედაბარათი' },
+      { option: 'PSU' },
+      { option: 'კეისები' },
+      { option: 'სხვადასხვა' },
+    ],
+  },
+  {
+    title: 'ტელეფონები',
+    category: [{ option: 'ახალი' }, { option: 'მეორადი' }],
+  },
+  {
+    title: 'ელექტრონიკები',
+    category: [
+      { option: 'აუდიო' },
+      { option: 'კლავიატურა / მაუსი' },
+      { option: 'მონიტორები' },
+      { option: 'სხვადასხვა' },
+    ],
+  },
+]
+
+export const categorys = [
+  {
+    title: 'Personal Computer',
+    category: [{ option: 'Pre built' }, { option: 'Used Pc' }],
+  },
+  {
+    title: 'Laptop',
+    category: [{ option: 'New Laptop' }, { option: 'Used Laptop' }],
+  },
+
+  ,
+  {
+    title: 'PC components',
+    category: [
+      { option: 'CPU' },
+      { option: 'GPU' },
+      { option: 'RAM' },
+      { option: 'HDD/SSD' },
+      { option: 'Mother Board' },
+      { option: 'PSU' },
+      { option: 'Cases' },
+      { option: 'Others' },
+    ],
+  },
+  { title: 'Phones', category: [{ option: 'New' }, { option: 'Used' }] },
+  {
+    title: 'Electronics',
+    category: [
+      { option: 'Audio' },
+      { option: 'Keyboard/mouse' },
+      { option: 'Monitors' },
+      { option: 'Others' },
+    ],
+  },
+]
 export const randomData = [
   'a',
   'b',
@@ -405,4 +480,83 @@ export const ramGBArray = [
   '64 GB',
   '128 GB',
   '256 GB',
+]
+
+export const phoneCompanies = [
+  'Apple',
+  'Samsung',
+  'Huawei',
+  'Xiaomi',
+  'OPPO',
+  'Vivo',
+  'OnePlus',
+  'LG',
+  'Motorola',
+  'Sony',
+  'HTC',
+  'Nokia',
+  'Google',
+  'ASUS',
+  'Lenovo',
+  'ZTE',
+  'TCL',
+  'BlackBerry',
+  'Alcatel',
+  'Honor',
+]
+
+export const phoneCPUs = [
+  'Qualcomm Snapdragon 888',
+  'Apple A14 Bionic',
+  'Samsung Exynos 2100',
+  'Mediatek Dimensity 1200',
+  'Qualcomm Snapdragon 870',
+  'Apple A13 Bionic',
+  'Qualcomm Snapdragon 765G',
+  'Mediatek Helio G95',
+  'Qualcomm Snapdragon 732G',
+  'Exynos 9611',
+]
+
+export const phoneCameraPixels = [
+  '108 MP',
+  '64 MP',
+  '48 MP',
+  '32 MP',
+  '24 MP',
+  '20 MP',
+  '16 MP',
+  '12 MP',
+  '8 MP',
+  '5 MP',
+]
+
+export const phoneScreenSizes = [
+  '4.0 in',
+  '4.5 in',
+  '4.7 in',
+  '5.0 in',
+  '5.1 in',
+  '5.2 in',
+  '5.3 in',
+  '5.5 in',
+  '5.7 in',
+  '5.8 in',
+  '6.0 in',
+  '6.1 in',
+  '6.2 in',
+  '6.3 in',
+  '6.4 in',
+  '6.5 in',
+  '6.6 in',
+  '6.7 in',
+  '6.8 in',
+  '7.0 in',
+]
+
+export const filterOptions = [
+  { keyge: 'თარიღის კლება', keyen: 'Date decreasing' },
+  { keyge: 'თარიღის ზრდა', keyen: 'Date ascending' },
+  { keyge: 'ფასის კლება', keyen: 'Price decreasing' },
+  { keyge: 'ფასის კლება', keyen: 'Price decreasing' },
 ]

@@ -16,14 +16,23 @@ import userpfp from '../userpfp.png'
 import camera from '../camera.png'
 import georgia from '../icons/georgia.png'
 import UK from '../icons/UK.png'
+import GPU from '../silderphotos/GPU.jpg'
+import I9 from '../silderphotos/I9.jpg'
+import RAM from '../silderphotos/RAM.jpg'
+import titan from '../silderphotos/titan.jpg'
+import rtx3060 from '../silderphotos/rtx3060.jpg'
+import google from '../silderphotos/google.jpg'
+import laptopG from '../silderphotos/laptop.jpg'
+import gamingpc from '../silderphotos/gamingpc.jpg'
+import pcinside from '../silderphotos/pcinside.jpg'
 export const Photodata = [
-  { img: AMDCput },
-  { img: AMDGpu },
+  { img: I9 },
+  { img: laptopG },
   {
-    img: AMDGpu2,
+    img: google,
   },
   {
-    img: Nvidia,
+    img: pcinside,
   },
 ]
 

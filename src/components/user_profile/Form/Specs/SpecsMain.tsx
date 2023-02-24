@@ -6,6 +6,7 @@ import GPU from './GPU'
 import RAM from './RAM'
 import MB from './MB'
 import HARDDISK from './HARDDRIVE'
+import Phone from './Phone'
 function SpecsMain() {
   const {
     specCheck,
@@ -14,6 +15,7 @@ function SpecsMain() {
     RAMCheck,
     MbCheck,
     DISKCheck,
+    PhoneCheck,
   } = UseFormContext()
   return (
     <>
@@ -23,6 +25,7 @@ function SpecsMain() {
       {RAMCheck && <RAM />}
       {MbCheck && <MB />}
       {DISKCheck && <HARDDISK />}
+      {PhoneCheck && <Phone />}
     </>
   )
 }

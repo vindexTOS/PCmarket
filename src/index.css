@@ -36,3 +36,15 @@ body {
   -webkit-box-shadow: 7px 5px 13px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 7px 5px 13px -5px rgba(0, 0, 0, 0.75);
 }
+
+.sidenavshaddow {
+  box-shadow: -2px 4px 11px -7px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -2px 4px 11px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 4px 11px -7px rgba(0, 0, 0, 0.75);
+}
+
+.filtershaddow {
+  box-shadow: 3px 2px 7px -2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 3px 2px 7px -2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 3px 2px 7px -2px rgba(0, 0, 0, 0.5);
+}

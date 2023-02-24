@@ -10,7 +10,7 @@ function COMPONENTS() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     // val.category == 'Pre built' || val.category == 'Used Pc'
-    setReversData(ComponentsData.reverse())
+    setReversData(ComponentsData?.reverse())
   }, [ComponentsData])
 
   return (

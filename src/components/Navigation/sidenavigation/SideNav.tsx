@@ -11,13 +11,13 @@ function SideNav() {
     { titles: 'Dasktop', link: '/desktop', icon: Icons.gaming },
     { titles: 'Laptop', link: '/laptop', icon: Icons.laptop },
     { titles: 'Components', link: '/components', icon: Icons.fan },
-    { titles: 'Phones', link: '', icon: Icons.phone },
-    { titles: 'Electronics', link: '', icon: Icons.headphone },
+    { titles: 'Phones', link: '/phone', icon: Icons.phone },
+    { titles: 'Electronics', link: '/electronics', icon: Icons.headphone },
   ]
   const style = {
-    nav: `w-[280px] h-[600px] p-10 ml-3     bg-gray-100 rounded-l-[12px] z-20  bg-opacity-70`,
+    nav: `w-[280px] h-[600px] p-10 ml-3     bg-white sidenavshaddow rounded-l-[12px] z-50  bg-opacity-70`,
     linkDiv: `flex flex-col gap-5 w-[100%]`,
-    link: `p-2 text-start text-[1.3rem] hover:bg-gray-500 text-red-600 hover:bg-opacity-30 hover:text-white cursor-pointer z-40 w-[100%] rounded-[15px] flex items-col items-center justify-center gap-2`,
+    link: `p-2 text-start text-[1.3rem] hover:bg-gray-300 text-blue-300 hover:bg-opacity-30 hover:text-blue-400 cursor-pointer z-40 w-[100%] rounded-[15px] flex items-col items-center justify-center gap-2`,
     icon: `w-[20px] h-[20px] `,
   }
 

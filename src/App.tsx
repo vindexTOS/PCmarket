@@ -17,6 +17,8 @@ import SingleProduct from './components/Products/SingleProduct'
 import PC from './components/Products/productCategory/PC'
 import LAPTOP from './components/Products/productCategory/LAPTOP'
 import COMPONENTS from './components/Products/productCategory/COMPONENTS'
+import PHONE from './components/Products/productCategory/PHONE'
+import ELECTRONICS from './components/Products/productCategory/ELECTRONICS'
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +32,8 @@ function App() {
                 <Route path="/desktop" element={<PC />} />
                 <Route path="/laptop" element={<LAPTOP />} />
                 <Route path="/components" element={<COMPONENTS />} />
+                <Route path="/phone" element={<PHONE />} />
+                <Route path="/electronics" element={<ELECTRONICS />} />
               </Route>
               <Route path="/:productId" element={<SingleProduct />} />
               <Route
@@ -40,10 +44,10 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/user_info" element={<UserInfo />} />
 
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/user_info" element={<UserInfo />} />
             </Routes>
             <Footer />
           </NavContextProvider>

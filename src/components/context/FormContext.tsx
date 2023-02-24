@@ -117,6 +117,7 @@ type Cell = {
   RAMCheck: boolean
   MbCheck: boolean
   DISKCheck: boolean
+  PhoneCheck: boolean
 }
 type Action = {
   type: string | []
@@ -378,7 +379,8 @@ export const FormContextProvider = ({
   const [RAMCheck, setRAMCheck] = useState<boolean>(false)
   const [MbCheck, setMBCheck] = useState<boolean>(false)
   const [DISKCheck, setDISKCheck] = useState<boolean>(false)
-
+  const [PhoneCheck, setPhoneCheck] = useState<boolean>(false)
+  const [electronicCheck, setElectroincCheck] = useState<boolean>(false)
   useEffect(() => {
     //if specs == PC or something or getValues(Category) == pc or laptop
     if (specs == 'Used Pc' || specs == 'Pre built') {
@@ -389,6 +391,8 @@ export const FormContextProvider = ({
       setRAMCheck(false)
       setMBCheck(false)
       setDISKCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'New Laptop' || specs == 'Used Laptop') {
       setLaptopChack(true)
       setSpecCheck(true)
@@ -397,6 +401,8 @@ export const FormContextProvider = ({
       setRAMCheck(false)
       setMBCheck(false)
       setDISKCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'CPU') {
       setSpecCheck(false)
       setLaptopChack(false)
@@ -405,6 +411,8 @@ export const FormContextProvider = ({
       setRAMCheck(false)
       setMBCheck(false)
       setDISKCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'GPU') {
       setSpecCheck(false)
       setLaptopChack(false)
@@ -412,6 +420,8 @@ export const FormContextProvider = ({
       setGpuCheck(true)
       setRAMCheck(false)
       setMBCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'RAM') {
       setSpecCheck(false)
       setLaptopChack(false)
@@ -420,6 +430,8 @@ export const FormContextProvider = ({
       setRAMCheck(true)
       setMBCheck(false)
       setDISKCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'Mother Board') {
       setMBCheck(true)
       setSpecCheck(false)
@@ -428,8 +440,36 @@ export const FormContextProvider = ({
       setGpuCheck(false)
       setRAMCheck(false)
       setDISKCheck(false)
+      setPhoneCheck(false)
+      setElectroincCheck(false)
     } else if (specs == 'HDD/SSD') {
       setDISKCheck(true)
+      setMBCheck(false)
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setPhoneCheck(false)
+    } else if (specs == 'New' || specs == 'Used') {
+      setPhoneCheck(true)
+      setDISKCheck(false)
+      setMBCheck(false)
+      setSpecCheck(false)
+      setLaptopChack(false)
+      setCpuCheck(false)
+      setGpuCheck(false)
+      setRAMCheck(false)
+      setElectroincCheck(false)
+    } else if (
+      specs == 'Keyboard/mouse' ||
+      specs == 'Audio' ||
+      specs == 'Monitors' ||
+      specs == 'Others'
+    ) {
+      setElectroincCheck(true)
+      setPhoneCheck(false)
+      setDISKCheck(false)
       setMBCheck(false)
       setSpecCheck(false)
       setLaptopChack(false)
@@ -629,7 +669,6 @@ export const FormContextProvider = ({
       harddrive,
       harddriveGB,
       psu,
-      Link: 'desktop',
     }
     /// laptop object difference is PC obj has pus and laptop obj has screen
     const LaptopspecObj = {
@@ -643,7 +682,6 @@ export const FormContextProvider = ({
       harddrive,
       harddriveGB,
       screen,
-      Link: `laptop`,
     }
 
     //GPU specs//////////////////////
@@ -659,7 +697,6 @@ export const FormContextProvider = ({
       GPUPLATFORM,
       GPUMHZ,
       GPURAM,
-      Link: 'component',
     }
 
     //CPU specs///////////////////
@@ -675,7 +712,6 @@ export const FormContextProvider = ({
       CPUPLATFORM,
       CPUGHZ,
       CPUCORES,
-      Link: 'component',
     }
 
     // RAM specs/////////
@@ -689,7 +725,6 @@ export const FormContextProvider = ({
       RAMPLATFORM,
       RAMMHZ,
       RAMDDR,
-      Link: 'component',
     }
     /// hard drive SSD HDD  specs///
     let DISKcapasity = getValues('DISKCAPACITY')
@@ -700,7 +735,28 @@ export const FormContextProvider = ({
       DISKcapasity,
       DISKtype,
       DISKplatform,
-      Link: 'component',
+    }
+
+    // phone specs
+
+    let PHONEcompany = getValues('PHONECOMPANY')
+    let PHONECPU = getValues('PHONECPU')
+    let PHONEscreen = getValues('PHONESCREEN')
+    let PHONEcamera = getValues('CAMERA')
+    let PHONEmodel = getValues('PHONEMODEL')
+    let PHONEram = getValues('PHONERAM')
+    // phone obj
+    const phoneObj = {
+      PHONEcompany,
+      PHONECPU,
+      PHONEscreen,
+      PHONEcamera,
+      PHONEmodel,
+      PHONEram,
+    }
+
+    const emptyObj = {
+      type: 'electronics',
     }
     // user ID for refrencing
     const { uid } = auth.currentUser as { uid: string }
@@ -726,7 +782,11 @@ export const FormContextProvider = ({
       return mainData
     }
     try {
-      if (DISKCheck) {
+      if (electronicCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(emptyObj))
+      } else if (PhoneCheck) {
+        await addDoc(collection(db, 'user_product'), mainObjectReturn(phoneObj))
+      } else if (DISKCheck) {
         await addDoc(collection(db, 'user_product'), mainObjectReturn(diskObj))
       } else if (RAMCheck) {
         await addDoc(collection(db, 'user_product'), mainObjectReturn(ramObj))
@@ -819,6 +879,7 @@ export const FormContextProvider = ({
         RAMCheck,
         MbCheck,
         DISKCheck,
+        PhoneCheck,
       }}
     >
       {children}
