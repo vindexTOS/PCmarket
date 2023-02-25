@@ -10,7 +10,7 @@ module.exports = {
       },
     },
     screens: {
-      xm: '400px',
+      xm: '500px',
       sm: '640px',
       // => @media (min-width: 640px) { ... }
 
@@ -38,6 +38,8 @@ module.exports = {
 
       max_sm: { max: '640px' },
       // => @media (max-width: 639px) { ... }
+      max_smm: { max: '500px' },
+      // => @media (max-width:500px) { ... }
     },
   },
   plugins: [],

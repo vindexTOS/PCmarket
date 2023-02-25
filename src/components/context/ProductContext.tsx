@@ -176,6 +176,21 @@ export const ProductContextProvider = ({
 
   // product layout change
   const [gridLayOut, setGridLayOut] = useState<boolean>(true)
+  const [windowWidth, setwindowWidth] = useState<any>({
+    width: window.innerWidth,
+  })
+  useEffect(() => {
+    function handleResize() {
+      setwindowWidth({ width: window.innerWidth })
+      if (windowWidth.width < 770) {
+        setGridLayOut(true)
+      }
+    }
+
+    console.log(windowWidth, gridLayOut)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [windowWidth])
   return (
     <ProductContext.Provider
       value={{

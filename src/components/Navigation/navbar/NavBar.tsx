@@ -18,7 +18,7 @@ function NavBar() {
     navigate,
   } = UseFormContext()
   const style = {
-    nav: `w-[100vw] h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 `,
+    nav: `w-[100%] h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 `,
     searchDiv: `bg-white w-[300px] h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-2 border-red-600`,
     searchInput: `w-[80%]  outline-none`,
     icon: `w-[70px] h-[70px] `,
