@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
 .btnshaddow {
   text-shadow: 4px 2px 2px #ffffff;
 }
@@ -23,6 +25,12 @@ body {
   -webkit-backdrop-filter: blur(1px);
 }
 
+body h1 {
+  font-family: 'Patua One', cursive;
+}
+body p {
+  font-family: 'Montserrat Alternates', sans-serif;
+}
 @layer base {
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {

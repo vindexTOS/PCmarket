@@ -21,13 +21,13 @@ function MainProductPage() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     setReversData(productData?.reverse())
-  }, [user])
+  }, [user, productData])
 
   return (
     <section className={style.section}>
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
-      {productData?.map((val: any) => {
+      {reverseData?.map((val: any) => {
         return (
           <div className="w-[100vw] h-[100%]">
             {gridLayOut ? (

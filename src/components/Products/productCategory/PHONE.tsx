@@ -2,10 +2,16 @@ import React from 'react'
 import ProductCard from '../ProductCard'
 import { UseProductContext } from '../../context/ProductContext'
 import { UseFormContext } from '../../context/FormContext'
+import ProductCardRow from '../ProductCardRow'
 function PHONE() {
-  const { PhoneData } = UseProductContext()
+  const { PhoneData, gridLayOut } = UseProductContext()
   const style = {
-    section: `w-[100vw] h-[100%] mt-10 flex flex-wrap items-center justify-center  gap-10`,
+    section: `    ${
+      gridLayOut
+        ? 'w-[100vw] h-[100%] mt-10 productGrid items-center justify-center  gap-10'
+        : 'w-[100%] h-[100%] mt-10 productGridRow  items-center justify-start ml-[10rem] '
+    }
+         `,
   }
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
@@ -15,10 +21,18 @@ function PHONE() {
 
   return (
     <section className={style.section}>
-      {/* <h1 onClick={() => console.log(PCData)}>LOg</h1> */}
+      {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
       {reverseData?.map((val: any) => {
-        return <ProductCard val={val} />
+        return (
+          <div className="w-[100vw] h-[100%]">
+            {gridLayOut ? (
+              <ProductCard key={val.id} val={val} />
+            ) : (
+              <ProductCardRow key={val.id} val={val} />
+            )}
+          </div>
+        )
       })}
     </section>
   )

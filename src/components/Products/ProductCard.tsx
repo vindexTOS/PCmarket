@@ -25,17 +25,17 @@ function ProductCard({ val }: { val: any }) {
 
   const style = {
     productCard: `bg-white w-[400px] h-[500px] max_sm:w-[350px] max_smm:ml-5 rounded-[15px] boxShaddow flex items-center flex-col justify-between `,
-    header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px] cursor-pointer  hover:bg-blue-500 bg-blue-400 text-white flex items-center justify-center  text-[1.3rem] text-center  `,
+    header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px] cursor-pointer  hover:bg-blue-500 bg-blue-400 text-white flex items-center justify-center  text-[1.3rem] text-center   max_md:text-[1rem]`,
     imgWrapper: `w-[340px] h-[50%] rounded-[15px] border-2 rounded-[20px] flex items-center justify-center`,
     img: `w-[340px] h-[250px] rounded-[15px] border-2 rounded-[20px] `,
     imgSpan: `hover:blurCs flex items-center justify-between opacity-0 hover:opacity-20 w-[380px] h-[250px] absolute    rounded-[15px] bg-gray-100  `,
     arrowIcons: `text-[3rem] cursor-pointer text-black hover:bg-black hover:text-gray-100 rounded-[50%]  z-10`,
     price: `bg-green-400 text-white text-[1.5rem] px-3  py-1 rounded-[8px] absolute mt-[22.2rem] mr-[12rem]`,
     bottomDiv: `w-[100%] h-[4rem] flex   items-center justify-center   `,
-    date: `gap-2   flex items-start  justify-start  ml-5 text-gray-300 w-[100%]`,
+    date: `gap-2   flex items-start  justify-start  ml-5 text-gray-300 w-[100%] max_md:text-[14px]`,
     location: `gap-2 text-[10px]  flex items-start  justify-start  mt-20   text-gray-400  mr-[10rem] absolute`,
 
-    userDiv: `flex w-[100%] ml-5 text-gray-300`,
+    userDiv: `flex w-[100%] ml-5 text-gray-300 max_md:text-[14px]`,
   }
   const [imgIndex, setImgIndex] = React.useState<number>(0)
   const slideIncrese = () => {

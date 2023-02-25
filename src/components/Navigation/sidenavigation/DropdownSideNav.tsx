@@ -6,7 +6,7 @@ import { UseNavContext } from '../../context/NavContext'
 import { UseProductContext } from '../../context/ProductContext'
 function SideNav() {
   const {} = UseNavContext()
-  const { location } = UseProductContext()
+  const {} = UseProductContext()
   const links = [
     { titles: 'Dasktop', link: '/desktop', icon: Icons.gaming },
     { titles: 'Laptop', link: '/laptop', icon: Icons.laptop },
@@ -15,31 +15,21 @@ function SideNav() {
     { titles: 'Electronics', link: '/electronics', icon: Icons.headphone },
   ]
   const style = {
-    nav: `w-[280px] h-[600px] pt-10 ml-3     bg-white sidenavshaddow rounded-l-[12px] z-50  bg-opacity-70 max_md2:hidden`,
-    linkDiv: `flex flex-col   w-[100%] items-center justify-center  gap-5 `,
-    link: `p-2 w-[100%] text-start text-[1.3rem] hover:bg-gray-300 text-blue-300 hover:bg-opacity-30 hover:text-blue-400 cursor-pointer z-40 w-[100%] rounded-[7px] flex   items-center justify-center gap-2 `,
-    icon: `w-[20px] h-[20px] `,
+    nav: `w-[90%] h-[400px] mt-[32rem]  absolute flex items-start justify-start   bg-white sidenavshaddow rounded-[12px] z-50     `,
+    linkDiv: `flex flex-col text-start items-start justify-start   w-[100%]`,
+    link: `p-2 text-start text-[1.9rem]  py-4  hover:bg-gray-300 text-yellow-500  cursor-pointer z-40 w-[100%] border-t-[1px] rounded-[12px] border-blue-300 flex items-col items-center justify-start gap-2`,
+    icon: `w-[20px] h-[20px] text-start `,
   }
 
   return (
     <nav className={style.nav}>
       <div className={style.linkDiv}>
-        {/* <h1 onClick={() => console.log(location)}>LOG</h1> */}
-        {links.map((val, index) => {
+        {links.map((val) => {
           return (
-            <Link
-              key={val.titles}
-              className={`${style.link}${
-                location.pathname === val.link
-                  ? 'outline-2 outline outline-yellow-300'
-                  : 'hover:outline-1 hover:outline hover:outline-yellow-200'
-              }`}
-              to={val.link}
-            >
+            <Link key={val.titles} className={style.link} to={val.link}>
               {val.icon}
 
               <h1 className="w-[7rem]">{val.titles}</h1>
-              <IoIosArrowForward />
             </Link>
           )
         })}

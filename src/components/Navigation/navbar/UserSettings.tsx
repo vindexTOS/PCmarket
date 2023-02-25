@@ -1,7 +1,6 @@
 import React from 'react'
 import { UseFormContext } from '../../context/FormContext'
 import { Link } from 'react-router-dom'
-
 function UserSettings() {
   const {
     userAuth,
@@ -20,7 +19,6 @@ function UserSettings() {
   }
   return (
     <div className={style.mainDiv}>
-      {' '}
       <div className="flex flex-col  ">
         <div className={style.pDiv}>
           <p className="text-[1.2rem]  text-gray-600 font-bold">

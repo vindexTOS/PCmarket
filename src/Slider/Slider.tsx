@@ -7,27 +7,6 @@ import SliderPoints from './SliderPoints'
 
 import { PaletteColors, usePalette } from 'react-palette'
 
-function Palette({ img }: { img: string }) {
-  const { data, loading, error } = usePalette(img)
-
-  return (
-    <div
-      className="absolute ml-3 rounded-l-[10px]   h-[600px] w-[280px]  "
-      // style={{
-      //   boxShadow: `0px 0px 10px 0px ${data.darkVibrant}`,
-      // }}
-    >
-      <div
-        className="absolute rounded-l-[10px]   h-[600px] w-[280px]"
-        // style={{
-        //   backgroundColor: `${data.darkVibrant}`,
-        //   opacity: '0.8',
-        // }}
-      ></div>
-    </div>
-  )
-}
-
 function Slider() {
   const context = UseFormContext()
   if (!context) {
@@ -44,7 +23,6 @@ function Slider() {
   return (
     <>
       {' '}
-      <Palette img={img} />
       <div
         className={style.mainDiv}
         style={{

@@ -29,6 +29,8 @@ type Cell = {
   FilterTracker: (keyge: string, keyen: string) => void
   gridLayOut: boolean
   setGridLayOut: React.Dispatch<React.SetStateAction<boolean>>
+  dropDownSideNav: boolean
+  setDropDownSideNav: React.Dispatch<React.SetStateAction<boolean>>
 }
 type FilterVal = {
   keyge: string
@@ -187,10 +189,16 @@ export const ProductContextProvider = ({
       }
     }
 
-    console.log(windowWidth, gridLayOut)
+    // console.log(windowWidth, gridLayOut)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [windowWidth])
+  // drop down menu side navigation
+  const [dropDownSideNav, setDropDownSideNav] = useState<boolean>(false)
+  useEffect(() => {
+    setDropDownSideNav(false)
+  }, [location])
+
   return (
     <ProductContext.Provider
       value={{
@@ -207,6 +215,8 @@ export const ProductContextProvider = ({
         FilterTracker,
         gridLayOut,
         setGridLayOut,
+        dropDownSideNav,
+        setDropDownSideNav,
       }}
     >
       {children}
