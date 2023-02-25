@@ -14,6 +14,8 @@ function ProductCardRow({ val }: { val: any }) {
     sallType,
     uid,
     description,
+    category,
+    priceNegotiation,
     id,
   } = val
 
@@ -50,7 +52,14 @@ function ProductCardRow({ val }: { val: any }) {
     userDiv: `flex ml-6 mb-2 w-[5rem]   `,
     textWrapper: `h-[90%] w-[1450px]  flex flex-col gap-5`,
     header: ` text-[1.1rem] font-bold mt-5`,
-    p: `text-gray-400 `,
+    p: `text-gray-400 pr-5`,
+    priceDiv: `h-[85%] w-[300px] border-l-2 flex flex-col gap-5 items-center justify-center`,
+    price: `text-[2rem] text-white bg-green-400 rounded-[6px] px-5 `,
+    nego: `text-[1.2rem] text-white  bg-green-300 rounded-[6px] px-5 `,
+    selltype: `text-[2rem] text-white px-5  rounded-[6px] ${
+      sallType == 'sale' ? 'bg-red-400' : 'bg-blue-400'
+    }`,
+    pCategory: `text-[1.7rem] text-white bg-yellow-400 px-3 rounded-[9px]  ml-10 mt-[18.2rem] absolute`,
   }
   return (
     <div className={style.mainDiv}>
@@ -63,6 +72,7 @@ function ProductCardRow({ val }: { val: any }) {
         </p>
         <div className={style.imgWrapper}>
           <img className={style.img} src={imgs[imgIndex]} />
+          <p className={style.pCategory}>{category}</p>
         </div>
         <div className={style.dateNameWrapper}>
           {' '}
@@ -90,7 +100,25 @@ function ProductCardRow({ val }: { val: any }) {
           </span>
         </p>
       </div>
-      <div></div>
+      <div className={style.priceDiv}>
+        {priceNegotiation && priceNegotiation === 'negotiation' ? (
+          <>
+            <h1 className={style.nego}>
+              {lang ? 'Price Negotiable ' : 'ფასი შეთანხმებით'}
+            </h1>
+          </>
+        ) : (
+          <>
+            <h1 className={style.price}>
+              {priceCur}
+              {price}
+            </h1>
+            <h1 className={style.selltype}>
+              {sallType == 'buy' ? 'Look for' : 'Sale'}
+            </h1>
+          </>
+        )}
+      </div>
     </div>
   )
 }

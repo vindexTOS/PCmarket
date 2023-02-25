@@ -66,8 +66,8 @@ export const ProductContextProvider = ({
   const [filterDropDown, setFilterDropDown] = useState<boolean>(false)
   // drop down value state
   const [filterVal, setFilterVal] = useState<FilterVal>({
-    keyge: 'თარიღის კლება',
-    keyen: 'Date decreasing',
+    keyge: 'თარიღის ზრდა',
+    keyen: 'Date ascending',
   })
   const FilterTracker = (keyge: string, keyen: string) => {
     setFilterVal({ keyge, keyen })

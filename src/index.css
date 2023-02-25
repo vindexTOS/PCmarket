@@ -56,6 +56,6 @@ body {
 }
 .productGridRow {
   display: grid;
-  grid-template-rows: repeat(auto-fill, minmax(10rem, 12rem));
+  grid-template-rows: repeat(auto-fill, minmax(19rem, 25rem));
   gap: 20px;
 }

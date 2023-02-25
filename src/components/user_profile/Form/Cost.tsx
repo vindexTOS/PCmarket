@@ -3,40 +3,8 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
 import { UseFormContext } from '../../context/FormContext'
 
-type Action = {
-  type: 'price' | 'negotiation'
-  payload?: string
-}
-type State = {
-  price: boolean
-  negotiation: boolean
-}
-
 function Cost() {
   const [dropDown, setDropDown] = useState<boolean>(false)
-
-  const priceReducer: React.Reducer<State, Action> = (state, action) => {
-    switch (action.type) {
-      case 'price':
-        return { ...state, price: !state.price, payload: 'Negotiation' }
-      case 'negotiation':
-        return {
-          ...state,
-          negotiation: !state.negotiation,
-          payload: 'Negotiation',
-        }
-      default:
-        return state
-    }
-  }
-
-  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
-    priceReducer,
-    {
-      price: true,
-      negotiation: false,
-    },
-  )
 
   const {
     lang,
@@ -45,6 +13,8 @@ function Cost() {
     register,
     priceCur,
     setPrice,
+    pricestate,
+    dispatchprice,
   } = UseFormContext()
   const style = {
     mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[270px] bg-white rounded-[19px] `,
@@ -72,12 +42,12 @@ function Cost() {
           {lang ? 'Indicate the price of the item' : 'მიუთითე ფასი'}
         </p>
         <div className={style.PriceSelector}>
-          {!state.negotiation ? (
+          {!pricestate.negotiation ? (
             <div className={style.priceinputDiv}>
               <input
                 {...register('price')}
                 onChange={(e) => setGetPrice(e.target.valueAsNumber)}
-                value={state.negotiation ? 0 : getPrice}
+                value={pricestate.negotiation ? 0 : getPrice}
                 type="number"
                 className={style.priceinput}
                 placeholder=" 0"
@@ -109,17 +79,17 @@ function Cost() {
       </div>
       <div className={style.btnDiv}>
         <p
-          onClick={() => dispatch({ type: 'price' })}
+          onClick={() => dispatchprice({ type: 'price' })}
           className={`${style.btn} ${
-            state.price ? 'bg-green-500 text-white' : ''
+            pricestate.price ? 'bg-green-500 text-white' : ''
           }`}
         >
           {lang ? 'Price quote' : 'ფასიშ შეთავაზება'}
         </p>
         <p
-          onClick={() => dispatch({ type: 'negotiation' })}
+          onClick={() => dispatchprice({ type: 'negotiation' })}
           className={`${style.btn} ${
-            state.negotiation ? 'bg-green-500 text-white' : ''
+            pricestate.negotiation ? 'bg-green-500 text-white' : ''
           }`}
         >
           {lang ? 'Price negotiable' : 'ფაში შეთანხმებით'}

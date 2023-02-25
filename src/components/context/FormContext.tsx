@@ -90,7 +90,8 @@ type Cell = {
   location: { key: string; keyen: string }
   priceCur: string
   setPrice: React.Dispatch<React.SetStateAction<string>>
-
+  pricestate: StatePrice
+  dispatchprice: React.Dispatch<ActionPrice>
   profileImg: (e: React.ChangeEvent<HTMLInputElement>) => void
   profilePicHtml: string
   profilePic: Blob | null
@@ -135,7 +136,14 @@ type StateCategoryBtn = {
   btn1: boolean
   btn2: boolean
 }
-
+type ActionPrice = {
+  type: 'price' | 'negotiation'
+  payload?: string
+}
+type StatePrice = {
+  price: boolean
+  negotiation: boolean
+}
 type Location = {
   key: string
   keyen: string
@@ -368,7 +376,42 @@ export const FormContextProvider = ({
       setProDetales('buy')
     }
   }, [btnstate])
+  // price negotiation
 
+  const priceReducer: React.Reducer<StatePrice, ActionPrice> = (
+    state,
+    action,
+  ) => {
+    switch (action.type) {
+      case 'price':
+        return { ...state, price: !state.price, payload: 'Negotiation' }
+      case 'negotiation':
+        return {
+          ...state,
+          negotiation: !state.negotiation,
+          payload: 'Negotiation',
+        }
+      default:
+        return state
+    }
+  }
+
+  const [pricestate, dispatchprice] = useReducer<
+    React.Reducer<StatePrice, ActionPrice>
+  >(priceReducer, {
+    price: true,
+    negotiation: false,
+  })
+  const [priceNegotiation, setPriceNegotiation] = useState<string>('')
+
+  useEffect(() => {
+    if (pricestate.price) {
+      setPriceNegotiation('fixed')
+    } else if (pricestate.negotiation) {
+      setPriceNegotiation('negotiation')
+    }
+  }, [pricestate])
+  ///
   // category check for specs card
   const [specCheck, setSpecCheck] = useState<boolean>(false)
   const [specs, setSpecs] = useState<string>('Pre built')
@@ -777,6 +820,7 @@ export const FormContextProvider = ({
         location,
         name,
         number,
+        priceNegotiation,
         aditionalObj,
       }
       return mainData
@@ -880,6 +924,8 @@ export const FormContextProvider = ({
         MbCheck,
         DISKCheck,
         PhoneCheck,
+        pricestate,
+        dispatchprice,
       }}
     >
       {children}
