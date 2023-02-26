@@ -18,6 +18,7 @@ function PC() {
   React.useEffect(() => {
     // val.category == 'Pre built' || val.category == 'Used Pc'
     setReversData(PCData?.reverse())
+    console.log(PCData)
   }, [PCData])
   if (location.pathname === '/desktop/used-pc') {
     return <Outlet />

@@ -29,15 +29,36 @@ type Cell = {
   FilterTracker: (keyge: string, keyen: string) => void
   gridLayOut: boolean
   setGridLayOut: React.Dispatch<React.SetStateAction<boolean>>
-  dropDownSideNav: boolean
-  setDropDownSideNav: React.Dispatch<React.SetStateAction<boolean>>
+
   PCsubCategory: boolean
   LaptopsubCategory: boolean
+  dropDownFilter: boolean
+  setdropDownFilter: React.Dispatch<React.SetStateAction<boolean>>
+  filterState: FilterState
+  filterDispatch: React.Dispatch<FilterAction>
 }
+
 type FilterVal = {
   keyge: string
   keyen: string
 }
+
+type FilterState = {
+  CPU?: string
+  RAM?: string
+  SSD?: string
+  ROM?: string
+  DDR?: string
+  GPU?: string
+  MB?: string
+  PSU?: string
+}
+
+type FilterAction = {
+  type: string
+  payload?: string
+}
+
 const ProductContext = createContext<Cell | null>(null)
 
 export const ProductContextProvider = ({
@@ -212,10 +233,11 @@ export const ProductContextProvider = ({
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [windowWidth])
-  // drop down menu side navigation
-  const [dropDownSideNav, setDropDownSideNav] = useState<boolean>(false)
 
-  // sub category filter
+  // responsive filter drop down state
+  const [dropDownFilter, setdropDownFilter] = useState<boolean>(false)
+
+  // sub category filter and spec filter for sub categorys
   // state for pcfilter sub category [new pc / used-pc pc]
   const [PCsubCategory, setPCsubCategory] = useState<boolean>(false)
   // state for pcfilter sub category [new laptop / used-laptop]
@@ -224,7 +246,6 @@ export const ProductContextProvider = ({
   // this useEffect and line 134 useEffect are connected
   useEffect(() => {
     //cancels drop down menu every time new category is clicked
-    setDropDownSideNav(false)
 
     // subcategory switcher logic will re trigger every time location is changed in router
 
@@ -233,6 +254,7 @@ export const ProductContextProvider = ({
       setLaptopsubCategory(false)
       setPCsubCategory(false)
     }
+    // pc category switcher
     if (location.pathname === '/desktop') {
       setPCsubCategory(true)
       setLaptopsubCategory(false)
@@ -252,7 +274,7 @@ export const ProductContextProvider = ({
         ),
       )
     }
-    // sub switcher logic for laptop
+    // sub switcher logic for laptop////////////////////////////////////
 
     if (location.pathname === '/laptop') {
       setLaptopsubCategory(true)
@@ -275,7 +297,59 @@ export const ProductContextProvider = ({
       )
     }
   }, [location])
+  // reducer function for sub category filter
 
+  const filterReducer = (
+    state: FilterState,
+    action: FilterAction,
+  ): FilterState => {
+    switch (action.type) {
+      case 'CPU':
+        return {
+          CPU: state.CPU = action.payload,
+        }
+      case 'RAM':
+        return { RAM: state.RAM = action.payload }
+      case 'SSD':
+        return { SSD: state.SSD = action.payload }
+      case 'ROM':
+        return { ROM: state.ROM = action.payload }
+      case 'DDR':
+        return { DDR: state.DDR = action.payload }
+      case 'GPU':
+        return { GPU: state.GPU = action.payload }
+      case 'MB':
+        return { MB: state.MB = action.payload }
+      case 'PSU':
+        return { PSU: state.PSU = action.payload }
+
+      default:
+        return state
+    }
+  }
+
+  const [filterState, filterDispatch] = useReducer<
+    Reducer<FilterState, FilterAction>
+  >(filterReducer, {
+    CPU: '',
+    RAM: '',
+    SSD: '',
+    ROM: '',
+    DDR: '',
+    GPU: '',
+    MB: '',
+    PSU: '',
+  })
+  useEffect(() => {
+    setPCData(
+      productData?.filter((val: any) => {
+        if (filterState.CPU?.includes(val.aditionalObj.chip)) {
+          return val
+        }
+      }),
+    )
+    console.log(PCData)
+  }, [filterState])
   return (
     <ProductContext.Provider
       value={{
@@ -292,10 +366,13 @@ export const ProductContextProvider = ({
         FilterTracker,
         gridLayOut,
         setGridLayOut,
-        dropDownSideNav,
-        setDropDownSideNav,
+
         PCsubCategory,
         LaptopsubCategory,
+        dropDownFilter,
+        setdropDownFilter,
+        filterState,
+        filterDispatch,
       }}
     >
       {children}

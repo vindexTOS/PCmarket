@@ -1,6 +1,20 @@
-import React, { useContext, createContext, useReducer, Reducer } from 'react'
+import React, {
+  useContext,
+  createContext,
+  useReducer,
+  Reducer,
+  useState,
+  useEffect,
+} from 'react'
+import { useLocation } from 'react-router-dom'
 
-type Cell = {}
+type Cell = {
+  dropDownSideNav: boolean
+  setDropDownSideNav: React.Dispatch<React.SetStateAction<boolean>>
+
+  MainFilterDropDown: boolean
+  setMainFilterDropDown: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 // type SubCategoryState = {
 //   desktop?: boolean
@@ -21,6 +35,7 @@ export const NavContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const location = useLocation()
   // sub category navigation reducer
   //   const subReducer = (
   //     state: SubCategoryState,
@@ -51,8 +66,40 @@ export const NavContextProvider = ({
   //     phones: false,
   //     electronics: false,
   //   })
+  // drop down menu side navigation
+  const [dropDownSideNav, setDropDownSideNav] = useState<boolean>(false)
+  useEffect(() => {
+    setDropDownSideNav(false)
+  }, [location])
+  const [MainFilterDropDown, setMainFilterDropDown] = useState<boolean>(true)
+  // rssizing of to make filter nav reapear after 900px
+  const [windoWith, setWindowWidth] = useState<any>({
+    width: window.innerWidth,
+  })
 
-  return <NavContext.Provider value={{}}>{children}</NavContext.Provider>
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth({ width: window.innerWidth })
+      if (windoWith.width < 770) {
+        setMainFilterDropDown(true)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [windoWith])
+  return (
+    <NavContext.Provider
+      value={{
+        dropDownSideNav,
+        setDropDownSideNav,
+        MainFilterDropDown,
+        setMainFilterDropDown,
+      }}
+    >
+      {children}
+    </NavContext.Provider>
+  )
 }
 
 export const UseNavContext = () => {
