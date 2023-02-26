@@ -227,8 +227,15 @@ export const ProductContextProvider = ({
     setDropDownSideNav(false)
 
     // subcategory switcher logic will re trigger every time location is changed in router
+
+    // turn off sub filter if we are outside of specifice categorys
+    if (location.pathname === '/') {
+      setLaptopsubCategory(false)
+      setPCsubCategory(false)
+    }
     if (location.pathname === '/desktop') {
       setPCsubCategory(true)
+      setLaptopsubCategory(false)
     }
     // sub category filter logic
     if (location.pathname === '/desktop/used-pc') {
@@ -249,16 +256,18 @@ export const ProductContextProvider = ({
 
     if (location.pathname === '/laptop') {
       setLaptopsubCategory(true)
+      setPCsubCategory(false)
     }
+
     // sub category filter logic
-    if (location.pathname === '/desktop/used-laptop') {
+    if (location.pathname === '/laptop/used-laptop') {
       //checking the specific sub category filter
       setPCData(
         productData?.filter(
           (val: { category: string }) => val.category == 'Used Laptop',
         ),
       )
-    } else if (location.pathname === '/desktop/new-laptop') {
+    } else if (location.pathname === '/laptop/new-laptop') {
       setPCData(
         productData?.filter(
           (val: { category: string }) => val.category == 'New Laptop',

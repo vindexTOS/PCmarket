@@ -3,11 +3,12 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
+
 function PCfilter() {
   const { lang } = UseFormContext()
   const { location } = UseProductContext()
   const style = {
-    mainDiv: `w-[220px] h-[50px] max_md:w-[180px] max_md:h-[40px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
+    mainDiv: ` w-[220px] max_sm:hidden h-[50px]   max_md:h-[40px]   rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
     linkDiv: `bg-white z-50 absolute border-[1px] w-[220px] h-[90px] rounded-[12px] boxShaddow flex flex-col px-2 mt-[10.6rem] `,
     link: `w-[100%] hover:bg-gray-300 p-[2px] px-2 cursor-pointer rounded-[12px] hover:text-blue-500 `,
