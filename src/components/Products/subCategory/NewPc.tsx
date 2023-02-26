@@ -2,10 +2,9 @@ import React from 'react'
 import ProductCard from '../ProductCard'
 import { UseProductContext } from '../../context/ProductContext'
 import { UseFormContext } from '../../context/FormContext'
-import { Outlet } from 'react-router-dom'
 import ProductCardRow from '../ProductCardRow'
-function PC() {
-  const { PCData, gridLayOut, location } = UseProductContext()
+function NewPc() {
+  const { LaptopData, gridLayOut } = UseProductContext()
   const style = {
     section: `    ${
       gridLayOut
@@ -17,16 +16,16 @@ function PC() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     // val.category == 'Pre built' || val.category == 'Used Pc'
-    setReversData(PCData?.reverse())
-  }, [PCData])
-  if (location.pathname === '/desktop/used-pc') {
-    return <Outlet />
-  }
+    setReversData(LaptopData?.reverse())
+  }, [LaptopData])
+
   return (
     <section className={style.section}>
+      {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
+
       {reverseData?.map((val: any) => {
         return (
-          <div className="w-[100vw] h-[100%]">
+          <div className="w-[100vw]   h-[100%]">
             {gridLayOut ? (
               <ProductCard key={val.id} val={val} />
             ) : (
@@ -39,4 +38,4 @@ function PC() {
   )
 }
 
-export default PC
+export default NewPc

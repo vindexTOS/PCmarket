@@ -15,7 +15,7 @@ function Slider() {
   const { img, data } = context
 
   const style = {
-    mainDiv: `flex flex-row items-center justify-center max_md2:hidden  z-30 w-[96%]  h-[600px] rounded-r-[15px] `,
+    mainDiv: `flex flex-row items-center justify-center max_md2:hidden  z-30 w-[96%]   h-[600px] rounded-r-[15px] `,
     img: `w-[100%] h-[600px] rounded-r-[15px] `,
     btnDiv: `absolute z-30 w-[60%] h-[50%] flex items-center justify-between   `,
   }

@@ -31,6 +31,8 @@ type Cell = {
   setGridLayOut: React.Dispatch<React.SetStateAction<boolean>>
   dropDownSideNav: boolean
   setDropDownSideNav: React.Dispatch<React.SetStateAction<boolean>>
+  PCsubCategory: boolean
+  LaptopsubCategory: boolean
 }
 type FilterVal = {
   keyge: string
@@ -129,19 +131,36 @@ export const ProductContextProvider = ({
   const [PhoneData, setPhoneData] = useState<unknown | any>()
   const [ElectronicsData, setElectronicsData] = useState<unknown | any>()
   // use effect for filtering data based on there values
+
+  // this useEffect and line 213 useEffect are connected
   useEffect(() => {
     //pre filtering data and sending them to there respective files
     setPCData(
-      productData?.filter(
-        (val: { category: string }) =>
-          val.category == 'Pre built' || val.category == 'Used Pc',
-      ),
+      productData?.filter((val: { category: string }) => {
+        // checking if we are on right route first
+        if (location.pathname === '/desktop/used-pc') {
+          // filtering sub categorys by using location
+          return val.category == 'Used Pc'
+        } else if (location.pathname === '/desktop/new-pc') {
+          return val.category == 'Pre built'
+        } else {
+          return val.category == 'Pre built' || val.category == 'Used Pc'
+        }
+      }),
     )
+
     setLaptopData(
-      productData?.filter(
-        (val: { category: string }) =>
-          val.category == 'New Laptop' || val.category == 'Used Laptop',
-      ),
+      productData?.filter((val: { category: string }) => {
+        // checking if we are on right route first
+        if (location.pathname === '/laptop/used-laptop') {
+          // filtering sub categorys by using location
+          return val.category == 'Used Laptop'
+        } else if (location.pathname === '/laptop/new-laptop') {
+          return val.category == 'New Laptop'
+        } else {
+          return val.category == 'New Laptop' || val.category == 'Used Laptop'
+        }
+      }),
     )
     setComponentsData(
       productData?.filter(
@@ -173,7 +192,7 @@ export const ProductContextProvider = ({
       ),
     )
     //pre filtering data and sending them to there respective files
-  }, [productData, filterVal]) //every time productData is fetched from firebase its going to filter and update each state for there specifice categorys
+  }, [productData, filterVal, location]) //every time productData is fetched from firebase its going to filter and update each state for there specifice categorys
   // filterVal re triggers useEffect every time we filter filterVal
 
   // product layout change
@@ -195,8 +214,57 @@ export const ProductContextProvider = ({
   }, [windowWidth])
   // drop down menu side navigation
   const [dropDownSideNav, setDropDownSideNav] = useState<boolean>(false)
+
+  // sub category filter
+  // state for pcfilter sub category [new pc / used-pc pc]
+  const [PCsubCategory, setPCsubCategory] = useState<boolean>(false)
+  // state for pcfilter sub category [new laptop / used-laptop]
+  const [LaptopsubCategory, setLaptopsubCategory] = useState<boolean>(false)
+  // use effect for routing subcategorys and cancaling dorp down window
+  // this useEffect and line 134 useEffect are connected
   useEffect(() => {
+    //cancels drop down menu every time new category is clicked
     setDropDownSideNav(false)
+
+    // subcategory switcher logic will re trigger every time location is changed in router
+    if (location.pathname === '/desktop') {
+      setPCsubCategory(true)
+    }
+    // sub category filter logic
+    if (location.pathname === '/desktop/used-pc') {
+      //checking the specific sub category filter
+      setPCData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'Used Pc',
+        ),
+      )
+    } else if (location.pathname === '/desktop/new-pc') {
+      setPCData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'Pre built',
+        ),
+      )
+    }
+    // sub switcher logic for laptop
+
+    if (location.pathname === '/laptop') {
+      setLaptopsubCategory(true)
+    }
+    // sub category filter logic
+    if (location.pathname === '/desktop/used-laptop') {
+      //checking the specific sub category filter
+      setPCData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'Used Laptop',
+        ),
+      )
+    } else if (location.pathname === '/desktop/new-laptop') {
+      setPCData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'New Laptop',
+        ),
+      )
+    }
   }, [location])
 
   return (
@@ -217,6 +285,8 @@ export const ProductContextProvider = ({
         setGridLayOut,
         dropDownSideNav,
         setDropDownSideNav,
+        PCsubCategory,
+        LaptopsubCategory,
       }}
     >
       {children}

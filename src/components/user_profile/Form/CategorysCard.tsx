@@ -97,9 +97,9 @@ export default CategorysCard
  
 categorys{
     desktop:[Pre built,Used PC, Build your own ],
-    laptop:[New Laptop, used laptops],
+    laptop:[New Laptop, used-pc laptops],
     componnets:[CPU,GPU,RAM,HDD/SSD,MotherBoards,PSU,Case,others],
-    phones:[new , used ],
+    phones:[new , used-pc ],
     electronics:[keyboard/mouse,audio,others]
 }
 */

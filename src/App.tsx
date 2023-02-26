@@ -19,6 +19,13 @@ import LAPTOP from './components/Products/productCategory/LAPTOP'
 import COMPONENTS from './components/Products/productCategory/COMPONENTS'
 import PHONE from './components/Products/productCategory/PHONE'
 import ELECTRONICS from './components/Products/productCategory/ELECTRONICS'
+// sub categorys
+// sub category for PC
+import UsedPc from './components/Products/subCategory/UsedPc'
+import NewPc from './components/Products/subCategory/NewPc'
+// sub category for lap top
+import NewLaptop from './components/Products/subCategory/NewLaptop'
+import UsedLaptop from './components/Products/subCategory/UsedLaptop'
 function App() {
   return (
     <BrowserRouter>
@@ -27,15 +34,29 @@ function App() {
           <NavContextProvider>
             <NavBar />
             <Routes>
+              {/* main page */}
               <Route path="/" element={<Main />}>
                 <Route path="" element={<MainProductPage />} />
-                <Route path="/desktop" element={<PC />} />
-                <Route path="/laptop" element={<LAPTOP />} />
+                {/* pc category and sub categorys */}
+                <Route path="/desktop" element={<PC />}>
+                  <Route path="used-pc" element={<UsedPc />} />
+                  <Route path="new-pc" element={<NewPc />} />
+                </Route>
+                {/* laptop category and sub categorys */}
+                <Route path="/laptop" element={<LAPTOP />}>
+                  <Route path="used-laptop" element={<UsedLaptop />} />
+                  <Route path="new-laptop" element={<NewLaptop />} />
+                </Route>
+                {/* compnent category and sub categorys */}
                 <Route path="/components" element={<COMPONENTS />} />
+                {/* phone category and sub categorys */}
                 <Route path="/phone" element={<PHONE />} />
+                {/* electronic category and sub categorys */}
                 <Route path="/electronics" element={<ELECTRONICS />} />
               </Route>
+              {/* single product */}
               <Route path="/:productId" element={<SingleProduct />} />
+              {/* adding product and user info  */}
               <Route
                 path="/myproduct"
                 element={
@@ -44,7 +65,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-
+              {/* registration and sign in forms */}
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/user_info" element={<UserInfo />} />

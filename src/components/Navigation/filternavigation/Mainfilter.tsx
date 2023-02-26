@@ -8,6 +8,8 @@ import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
 import { FaBars } from 'react-icons/fa'
 import DropdownSideNav from '../sidenavigation/DropdownSideNav'
+import PCfilter from './PCfilter'
+import Laptopfilter from './Laptopfilter'
 function Mainfilter() {
   const { lang } = UseFormContext()
   const {
@@ -19,6 +21,8 @@ function Mainfilter() {
     setGridLayOut,
     dropDownSideNav,
     setDropDownSideNav,
+    PCsubCategory,
+    LaptopsubCategory,
   } = UseProductContext()
   const style = {
     mainDiv: `w-[95%]  h-[100px] max_md:w-[100%] max_md:ml-5 bg-gray-100 rounded-[12px] flex items-center  mdxl:justify-end   justify-between   filtershaddow  gap-5 max_sm:gap-[3rem]`,
@@ -48,14 +52,16 @@ function Mainfilter() {
         onClick={() => setDropDownSideNav(!dropDownSideNav)}
         className={style.dropDownNavigationBars}
       />
+
       {dropDownSideNav && <DropdownSideNav />}
+      {LaptopsubCategory && <Laptopfilter />}
+      {PCsubCategory && <PCfilter />}
       <div className={style.dropdownAndBtnWrapper}>
         <div>
           <div
             onClick={() => setFilterDropDown(!filterDropDown)}
             className={style.dropdown}
           >
-            {' '}
             <div className="w-[100%] flex items-center justify-center">
               {lang ? filterVal.keyen : filterVal.keyge}
             </div>
