@@ -13,6 +13,7 @@ import React, {
 import { UseFormContext } from './FormContext'
 import { db } from '../firebase/firebaseconfig'
 import { useLocation, Location } from 'react-router-dom'
+import { type } from 'os'
 
 type Cell = {
   productData: unknown | any
@@ -310,23 +311,21 @@ export const ProductContextProvider = ({
   ): FilterState => {
     switch (action.type) {
       case 'CPU':
-        return {
-          CPU: state.CPU = action.payload,
-        }
+        return { ...state, CPU: state.CPU = action.payload }
       case 'RAM':
-        return { RAM: state.RAM = action.payload }
+        return { ...state, RAM: state.RAM = action.payload }
       case 'SSD':
-        return { SSD: state.SSD = action.payload }
+        return { ...state, SSD: state.SSD = action.payload }
       case 'ROM':
-        return { ROM: state.ROM = action.payload }
+        return { ...state, ROM: state.ROM = action.payload }
       case 'DDR':
-        return { DDR: state.DDR = action.payload }
+        return { ...state, DDR: state.DDR = action.payload }
       case 'GPU':
-        return { GPU: state.GPU = action.payload }
+        return { ...state, GPU: state.GPU = action.payload }
       case 'MB':
-        return { MB: state.MB = action.payload }
+        return { ...state, MB: state.MB = action.payload }
       case 'PSU':
-        return { PSU: state.PSU = action.payload }
+        return { ...state, PSU: state.PSU = action.payload }
 
       default:
         return state
@@ -345,20 +344,47 @@ export const ProductContextProvider = ({
     MB: '',
     PSU: '',
   })
+
+  type PCFilterType = {
+    aditionalObj: any
+    category: string
+  }
+
   useEffect(() => {
-    let newVal = productData?.filter(
-      (val: { aditionalObj: { chip: string }; category: string }) => {
-        if (val.category == 'Pre built' || val.category == 'Used Pc') {
+    let newVal = productData?.filter((val: PCFilterType) => {
+      switch (val.category) {
+        case 'Pre built':
+        case 'Used Pc':
+          if (val.aditionalObj.harddriveGB !== undefined) {
+            if (val.aditionalObj.harddriveGB.includes(filterState?.ROM ?? '')) {
+              return val
+            }
+          }
+
+          if (val.aditionalObj.ramGb !== undefined) {
+            if (val.aditionalObj.ramGb == filterState?.RAM) {
+              return val
+            }
+          }
+
           if (val.aditionalObj.chip !== undefined) {
             if (val.aditionalObj.chip.includes(filterState?.CPU ?? '')) {
               return val
             }
           }
-        }
-      },
-    )
+          if (val.aditionalObj.harddrive !== undefined) {
+            if (val.aditionalObj.harddrive.includes(filterState?.SSD ?? '')) {
+              return val
+            }
+          }
+
+          break
+        default:
+          break
+      }
+    })
     setPCData(newVal)
-    console.log(newVal)
+    console.log(filterState?.SSD)
   }, [filterState])
 
   const RouteProductPage = [

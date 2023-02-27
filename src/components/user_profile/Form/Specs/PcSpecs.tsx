@@ -339,7 +339,7 @@ function PcSpecs() {
             </p>
             <select {...register('harddrive')}>
               <option>HDD</option>
-              <option>SDD</option>
+              <option>SSD</option>
             </select>{' '}
           </div>
           <div className="flex items-center justify-center flex-col  ">

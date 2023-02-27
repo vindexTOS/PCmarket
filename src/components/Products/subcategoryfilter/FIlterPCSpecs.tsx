@@ -17,11 +17,12 @@ type SubStringType = {
   type: string
   en: string
   ge: string
+  values: string
 }
 
 function FilterPCSpecs() {
   const { lang } = UseFormContext()
-  const { filterDispatch } = UseProductContext()
+  const { filterDispatch, filterState } = UseProductContext()
   const style = {
     mainDiv: `w-[450px] h-[50px]  max_sm:w-[220px]   max_sm:h-[40px]  max_lg:w-[200px]    max_md:w-[180px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
@@ -34,18 +35,28 @@ function FilterPCSpecs() {
   const cpuTypes = ['i3', 'i5', 'i7', 'i9', 'Ryzen', 'FX', 'Phenom', 'Athlon']
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)
 
-  const SubString: FC<SubStringType> = ({ arr, type, en, ge }): JSX.Element => {
+  const SubString: FC<SubStringType> = ({
+    arr,
+    type,
+    en,
+    ge,
+    values,
+  }): JSX.Element => {
     return (
       <div className={style.ramdiv}>
         <p>{lang ? en : ge}</p>
+
         <select
+          value={values}
           onChange={(e) =>
             filterDispatch({ type: type, payload: e.target.value })
           }
           className="rounded-[12px] cursor-pointer"
         >
           {arr.map((val) => (
-            <option>{val}</option>
+            <option key={val} value={val}>
+              {val}
+            </option>
           ))}
         </select>
       </div>
@@ -53,14 +64,62 @@ function FilterPCSpecs() {
   }
 
   const SubStringArray = [
-    { arr: cpuTypes, type: 'CPU', en: 'CPU type', ge: 'პროცესორის ტიპი' },
-    { arr: ramGBArray, type: 'RAM', en: 'RAM', ge: 'ოპერატიული' },
-    { arr: ['SSD', 'HDD'], type: 'SSD', en: 'ROM', ge: 'მყარი დისკი' },
-    { arr: ssdCapacities, type: 'ROM', en: 'Size', ge: 'დისკის ზომა' },
-    { arr: ramDDRArray, type: 'DDR', en: 'DDR', ge: 'დდრ' },
-    { arr: AllPCGPU, type: 'GPU', en: 'GPU', ge: 'ვიდოე ბარათი' },
-    { arr: motherboardSockets, type: 'MB', en: 'SOCKET', ge: 'დაფის სოკეტი' },
-    { arr: powerSupplyWatts, type: 'PSU', en: 'PSU', ge: 'კვების ბლოკი' },
+    {
+      arr: cpuTypes,
+      type: 'CPU',
+      en: 'CPU type',
+      ge: 'პროცესორის ტიპი',
+      values: filterState.CPU,
+    },
+    {
+      arr: ramGBArray,
+      type: 'RAM',
+      en: 'RAM',
+      ge: 'ოპერატიული',
+      values: filterState.RAM,
+    },
+    {
+      arr: ['SSD', 'HDD'],
+      type: 'SSD',
+      en: 'ROM',
+      ge: 'მყარი დისკი',
+      values: filterState.SSD,
+    },
+    {
+      arr: ssdCapacities,
+      type: 'ROM',
+      en: 'Size',
+      ge: 'დისკის ზომა',
+      values: filterState.ROM,
+    },
+    {
+      arr: ramDDRArray,
+      type: 'DDR',
+      en: 'DDR',
+      ge: 'დდრ',
+      values: filterState.DDR,
+    },
+    {
+      arr: AllPCGPU,
+      type: 'GPU',
+      en: 'GPU',
+      ge: 'ვიდოე ბარათი',
+      values: filterState.GPU,
+    },
+    {
+      arr: motherboardSockets,
+      type: 'MB',
+      en: 'SOCKET',
+      ge: 'დაფის სოკეტი',
+      values: filterState.MB,
+    },
+    {
+      arr: powerSupplyWatts,
+      type: 'PSU',
+      en: 'PSU',
+      ge: 'კვების ბლოკი',
+      values: filterState.PSU,
+    },
   ]
   return (
     <div>
@@ -79,15 +138,24 @@ function FilterPCSpecs() {
           )}
         </div>
       </div>
+
       {subCategoryDropDown && (
         <div className={style.linkDiv}>
           {SubStringArray.map((val) => {
-            const { arr, type, en, ge } = val
-            return <SubString arr={arr} type={type} en={en} ge={ge} />
+            const { arr, type, en, ge, values } = val
+            return (
+              <SubString
+                arr={arr}
+                type={type}
+                en={en}
+                ge={ge}
+                values={values ?? ''}
+              />
+            )
           })}
         </div>
       )}
     </div>
   )
 }
-export default FilterPCSpecs
+export default React.memo(FilterPCSpecs)

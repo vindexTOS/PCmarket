@@ -509,14 +509,14 @@ export const ramMHZArray = [
 export const ramDDRArray = ['DDR2', 'DDR3', 'DDR4', 'DDR5', 'DDR6']
 
 export const ramGBArray = [
-  '2 GB',
-  '4 GB',
-  '8 GB',
-  '16 GB',
-  '32 GB',
-  '64 GB',
-  '128 GB',
-  '256 GB',
+  '2GB',
+  '4GB',
+  '8GB',
+  '16GB',
+  '32GB',
+  '64GB',
+  '128GB',
+  '256GB',
 ]
 
 export const phoneCompanies = [
