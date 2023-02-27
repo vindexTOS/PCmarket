@@ -10,7 +10,7 @@ import { FaBars } from 'react-icons/fa'
 import DropdownSideNav from '../sidenavigation/DropdownSideNav'
 import PCfilter from './PCfilter'
 import Laptopfilter from './Laptopfilter'
-import FilterPCSpecs from '../../Products/subCategory/subcategoryfilter/FIlterPCSpecs'
+import FilterPCSpecs from '../../../components/Products/subcategoryfilter/FIlterPCSpecs'
 import { UseNavContext } from '../../context/NavContext'
 
 function Mainfilter() {
@@ -54,9 +54,7 @@ function Mainfilter() {
     dropDownNavigationBars: `text-[1.9em] mx-2 text-yellow-500 mdxl:hidden cursor-pointer max_sm:mr-[18rem]`,
     dropDownFilter: `text-[2.8rem] text-yellow-500`,
   }
-  useEffect(() => {
-    console.log(gridLayOut)
-  }, [gridLayOut])
+
   return (
     <div className={style.mainDiv}>
       {/* <FaBars
@@ -65,7 +63,7 @@ function Mainfilter() {
       /> */}
 
       {/* {dropDownSideNav && <DropdownSideNav />} */}
-      <h1 onClick={() => console.log(filterState.RAM)}>log</h1>
+      {/* <h1 onClick={() => console.log(filterState.RAM)}>log</h1> */}
       {LaptopsubCategory && <Laptopfilter />}
       {/* pc filters` */}
       {PCsubCategory && <FilterPCSpecs />}

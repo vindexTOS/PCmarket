@@ -36,6 +36,10 @@ type Cell = {
   setdropDownFilter: React.Dispatch<React.SetStateAction<boolean>>
   filterState: FilterState
   filterDispatch: React.Dispatch<FilterAction>
+  RouteProductPage: (
+    | { path: string; subPath1: string; subPath2: string; data: [] }
+    | { path: string; data: []; subPath1?: undefined; subPath2?: undefined }
+  )[]
 }
 
 type FilterVal = {
@@ -52,6 +56,7 @@ type FilterState = {
   GPU?: string
   MB?: string
   PSU?: string
+  // setPCData?: (productData: any[]) => void
 }
 
 type FilterAction = {
@@ -341,15 +346,34 @@ export const ProductContextProvider = ({
     PSU: '',
   })
   useEffect(() => {
-    setPCData(
-      productData?.filter((val: any) => {
-        if (filterState.CPU?.includes(val.aditionalObj.chip)) {
-          return val
+    let newVal = productData?.filter(
+      (val: { aditionalObj: { chip: string }; category: string }) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
+          if (val.aditionalObj.chip !== undefined) {
+            if (val.aditionalObj.chip.includes(filterState?.CPU ?? '')) {
+              return val
+            }
+          }
         }
-      }),
+      },
     )
-    console.log(PCData)
+    setPCData(newVal)
+    console.log(newVal)
   }, [filterState])
+
+  const RouteProductPage = [
+    { path: '/desktop', subPath1: 'used-pc', subPath2: 'new-pc', data: PCData },
+    {
+      path: '/laptop',
+      subPath1: 'used-laptop',
+      subPath2: 'new-laptop',
+      data: LaptopData,
+    },
+    { path: '/components', data: ComponentsData },
+    { path: '/phone', data: PhoneData },
+    { path: '/electronics', data: ElectronicsData },
+  ]
+
   return (
     <ProductContext.Provider
       value={{
@@ -373,6 +397,7 @@ export const ProductContextProvider = ({
         setdropDownFilter,
         filterState,
         filterDispatch,
+        RouteProductPage,
       }}
     >
       {children}

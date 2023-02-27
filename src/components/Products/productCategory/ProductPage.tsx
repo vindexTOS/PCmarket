@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 import ProductCard from '../ProductCard'
 import { UseProductContext } from '../../context/ProductContext'
 import { UseFormContext } from '../../context/FormContext'
 import ProductCardRow from '../ProductCardRow'
-function ELECTRONICS() {
-  const { ElectronicsData, gridLayOut } = UseProductContext()
+
+type ProductPageProps = {
+  data: []
+}
+
+const ProductPage: FC<ProductPageProps> = ({ data }): JSX.Element => {
+  const { gridLayOut } = UseProductContext()
   const style = {
     section: `    ${
       gridLayOut
@@ -16,8 +21,8 @@ function ELECTRONICS() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     // val.category == 'Pre built' || val.category == 'Used Pc'
-    setReversData(ElectronicsData?.reverse())
-  }, [ElectronicsData])
+    setReversData(data?.reverse())
+  }, [data])
 
   return (
     <section className={style.section}>
@@ -38,4 +43,4 @@ function ELECTRONICS() {
   )
 }
 
-export default ELECTRONICS
+export default ProductPage
