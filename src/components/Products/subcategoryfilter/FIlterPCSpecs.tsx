@@ -23,7 +23,7 @@ type SubStringType = {
 
 function FilterPCSpecs() {
   const { lang } = UseFormContext()
-  const { filterDispatch, filterState, gridLayOut } = UseProductContext()
+  const { filterDispatch, filterState, stack, setStack } = UseProductContext()
 
   const SubStringArray = [
     {
@@ -106,7 +106,6 @@ function FilterPCSpecs() {
 
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)
   const [checkedValues, setCheckedValues] = useState<string[]>([])
-
   const SubString: FC<SubStringType> = ({
     arr,
     type,
@@ -121,11 +120,13 @@ function FilterPCSpecs() {
       if (e.target.checked) {
         filterDispatch({ type: type, payload: value })
         setCheckedValues([...checkedValues, value])
+        setStack([...stack, value])
       } else {
         setCheckedValues(checkedValues.filter((item) => item !== value))
+        setStack(stack.filter((item) => item !== value))
         filterDispatch({ type: typeunCheck })
-        console.log(filterState.CPU)
       }
+      console.log(stack)
     } //
     return (
       <div
