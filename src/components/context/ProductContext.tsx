@@ -312,20 +312,43 @@ export const ProductContextProvider = ({
     switch (action.type) {
       case 'CPU':
         return { ...state, CPU: state.CPU = action.payload }
+      case 'CPUUNCHECK':
+        return { ...state, CPU: state.CPU = 'C' }
+
       case 'RAM':
         return { ...state, RAM: state.RAM = action.payload }
+      case 'RAMUNCHECK':
+        return { ...state, CPU: state.RAM = '' }
+
       case 'SSD':
         return { ...state, SSD: state.SSD = action.payload }
+      case 'SSDUNCHECK':
+        return { ...state, SSD: state.SSD = '' }
+
       case 'ROM':
         return { ...state, ROM: state.ROM = action.payload }
+      case 'ROMUNCHECK':
+        return { ...state, ROM: state.ROM = '' }
+
       case 'DDR':
         return { ...state, DDR: state.DDR = action.payload }
+      case 'DDRUNCHECK':
+        return { ...state, DDR: state.DDR = '' }
+
       case 'GPU':
         return { ...state, GPU: state.GPU = action.payload }
+      case 'GPUUNCHECK':
+        return { ...state, GPU: state.GPU = '' }
+
       case 'MB':
         return { ...state, MB: state.MB = action.payload }
+      case 'MBUNCHECK':
+        return { ...state, MB: state.MB = '' }
+
       case 'PSU':
         return { ...state, PSU: state.PSU = action.payload }
+      case 'PSUCHECK':
+        return { ...state, PSU: state.PSU = '' }
 
       default:
         return state
@@ -375,14 +398,17 @@ export const ProductContextProvider = ({
     }
 
     if (filterState?.CPU) {
-      filteredData = filteredData.filter((val: PCFilterType) => {
-        if (val.category == 'Pre built' || val.category == 'Used Pc') {
-          if (val.aditionalObj.chip !== undefined) {
-            return val.aditionalObj.chip.includes(filterState.CPU)
+      setPCData(
+        productData.filter((val: PCFilterType) => {
+          if (val.category == 'Pre built' || val.category == 'Used Pc') {
+            if (val.aditionalObj.chip !== '') {
+              return val.aditionalObj.chip.includes(filterState.CPU)
+            } else if (val.aditionalObj.chip == 'C') {
+              return val
+            }
           }
-        }
-        return false
-      })
+        }),
+      )
     }
 
     if (filterState?.SSD) {
@@ -406,8 +432,6 @@ export const ProductContextProvider = ({
         return false
       })
     }
-
-    setPCData(filteredData)
   }, [filterState, productData, filterVal])
 
   const RouteProductPage = [

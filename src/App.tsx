@@ -29,23 +29,33 @@ function App() {
         <Route path="/" element={<Main />}>
           <Route path="" element={<MainProductPage />} />
           {/* pc category and sub categorys */}
-          {RouteProductPage.map((routes) => {
+          {RouteProductPage.map((routes, index) => {
             const { path, subPath1, subPath2, data } = routes
             if (subPath1 && subPath2) {
               return (
-                <Route path={path} element={<ProductPage data={data} />}>
+                <Route
+                  key={path + index}
+                  path={path}
+                  element={<ProductPage key={path + index} data={data} />}
+                >
                   <Route
                     path={subPath1}
-                    element={<ProductPage data={data} />}
+                    element={<ProductPage key={path + index} data={data} />}
                   />
                   <Route
                     path={subPath2}
-                    element={<ProductPage data={data} />}
+                    element={<ProductPage key={path + index} data={data} />}
                   />
                 </Route>
               )
             } else {
-              return <Route path={path} element={<ProductPage data={data} />} />
+              return (
+                <Route
+                  key={path + index}
+                  path={path}
+                  element={<ProductPage key={path + index} data={data} />}
+                />
+              )
             }
           })}
         </Route>
