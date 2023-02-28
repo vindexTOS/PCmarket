@@ -377,24 +377,26 @@ export const ProductContextProvider = ({
   }
 
   const [stack, setStack] = useState<string[]>([])
-
+  const [filterDataPC, setfilterdDataPc] = useState<any>([])
   useEffect(() => {
     let filteredData = productData
 
-    console.log(
-      productData?.filter((val: any) => {
-        stack?.filter((item: string) => {
-          console.log(item)
-        })
-        console.log(val.category)
-      }),
-    )
+    filteredData?.filter((val: PCFilterType) => {
+      if (val.category == 'Pre built' || val.category == 'Used Pc') {
+        if (val.aditionalObj.chip.includes(stack.join(' '))) {
+          setfilterdDataPc([...filterDataPC, val])
+        }
+      }
+    })
+    if (stack) {
+      setPCData(filterDataPC)
+    }
 
     // setPCData(
     //   productData?.filter((val: PCFilterType) => {
     //     if (val.category == 'Pre built' || val.category == 'Used Pc') {
     //       if (stack !== null) {
-    //         stack?.filter((str) => {
+    //         stack?.map((str) => {
     //           if (val.aditionalObj.chip.includes(str)) {
     //             return val
     //           }
@@ -459,7 +461,7 @@ export const ProductContextProvider = ({
     //     return false
     //   })
     // }
-  }, [filterState, productData, filterVal, stack])
+  }, [stack])
 
   const RouteProductPage = [
     { path: '/desktop', subPath1: 'used-pc', subPath2: 'new-pc', data: PCData },
