@@ -101,6 +101,7 @@ function PcSpecs() {
       CPUinputBool: false,
     },
   )
+
   return (
     <div className={style.mainDiv}>
       {/* <h1 onClick={() => console.log(specState.CPUmodel)}>ON CLICK </h1> */}

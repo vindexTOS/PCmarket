@@ -351,41 +351,64 @@ export const ProductContextProvider = ({
   }
 
   useEffect(() => {
-    let newVal = productData?.filter((val: PCFilterType) => {
-      switch (val.category) {
-        case 'Pre built':
-        case 'Used Pc':
-          if (val.aditionalObj.harddriveGB !== undefined) {
-            if (val.aditionalObj.harddriveGB.includes(filterState?.ROM ?? '')) {
-              return val
-            }
-          }
+    let filteredData = productData
 
+    if (filterState?.ROM) {
+      filteredData = filteredData.filter((val: PCFilterType) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
+          if (val.aditionalObj.harddriveGB !== undefined)
+            return val.aditionalObj.harddriveGB.includes(filterState.ROM)
+        }
+        return false
+      })
+    }
+
+    if (filterState?.RAM) {
+      filteredData = filteredData.filter((val: PCFilterType) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
           if (val.aditionalObj.ramGb !== undefined) {
-            if (val.aditionalObj.ramGb == filterState?.RAM) {
-              return val
-            }
+            return val.aditionalObj.ramGb == filterState.RAM
           }
+        }
+        return false
+      })
+    }
 
+    if (filterState?.CPU) {
+      filteredData = filteredData.filter((val: PCFilterType) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
           if (val.aditionalObj.chip !== undefined) {
-            if (val.aditionalObj.chip.includes(filterState?.CPU ?? '')) {
-              return val
-            }
+            return val.aditionalObj.chip.includes(filterState.CPU)
           }
-          if (val.aditionalObj.harddrive !== undefined) {
-            if (val.aditionalObj.harddrive.includes(filterState?.SSD ?? '')) {
-              return val
-            }
-          }
+        }
+        return false
+      })
+    }
 
-          break
-        default:
-          break
-      }
-    })
-    setPCData(newVal)
-    console.log(filterState?.SSD)
-  }, [filterState])
+    if (filterState?.SSD) {
+      filteredData = filteredData.filter((val: PCFilterType) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
+          if (val.aditionalObj.harddrive !== undefined) {
+            return val.aditionalObj.harddrive.includes(filterState.SSD)
+          }
+        }
+        return false
+      })
+    }
+
+    if (filterState?.DDR) {
+      filteredData = filteredData.filter((val: PCFilterType) => {
+        if (val.category == 'Pre built' || val.category == 'Used Pc') {
+          if (val.aditionalObj.ddr !== undefined) {
+            return val.aditionalObj.ddr.includes(filterState.DDR)
+          }
+        }
+        return false
+      })
+    }
+
+    setPCData(filteredData)
+  }, [filterState, productData, filterVal])
 
   const RouteProductPage = [
     { path: '/desktop', subPath1: 'used-pc', subPath2: 'new-pc', data: PCData },

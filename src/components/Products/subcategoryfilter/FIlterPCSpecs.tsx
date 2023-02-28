@@ -34,6 +34,7 @@ function FilterPCSpecs() {
   }
   const cpuTypes = ['i3', 'i5', 'i7', 'i9', 'Ryzen', 'FX', 'Phenom', 'Athlon']
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)
+  const [checkedValues, setCheckedValues] = useState<string[]>([])
 
   const SubString: FC<SubStringType> = ({
     arr,
@@ -42,23 +43,33 @@ function FilterPCSpecs() {
     ge,
     values,
   }): JSX.Element => {
+    const [isChecked, setIsChecked] = useState<boolean>(false)
+
+    const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let value = e.target.value
+
+      if (e.target.value) {
+        filterDispatch({ type: type, payload: value })
+        setCheckedValues([...checkedValues, value])
+      } else {
+        setCheckedValues(checkedValues.filter((item) => item !== value))
+      }
+    }
     return (
-      <div className={style.ramdiv}>
+      <div>
         <p>{lang ? en : ge}</p>
 
-        <select
-          value={values}
-          onChange={(e) =>
-            filterDispatch({ type: type, payload: e.target.value })
-          }
-          className="rounded-[12px] cursor-pointer"
-        >
-          {arr.map((val) => (
-            <option key={val} value={val}>
-              {val}
-            </option>
-          ))}
-        </select>
+        {arr.map((val) => (
+          <label key={val}>
+            {val}
+            <input
+              value={val}
+              checked={checkedValues.includes(val)}
+              onChange={handleCheckBox}
+              type="checkbox"
+            />
+          </label>
+        ))}
       </div>
     )
   }
@@ -81,7 +92,7 @@ function FilterPCSpecs() {
     {
       arr: ['SSD', 'HDD'],
       type: 'SSD',
-      en: 'ROM',
+      en: 'Disk type',
       ge: 'მყარი დისკი',
       values: filterState.SSD,
     },
