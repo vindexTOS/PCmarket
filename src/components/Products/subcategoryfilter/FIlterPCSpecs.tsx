@@ -54,7 +54,7 @@ function FilterPCSpecs() {
       } else {
         setCheckedValues(checkedValues.filter((item) => item !== value))
       }
-    }
+    } //
     return (
       <div>
         <p>{lang ? en : ge}</p>
