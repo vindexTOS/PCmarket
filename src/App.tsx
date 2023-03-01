@@ -19,6 +19,9 @@ import MainProductPage from './components/Products/MainProductPage'
 import SingleProduct from './components/Products/SingleProduct'
 
 import ProductPage from './components/Products/productCategory/ProductPage'
+
+type RoutesProps = {}
+
 function App() {
   const { RouteProductPage } = UseProductContext()
   return (
@@ -30,8 +33,69 @@ function App() {
           <Route path="" element={<MainProductPage />} />
           {/* pc category and sub categorys */}
           {RouteProductPage.map((routes, index) => {
-            const { path, subPath1, subPath2, data } = routes
-            if (subPath1 && subPath2) {
+            const {
+              path,
+              subPath1,
+              subPath2,
+              subPath3,
+              subPath4,
+              subPath5,
+              subPath6,
+              subPath7,
+              subPath8,
+              data,
+            } = routes
+            if (
+              subPath1 &&
+              subPath2 &&
+              subPath3 &&
+              subPath4 &&
+              subPath5 &&
+              subPath6 &&
+              subPath7 &&
+              subPath8
+            ) {
+              return (
+                <Route
+                  key={path + index}
+                  path={path}
+                  element={<ProductPage key={path + index} data={data} />}
+                >
+                  <Route
+                    path={subPath1}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath2}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath3}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath4}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath5}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath6}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath7}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                  <Route
+                    path={subPath8}
+                    element={<ProductPage key={path + index} data={data} />}
+                  />
+                </Route>
+              )
+            } else if (subPath1 && subPath2) {
               return (
                 <Route
                   key={path + index}

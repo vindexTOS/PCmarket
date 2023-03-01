@@ -3,14 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { UseFormContext } from '../../../components/context/FormContext'
 import { UseProductContext } from '../../../components/context/ProductContext'
-import {
-  ramGBArray,
-  ssdCapacities,
-  ramDDRArray,
-  powerSupplyWatts,
-  AllPCGPU,
-  motherboardSockets,
-} from '../../../components/context/ContextUtils'
+import { CPUGHZ, GPUMHZ } from '../../../components/context/ContextUtils'
 
 type SubStringType = {
   arr: string[]
@@ -25,26 +18,32 @@ type PCFilterType = {
 
 function FilterPCSpecs() {
   const { lang } = UseFormContext()
-  const { setPCData, productData } = UseProductContext()
+  const {
+    setComponentsData,
+    productData,
+    location,
+    setComponentssubCategory,
+    setComponentsCategory,
+  } = UseProductContext()
 
-  const SubStringArray = [
+  const SubStringArrayCPU = [
     {
-      arr: AllPCGPU,
+      arr: ['2', '4', '6', '8', '10', '12', '14', '16'],
 
-      en: 'GPU',
-      ge: 'ვიდოე ბარათი',
+      en: 'CORES',
+      ge: 'ბირთვები',
     },
     {
-      arr: motherboardSockets,
+      arr: CPUGHZ,
 
-      en: 'SOCKET',
-      ge: 'დაფის სოკეტი',
+      en: 'GHZ',
+      ge: 'ჰერცები',
     },
     {
-      arr: powerSupplyWatts,
+      arr: ['AMD', 'Intel'],
 
-      en: 'PSU',
-      ge: 'კვების ბლოკი',
+      en: 'Model',
+      ge: 'მწარმოებელი',
     },
     {
       arr: ['i3', 'i5', 'i7', 'i9', 'Ryzen', 'FX', 'Phenom', 'Athlon'],
@@ -53,29 +52,43 @@ function FilterPCSpecs() {
       ge: 'პროცესორის ტიპი',
     },
     {
-      arr: ramGBArray,
+      arr: ['PC', 'Laptop'],
 
-      en: 'RAM',
-      ge: 'ოპერატიული',
+      en: 'System',
+      ge: 'სისტემა',
+    },
+  ]
+
+  const SubStringArrayGPU = [
+    {
+      arr: ['2Gb', '4Gb', '6Gb', '8Gb', '12Gb', '16Gb'],
+
+      en: 'GPU RAM',
+      ge: 'ოპერატიული ',
     },
     {
-      arr: ramDDRArray,
+      arr: GPUMHZ,
 
-      en: 'DDR',
-      ge: 'დდრ',
-    },
-
-    {
-      arr: ssdCapacities,
-
-      en: 'Size',
-      ge: 'დისკის ზომა',
+      en: 'MHZ',
+      ge: 'ჰერცები',
     },
     {
-      arr: ['SSD', 'HDD'],
+      arr: ['AMD', 'Nvidia'],
 
-      en: 'Disk type',
-      ge: 'მყარი დისკი',
+      en: 'Model',
+      ge: 'მწარმოებელი',
+    },
+    {
+      arr: ['GTX', 'RTX', 'Radeon'],
+
+      en: 'GPU type',
+      ge: 'მოდელი',
+    },
+    {
+      arr: ['PC', 'Laptop'],
+
+      en: 'System',
+      ge: 'სისტემა',
     },
   ]
   const style = {
@@ -88,40 +101,67 @@ function FilterPCSpecs() {
     ddr: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
   }
 
+  // state to store sub category data
+  const [subData, setSubData] = useState(SubStringArrayCPU)
+
+  // use effect to change fillter values based on different sub categorys
+
+  useEffect(() => {
+    if (location.pathname === '/components/cpu') {
+      setComponentsCategory(true)
+      setSubData(SubStringArrayCPU)
+    } else if (location.pathname === '/components/gpu') {
+      setComponentsCategory(true)
+      setSubData(SubStringArrayGPU)
+    } else {
+      //   setComponentsCategory(false)
+    }
+  }, [location])
+
   // const [unCheckData, setUnCheckData] = useState<[]>([])
   // filter for PC specs
   //stack saves values from checkbox input as an array
   const [stack, setStack] = useState<string[]>([])
   // filterDataPC saves filtered value based on stack
-  const [filterDataPC, setfilterdDataPc] = useState<any>([])
+  const [filterDataComponents, setfilterdDataComponents] = useState<any>([])
   useEffect(() => {
     // filter productData
     productData?.filter((val: PCFilterType) => {
       //check if object is part of the PC category
-      if (val.category == 'Pre built' || val.category == 'Used Pc') {
+      if (val.category === 'CPU') {
         if (
           //checking specs based on stack values
-          val.aditionalObj.chip.includes(...stack) ||
-          val.aditionalObj.gpu.includes(...stack) ||
-          val.aditionalObj.harddrive.includes(...stack) ||
-          val.aditionalObj.harddriveGB.includes(...stack) ||
-          val.aditionalObj.mb.includes(...stack) ||
-          val.aditionalObj.mbSocket.includes(...stack) ||
-          val.aditionalObj.psu.includes(...stack) ||
-          val.aditionalObj.ramGb.includes(...stack) ||
-          val.aditionalObj.ramSlot.includes(...stack)
+          val.aditionalObj.CPU.includes(...stack) ||
+          val.aditionalObj.CPUCOMPANY.includes(...stack) ||
+          val.aditionalObj.CPUCORES.includes(...stack) ||
+          val.aditionalObj.CPUGHZ.includes(...stack) ||
+          val.aditionalObj.CPUPLATFORM.includes(...stack)
         ) {
           // pushing filtered data to filterDataPC state
-          filterDataPC.push(val)
+          filterDataComponents.push(val)
+        }
+      } else if (val.category === 'GPU') {
+        if (
+          //checking specs based on stack values
+          val.aditionalObj.GPU.includes(...stack) ||
+          val.aditionalObj.GPUCOMPANY.includes(...stack) ||
+          val.aditionalObj.GPUMHZ.includes(...stack) ||
+          val.aditionalObj.GPUPLATFORM.includes(...stack) ||
+          val.aditionalObj.GPURAM.includes(...stack)
+        ) {
+          // pushing filtered data to filterDataPC state
+          filterDataComponents.push(val)
         }
       }
     })
     // adding filtered data and filtering  duplicat values
     if (stack.length > 0) {
-      setPCData(
-        filterDataPC.filter((obj: { id: any }, index: any, self: any[]) => {
-          return index === self.findIndex((t) => t.id === obj.id)
-        }),
+      setComponentsData(
+        filterDataComponents.filter(
+          (obj: { id: any }, index: any, self: any[]) => {
+            return index === self.findIndex((t) => t.id === obj.id)
+          },
+        ),
       )
     }
   }, [stack]) // use effect re triggers every time new value is passed to stack
@@ -194,7 +234,7 @@ function FilterPCSpecs() {
 
       {subCategoryDropDown && (
         <div className={style.linkDiv}>
-          {SubStringArray.map((val) => {
+          {subData.map((val) => {
             const { arr, en, ge } = val
             return <SubString arr={arr} en={en} ge={ge} />
           })}

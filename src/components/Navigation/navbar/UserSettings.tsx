@@ -12,7 +12,7 @@ function UserSettings() {
     userData,
   } = UseFormContext()
   const style = {
-    mainDiv: `absolute w-[350px] h-[310px]  right-4    bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
+    mainDiv: `absolute w-[350px] h-[310px]  max_lg:right-4    bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
     img: `w-[70px] h-[70px] rounded-[50%]`,
     pDiv: `w-[100%] flex flex-col items-start p-5 justify-center border-b-[1px]`,
     edits: `w-[350px] h-[50%] `,

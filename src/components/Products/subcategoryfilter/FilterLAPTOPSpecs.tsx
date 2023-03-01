@@ -7,8 +7,8 @@ import {
   ramGBArray,
   ssdCapacities,
   ramDDRArray,
-  powerSupplyWatts,
-  AllPCGPU,
+  laptopScreenSizes,
+  ALLLAPTOPGPU,
   motherboardSockets,
 } from '../../../components/context/ContextUtils'
 
@@ -25,26 +25,21 @@ type PCFilterType = {
 
 function FilterPCSpecs() {
   const { lang } = UseFormContext()
-  const { setPCData, productData } = UseProductContext()
+  const { setLaptopData, productData } = UseProductContext()
 
   const SubStringArray = [
     {
-      arr: AllPCGPU,
+      arr: ALLLAPTOPGPU,
 
       en: 'GPU',
       ge: 'ვიდოე ბარათი',
     },
-    {
-      arr: motherboardSockets,
 
-      en: 'SOCKET',
-      ge: 'დაფის სოკეტი',
-    },
     {
-      arr: powerSupplyWatts,
+      arr: laptopScreenSizes,
 
-      en: 'PSU',
-      ge: 'კვების ბლოკი',
+      en: 'SCREEN',
+      ge: 'ეკრანის ზომა',
     },
     {
       arr: ['i3', 'i5', 'i7', 'i9', 'Ryzen', 'FX', 'Phenom', 'Athlon'],
@@ -93,12 +88,12 @@ function FilterPCSpecs() {
   //stack saves values from checkbox input as an array
   const [stack, setStack] = useState<string[]>([])
   // filterDataPC saves filtered value based on stack
-  const [filterDataPC, setfilterdDataPc] = useState<any>([])
+  const [filterDataLaptop, setfilterdDataLaptop] = useState<any>([])
   useEffect(() => {
     // filter productData
     productData?.filter((val: PCFilterType) => {
-      //check if object is part of the PC category
-      if (val.category == 'Pre built' || val.category == 'Used Pc') {
+      //check if object is part of the  LAPTOP category
+      if (val.category == 'Used Laptop' || val.category == 'New Laptop') {
         if (
           //checking specs based on stack values
           val.aditionalObj.chip.includes(...stack) ||
@@ -107,19 +102,19 @@ function FilterPCSpecs() {
           val.aditionalObj.harddriveGB.includes(...stack) ||
           val.aditionalObj.mb.includes(...stack) ||
           val.aditionalObj.mbSocket.includes(...stack) ||
-          val.aditionalObj.psu.includes(...stack) ||
+          val.aditionalObj.screen.includes(...stack) ||
           val.aditionalObj.ramGb.includes(...stack) ||
           val.aditionalObj.ramSlot.includes(...stack)
         ) {
           // pushing filtered data to filterDataPC state
-          filterDataPC.push(val)
+          filterDataLaptop.push(val)
         }
       }
     })
     // adding filtered data and filtering  duplicat values
     if (stack.length > 0) {
-      setPCData(
-        filterDataPC.filter((obj: { id: any }, index: any, self: any[]) => {
+      setLaptopData(
+        filterDataLaptop.filter((obj: { id: any }, index: any, self: any[]) => {
           return index === self.findIndex((t) => t.id === obj.id)
         }),
       )
