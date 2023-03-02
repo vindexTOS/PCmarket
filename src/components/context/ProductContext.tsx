@@ -281,12 +281,14 @@ export const ProductContextProvider = ({
       setLaptopsubCategory(false)
       setPCsubCategory(false)
       setComponentssubCategory(false)
+
+      setComponentsCategory(false)
     }
     // pc category switcher
     if (location.pathname === '/desktop') {
       setPCsubCategory(true)
-      setLaptopsubCategory(false)
       setComponentssubCategory(false)
+      setComponentsCategory(false)
     }
 
     // sub category filter logic
@@ -310,6 +312,7 @@ export const ProductContextProvider = ({
       setLaptopsubCategory(true)
       setPCsubCategory(false)
       setComponentssubCategory(false)
+      setComponentsCategory(false)
     }
 
     // sub category filter logic
@@ -339,18 +342,24 @@ export const ProductContextProvider = ({
 
     if (location.pathname == '/components/cpu') {
       setComponentsCategory(true)
+      setComponentssubCategory(true)
       setComponentsData(
         productData?.filter(
           (val: { category: string }) => val.category == 'CPU',
         ),
       )
     } else if (location.pathname === '/components/gpu') {
+      setComponentsCategory(true)
+      setComponentssubCategory(true)
+
       setComponentsData(
         productData?.filter(
           (val: { category: string }) => val.category == 'GPU',
         ),
       )
     } else if (location.pathname === '/components/ram') {
+      setComponentsCategory(true)
+      setComponentssubCategory(true)
       setComponentsData(
         productData?.filter(
           (val: { category: string }) => val.category === 'RAM',

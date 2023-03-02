@@ -3,7 +3,13 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { UseFormContext } from '../../../components/context/FormContext'
 import { UseProductContext } from '../../../components/context/ProductContext'
-import { CPUGHZ, GPUMHZ } from '../../../components/context/ContextUtils'
+import {
+  CPUGHZ,
+  GPUMHZ,
+  ramGBArray,
+  ramDDRArray,
+  ramMHZArray,
+} from '../../../components/context/ContextUtils'
 
 type SubStringType = {
   arr: string[]
@@ -91,6 +97,33 @@ function FilterPCSpecs() {
       ge: 'სისტემა',
     },
   ]
+
+  const SubSTringArrayRAM = [
+    {
+      arr: ramGBArray,
+
+      en: 'RAM GB',
+      ge: 'ოპერატიული',
+    },
+    {
+      arr: ramDDRArray,
+
+      en: 'DDR',
+      ge: 'დდრ',
+    },
+    {
+      arr: ramMHZArray,
+
+      en: 'MHZ',
+      ge: 'მეგაჰერცი',
+    },
+    {
+      arr: ['PC', 'Laptop'],
+
+      en: 'MHZ',
+      ge: 'მეგაჰერცი',
+    },
+  ]
   const style = {
     mainDiv: `w-[450px] h-[50px]  max_sm:w-[220px]   max_sm:h-[40px]  max_lg:w-[200px]    max_md:w-[180px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
@@ -113,10 +146,11 @@ function FilterPCSpecs() {
     } else if (location.pathname === '/components/gpu') {
       setComponentsCategory(true)
       setSubData(SubStringArrayGPU)
-    } else {
-      //   setComponentsCategory(false)
+    } else if (location.pathname === '/components/ram') {
+      // setComponentsCategory(false)
+      setSubData(SubSTringArrayRAM)
     }
-  }, [location])
+  }, [location, productData])
 
   // const [unCheckData, setUnCheckData] = useState<[]>([])
   // filter for PC specs
@@ -150,6 +184,15 @@ function FilterPCSpecs() {
           val.aditionalObj.GPURAM.includes(...stack)
         ) {
           // pushing filtered data to filterDataPC state
+          filterDataComponents.push(val)
+        }
+      } else if (val.category === 'RAM') {
+        if (
+          val.aditionalObj.RAMDDR.includes(...stack) ||
+          val.aditionalObj.RAMGB.includes(...stack) ||
+          val.aditionalObj.RAMMHZ.includes(...stack) ||
+          val.aditionalObj.RAMPLATFORM.includes(...stack)
+        ) {
           filterDataComponents.push(val)
         }
       }

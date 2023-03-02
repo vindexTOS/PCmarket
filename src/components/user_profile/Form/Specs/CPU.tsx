@@ -16,7 +16,6 @@ function CPU() {
     laptopChack,
     setInputCPU,
     setCPUModel,
-    setSpecs,
   } = UseFormContext()
   const style = {
     mainDiv: `flex flex-col gap-5 max_md:border-2   items-center justify-center w-[100%] h-[320px]    bg-white rounded-[19px]`,
@@ -68,7 +67,7 @@ function CPU() {
           <select
             {...register('CPUPLATFORM')}
             className="w-[5rem] text-[14px] flex items-center justify-center cursor-pointer  outline-0   "
-            onChange={(e) => setSpecs(e.target.value)}
+            onChange={(e) => e.target.value}
           >
             <option>PC</option>
             <option>Laptop</option>
