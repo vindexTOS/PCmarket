@@ -451,6 +451,32 @@ export const laptopNVIDiAGPU = [
   'RTX 3060',
   'RTX 3070',
 ]
+export const ALLLAPTOPGPU = [
+  'GTX 700',
+  'GTX 780 Ti',
+  'GTX 980 Ti',
+  'GTX 1080',
+  'GTX 1080 Ti',
+  'RTX 2070',
+  'RTX 2080',
+  'RTX 2080 Ti',
+  'RTX 3060',
+  'RTX 3070',
+  'Radeon HD 7000',
+  'Radeon R9 280X',
+  'Radeon R9 290X',
+  'Radeon R9 Fury X',
+  'Radeon RX 480',
+  'Radeon RX 580',
+  'Radeon RX Vega 56',
+  'Radeon RX Vega 64',
+  'Radeon VII',
+  'Radeon RX 5700',
+  'Radeon RX 5700 XT',
+  'Radeon RX 6800',
+  'Radeon RX 6800 XT',
+  'Radeon RX 6900 XT',
+]
 
 export const laptopScreenSizes = [
   '11.6 In',

@@ -35,34 +35,47 @@ type Cell = {
   LaptopsubCategory: boolean
   dropDownFilter: boolean
   setdropDownFilter: React.Dispatch<React.SetStateAction<boolean>>
-  filterState: FilterState
-  filterDispatch: React.Dispatch<FilterAction>
+  setComponentssubCategory: React.Dispatch<React.SetStateAction<boolean>>
   RouteProductPage: (
-    | { path: string; subPath1: string; subPath2: string; data: [] }
-    | { path: string; data: []; subPath1?: undefined; subPath2?: undefined }
+    | {
+        path: string
+        subPath1: string
+        subPath2: string
+        subPath3?: string
+        subPath4?: string
+        subPath5?: string
+        subPath6?: string
+        subPath7?: string
+        subPath8?: string
+        data: []
+      }
+    | {
+        path: string
+
+        subPath1?: undefined
+        subPath2?: undefined
+        subPath3?: string
+        subPath4?: string
+        subPath5?: string
+        subPath6?: string
+        subPath7?: string
+        subPath8?: string
+        data: []
+      }
   )[]
+
+  setPCData: React.Dispatch<React.SetStateAction<unknown | any>>
+  setLaptopData: React.Dispatch<React.SetStateAction<unknown | any>>
+  setComponentsData: React.Dispatch<React.SetStateAction<unknown | any>>
+
+  ComponentsSubCategory: boolean
+  ComponentsCategory: boolean
+  setComponentsCategory: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type FilterVal = {
   keyge: string
   keyen: string
-}
-
-type FilterState = {
-  CPU?: string
-  RAM?: string
-  SSD?: string
-  ROM?: string
-  DDR?: string
-  GPU?: string
-  MB?: string
-  PSU?: string
-  // setPCData?: (productData: any[]) => void
-}
-
-type FilterAction = {
-  type: string
-  payload?: string
 }
 
 const ProductContext = createContext<Cell | null>(null)
@@ -248,7 +261,15 @@ export const ProductContextProvider = ({
   const [PCsubCategory, setPCsubCategory] = useState<boolean>(false)
   // state for pcfilter sub category [new laptop / used-laptop]
   const [LaptopsubCategory, setLaptopsubCategory] = useState<boolean>(false)
+  // state for components category filter
+  const [ComponentsCategory, setComponentsCategory] = useState<boolean>(false)
+  /// state for components sub category filter [cpu/gpu/ram/etc]
+
+  const [ComponentsSubCategory, setComponentssubCategory] = useState<boolean>(
+    false,
+  )
   // use effect for routing subcategorys and cancaling dorp down window
+
   // this useEffect and line 134 useEffect are connected
   useEffect(() => {
     //cancels drop down menu every time new category is clicked
@@ -259,12 +280,15 @@ export const ProductContextProvider = ({
     if (location.pathname === '/') {
       setLaptopsubCategory(false)
       setPCsubCategory(false)
+      setComponentssubCategory(false)
     }
     // pc category switcher
     if (location.pathname === '/desktop') {
       setPCsubCategory(true)
       setLaptopsubCategory(false)
+      setComponentssubCategory(false)
     }
+
     // sub category filter logic
     if (location.pathname === '/desktop/used-pc') {
       //checking the specific sub category filter
@@ -285,108 +309,81 @@ export const ProductContextProvider = ({
     if (location.pathname === '/laptop') {
       setLaptopsubCategory(true)
       setPCsubCategory(false)
+      setComponentssubCategory(false)
     }
 
     // sub category filter logic
     if (location.pathname === '/laptop/used-laptop') {
       //checking the specific sub category filter
-      setPCData(
+      setLaptopData(
         productData?.filter(
           (val: { category: string }) => val.category == 'Used Laptop',
         ),
       )
     } else if (location.pathname === '/laptop/new-laptop') {
-      setPCData(
+      setLaptopData(
         productData?.filter(
           (val: { category: string }) => val.category == 'New Laptop',
         ),
       )
     }
-  }, [location])
-  // reducer function for sub category filter
-
-  const filterReducer = (
-    state: FilterState,
-    action: FilterAction,
-  ): FilterState => {
-    switch (action.type) {
-      case 'CPU':
-        return { ...state, CPU: state.CPU = action.payload }
-      case 'RAM':
-        return { ...state, RAM: state.RAM = action.payload }
-      case 'SSD':
-        return { ...state, SSD: state.SSD = action.payload }
-      case 'ROM':
-        return { ...state, ROM: state.ROM = action.payload }
-      case 'DDR':
-        return { ...state, DDR: state.DDR = action.payload }
-      case 'GPU':
-        return { ...state, GPU: state.GPU = action.payload }
-      case 'MB':
-        return { ...state, MB: state.MB = action.payload }
-      case 'PSU':
-        return { ...state, PSU: state.PSU = action.payload }
-
-      default:
-        return state
+    // sub switcer logic for compnents//////
+    if (location.pathname === '/components') {
+      setLaptopsubCategory(false)
+      setPCsubCategory(false)
+      setComponentsCategory(false)
+      console.log(PCsubCategory)
+      setComponentssubCategory(true)
     }
-  }
+    // sub categorys for components
 
-  const [filterState, filterDispatch] = useReducer<
-    Reducer<FilterState, FilterAction>
-  >(filterReducer, {
-    CPU: '',
-    RAM: '',
-    SSD: '',
-    ROM: '',
-    DDR: '',
-    GPU: '',
-    MB: '',
-    PSU: '',
-  })
+    if (location.pathname == '/components/cpu') {
+      setComponentsCategory(true)
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'CPU',
+        ),
+      )
+    } else if (location.pathname === '/components/gpu') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category == 'GPU',
+        ),
+      )
+    } else if (location.pathname === '/components/ram') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'RAM',
+        ),
+      )
+    } else if (location.pathname === '/components/harddisk') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'HDD/SSD',
+        ),
+      )
+    } else if (location.pathname === '/components/motherboard') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'Mother Board',
+        ),
+      )
+    } else if (location.pathname === '/components/case') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'Cases',
+        ),
+      )
+    } else if (location.pathname == '/components/other') {
+      setComponentsData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'Others',
+        ),
+      )
+    }
+  }, [location, productData])
 
-  type PCFilterType = {
-    aditionalObj: any
-    category: string
-  }
-
-  useEffect(() => {
-    let newVal = productData?.filter((val: PCFilterType) => {
-      switch (val.category) {
-        case 'Pre built':
-        case 'Used Pc':
-          if (val.aditionalObj.harddriveGB !== undefined) {
-            if (val.aditionalObj.harddriveGB.includes(filterState?.ROM ?? '')) {
-              return val
-            }
-          }
-
-          if (val.aditionalObj.ramGb !== undefined) {
-            if (val.aditionalObj.ramGb == filterState?.RAM) {
-              return val
-            }
-          }
-
-          if (val.aditionalObj.chip !== undefined) {
-            if (val.aditionalObj.chip.includes(filterState?.CPU ?? '')) {
-              return val
-            }
-          }
-          if (val.aditionalObj.harddrive !== undefined) {
-            if (val.aditionalObj.harddrive.includes(filterState?.SSD ?? '')) {
-              return val
-            }
-          }
-
-          break
-        default:
-          break
-      }
-    })
-    setPCData(newVal)
-    console.log(filterState?.SSD)
-  }, [filterState])
-
+  //object for page routers
   const RouteProductPage = [
     { path: '/desktop', subPath1: 'used-pc', subPath2: 'new-pc', data: PCData },
     {
@@ -395,7 +392,19 @@ export const ProductContextProvider = ({
       subPath2: 'new-laptop',
       data: LaptopData,
     },
-    { path: '/components', data: ComponentsData },
+    {
+      path: '/components',
+      subPath1: 'cpu',
+      subPath2: 'gpu',
+      subPath3: 'ram',
+      subPath4: 'harddisk',
+      subPath5: 'psu',
+      subPath6: 'motherboard',
+      subPath7: 'case',
+      subPath8: 'other',
+
+      data: ComponentsData,
+    },
     { path: '/phone', data: PhoneData },
     { path: '/electronics', data: ElectronicsData },
   ]
@@ -421,9 +430,16 @@ export const ProductContextProvider = ({
         LaptopsubCategory,
         dropDownFilter,
         setdropDownFilter,
-        filterState,
-        filterDispatch,
+
         RouteProductPage,
+
+        setPCData,
+        setLaptopData,
+        ComponentsSubCategory,
+        setComponentsData,
+        setComponentssubCategory,
+        ComponentsCategory,
+        setComponentsCategory,
       }}
     >
       {children}

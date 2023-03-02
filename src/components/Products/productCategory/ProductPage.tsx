@@ -28,13 +28,13 @@ const ProductPage: FC<ProductPageProps> = ({ data }): JSX.Element => {
     <section className={style.section}>
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
-      {reverseData?.map((val: any) => {
+      {reverseData?.map((val: any, index: number) => {
         return (
-          <div className="w-[100vw] h-[100%]">
+          <div key={val.id + index} className="w-[100vw] h-[100%]">
             {gridLayOut ? (
-              <ProductCard key={val.id} val={val} />
+              <ProductCard val={val} />
             ) : (
-              <ProductCardRow key={val.id} val={val} />
+              <ProductCardRow val={val} />
             )}
           </div>
         )

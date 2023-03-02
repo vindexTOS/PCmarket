@@ -12,7 +12,9 @@ import PCfilter from './PCfilter'
 import Laptopfilter from './Laptopfilter'
 import FilterPCSpecs from '../../../components/Products/subcategoryfilter/FIlterPCSpecs'
 import { UseNavContext } from '../../context/NavContext'
-
+import FilterLAPTOPSpecs from '../../Products/subcategoryfilter/FilterLAPTOPSpecs'
+import FilterCOMPONENTSspecs from '../../Products/subcategoryfilter/FilterCOMPONENTSspecs'
+import Componentsfilter from './Componentsfilter'
 function Mainfilter() {
   const { lang } = UseFormContext()
   const {
@@ -25,8 +27,8 @@ function Mainfilter() {
 
     PCsubCategory,
     LaptopsubCategory,
-    filterState,
-    filterDispatch,
+    ComponentsSubCategory,
+    ComponentsCategory,
   } = UseProductContext()
 
   const { MainFilterDropDown } = UseNavContext()
@@ -49,7 +51,7 @@ function Mainfilter() {
         : ' text-gray-400 bg-gray-300  hover:bg-yellow-400 hover:text-white'
     }`,
     dropdownAndBtnWrapper: `flex  items-center justify-center gap-5`,
-    dropdownDiv: `bg-white max_sm:ml-8 z-50 absolute border-[1px]   w-[220px] h-[120px] rounded-[12px] boxShaddow flex flex-col px-2   `,
+    dropdownDiv: `bg-white max_sm:ml-8 z-50 absolute border-[1px]    w-[220px] h-[120px] rounded-[12px] boxShaddow flex flex-col px-2   `,
     dropDownInnerDiv: `w-[100%] hover:bg-gray-300 p-[2px] px-2 cursor-pointer rounded-[12px] hover:text-blue-500`,
     dropDownNavigationBars: `text-[1.9em] mx-2 text-yellow-500 mdxl:hidden cursor-pointer max_sm:mr-[18rem]`,
     dropDownFilter: `text-[2.8rem] text-yellow-500`,
@@ -64,10 +66,16 @@ function Mainfilter() {
 
       {/* {dropDownSideNav && <DropdownSideNav />} */}
       {/* <h1 onClick={() => console.log(filterState.RAM)}>log</h1> */}
+      {LaptopsubCategory && <FilterLAPTOPSpecs />}
       {LaptopsubCategory && <Laptopfilter />}
+
       {/* pc filters` */}
       {PCsubCategory && <FilterPCSpecs />}
       {PCsubCategory && <PCfilter />}
+
+      {/* components filter  */}
+      {ComponentsCategory && <FilterCOMPONENTSspecs />}
+      {ComponentsSubCategory && <Componentsfilter />}
       <div className={style.dropdownAndBtnWrapper}>
         <div>
           <div
