@@ -71,6 +71,9 @@ type Cell = {
   ComponentsSubCategory: boolean
   ComponentsCategory: boolean
   setComponentsCategory: React.Dispatch<React.SetStateAction<boolean>>
+
+  search: string
+  setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
 type FilterVal = {
@@ -417,7 +420,11 @@ export const ProductContextProvider = ({
     { path: '/phone', data: PhoneData },
     { path: '/electronics', data: ElectronicsData },
   ]
-
+  // search bar logic
+  const [search, setSearch] = useState<string>('')
+  useEffect(() => {
+    console.log(productData)
+  }, [search])
   return (
     <ProductContext.Provider
       value={{
@@ -449,6 +456,8 @@ export const ProductContextProvider = ({
         setComponentssubCategory,
         ComponentsCategory,
         setComponentsCategory,
+        search,
+        setSearch,
       }}
     >
       {children}

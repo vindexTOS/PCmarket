@@ -6,7 +6,13 @@ import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../context/FormContext'
 
 function MainProductPage() {
-  const { productData, gridLayOut, setGridLayOut } = UseProductContext()
+  const {
+    productData,
+    gridLayOut,
+    setGridLayOut,
+    search,
+    setSearch,
+  } = UseProductContext()
   const { user } = UseFormContext()
 
   const style = {
@@ -27,17 +33,29 @@ function MainProductPage() {
     <section className={style.section}>
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
-      {reverseData?.map((val: any) => {
-        return (
-          <div className="w-[100vw] h-[100%]">
-            {gridLayOut ? (
-              <ProductCard key={val.id} val={val} />
-            ) : (
-              <ProductCardRow key={val.id} val={val} />
-            )}
-          </div>
-        )
-      })}
+      {reverseData
+        ?.filter((val: any) => {
+          if (search === '') {
+            return val
+          } else if (
+            val.title.toLowerCase().includes(search.toLowerCase()) ||
+            val.category.toLowerCase().includes(search.toLowerCase()) ||
+            val.description.toLowerCase().includes(search.toLowerCase())
+          ) {
+            return val
+          }
+        })
+        .map((val: any) => {
+          return (
+            <div className="w-[100vw] h-[100%]">
+              {gridLayOut ? (
+                <ProductCard key={val.id} val={val} />
+              ) : (
+                <ProductCardRow key={val.id} val={val} />
+              )}
+            </div>
+          )
+        })}
     </section>
   )
 }

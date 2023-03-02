@@ -79,17 +79,17 @@ function PcSpecs() {
     }
   }
   const style = {
-    mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[320px]    bg-white rounded-[19px]`,
-    CPU: `w-[90%] flex  h-[3rem]  items-center justify-between rounded-[12px] border-2  gap-10`,
+    mainDiv: `flex flex-col gap-5 items-center justify-center w-[100%] h-[320px] max_sm:h-[400px]   bg-white rounded-[19px] max_sm:text-[10px]`,
+    CPU: `w-[90%] flex  h-[3rem]  items-center justify-between rounded-[12px] border-2  gap-10 max_sm:h-[2rem]`,
     CPUoption: `w-[100%] cursor-pointer  outline-0 border-l-2`,
-    GPURAM: `w-[90%] max_lg:text-[12px] flex max_sm:h-[7rem] max_sm:w-[160%]   max_sm:text-[1rem] max_sm:gap-2 max_sm:flex-col h-[3rem]  items-center justify-between  gap-10`,
-    RAM: `w-[40%] flex  h-[3rem] max_lg:w-[50%]  items-center justify-center rounded-[12px] border-2  gap-10`,
-    GPU: `w-[50%] flex  h-[3rem] max_lg:w-[50%] text  items-center justify-between rounded-[12px] border-2  `,
-    sections: `outline-0 cursor-pointer max_xl:text-[12px]    max_sm:w-[5rem] max_lg:w-[3rem]  `,
-    MB: `w-[90%] flex  h-[3rem]  items-center justify-between rounded-[12px] border-2  gap-10`,
-    SSDPSU: `w-[90%] max_lg:text-[12px] flex max_sm:h-[7rem] max_sm:w-[160%]   max_sm:text-[1rem] max_sm:gap-2 max_sm:flex-col h-[3rem]  items-center justify-between  gap-10`,
-    SSD: `w-[50%] flex  h-[3rem] max_lg:w-[50%] text  items-center justify-center gap-10 rounded-[12px] border-2 `,
-    PSU: `w-[50%] flex  h-[3rem] max_lg:w-[50%] text  items-center justify-center rounded-[12px] border-2 `,
+    GPURAM: `w-[90%] max_lg:text-[12px] flex max_sm:h-[7rem] max_sm:w-[160%]   max_sm:text-[1rem] max_sm:gap-2 max_sm:flex-col h-[3rem]  max_sm:text-[10px] items-center justify-between  gap-10`,
+    RAM: `w-[40%] flex  h-[3rem] max_sm:h-[2rem] max_lg:w-[50%]  items-center justify-center  rounded-[12px] border-2  gap-10`,
+    GPU: `w-[50%] flex  h-[3rem] max_sm:h-[2rem] max_lg:w-[50%] text  items-center justify-between rounded-[12px] border-2  `,
+    sections: `outline-0 cursor-pointer max_xl:text-[12px]    max_sm:w-[5rem] max_lg:w-[3rem]  max_sm:w-[4rem]  max_sm:mb-1  `,
+    MB: `w-[90%] flex  h-[3rem] max_sm:h-[2rem] items-center justify-between rounded-[12px] border-2  gap-10 max_sm:justify-center   max_sm:gap-0`,
+    SSDPSU: `w-[90%] max_sm:text-[10px] max_lg:text-[12px] flex max_sm:h-[7rem]  max_sm:w-[160%]   max_sm:text-[1rem] max_sm:gap-2 max_sm:flex-col h-[3rem] max_sm:h-[2rem] items-center justify-between  gap-10`,
+    SSD: `w-[50%] flex  h-[3rem] max_sm:h-[2rem] max_lg:w-[50%] text  items-center justify-center gap-10 rounded-[12px] border-2 `,
+    PSU: `w-[50%] flex  h-[3rem] max_sm:h-[2rem] max_lg:w-[50%] text  items-center justify-center rounded-[12px] border-2 `,
   }
   const [specState, DispatchSpec] = useReducer<Reducer<SpecState, SpecAction>>(
     specReducer,
@@ -112,7 +112,7 @@ function PcSpecs() {
             {lang ? 'manufacturer' : 'მწარმოებელი'}
           </p>
           <select
-            className="outline-0 cursor-pointer"
+            className="outline-0 cursor-pointer "
             onChange={(e) => setCPUModel(e.target.value)}
           >
             <option>Intel</option>
@@ -200,11 +200,11 @@ function PcSpecs() {
       <div className={style.GPURAM}>
         {/* RAM DIV */}
         <div className={style.RAM}>
-          <div className="flex items-center justify-center flex-col  ">
+          <div className="flex items-center justify-center  flex-col max_sm:  ">
             <p className="text-[10px] text-gray-500  "> DRAM</p>
             <select
               {...register('ddr')}
-              className={`w-[8rem] flex items-cente justify-center`}
+              className={`w-[8rem] max_sm:w-[4rem]  max_sm:mb-1 flex items-cente justify-center `}
             >
               {ddr.map((ddr) => (
                 <option key={ddr}>{ddr}</option>
@@ -301,7 +301,7 @@ function PcSpecs() {
           <p className="text-[10px] text-gray-500">
             {lang ? 'Manufacturer' : 'მწარმოებელი'}
           </p>
-          <select {...register('mb')}>
+          <select {...register('mb')} className="max_sm:w-[4rem]  max_sm:mb-1 ">
             {motherboardCompanies.map((companie) => (
               <option>{companie}</option>
             ))}
@@ -366,7 +366,10 @@ function PcSpecs() {
                 {lang ? 'Power Supply Wattage' : 'კვების ბლოკი ვატობა'}
               </p>
             )}
-            <select {...register(`${laptopChack ? 'screen' : 'psu'}`)}>
+            <select
+              {...register(`${laptopChack ? 'screen' : 'psu'}`)}
+              className="max_sm:w-[4rem]  max_sm:mb-1 "
+            >
               {laptopChack ? (
                 <>
                   {laptopScreenSizes.map((screen) => (

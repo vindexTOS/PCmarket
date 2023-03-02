@@ -10,6 +10,7 @@ import { UseNavContext } from '../../context/NavContext'
 import DropdownSideNav from '../sidenavigation/DropdownSideNav'
 import { FaBars } from 'react-icons/fa'
 import { BsFilter } from 'react-icons/bs'
+import { UseProductContext } from '../../context/ProductContext'
 
 function NavBar() {
   const {
@@ -20,9 +21,8 @@ function NavBar() {
     setLang,
     lang,
     userData,
-    navigate,
   } = UseFormContext()
-
+  const { search, setSearch } = UseProductContext()
   const {
     dropDownSideNav,
     setDropDownSideNav,
@@ -60,7 +60,11 @@ function NavBar() {
       <div className={style.searchDiv}>
         <BiSearchAlt />
         <div className="h-[60%] w-[1px] bg-gray-300"></div>
-        <input className={style.searchInput} />
+        <input
+          className={style.searchInput}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div

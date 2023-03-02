@@ -9,7 +9,7 @@ type ProductPageProps = {
 }
 
 const ProductPage: FC<ProductPageProps> = ({ data }): JSX.Element => {
-  const { gridLayOut } = UseProductContext()
+  const { gridLayOut, search } = UseProductContext()
   const style = {
     section: `    ${
       gridLayOut
@@ -28,17 +28,29 @@ const ProductPage: FC<ProductPageProps> = ({ data }): JSX.Element => {
     <section className={style.section}>
       {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
-      {reverseData?.map((val: any, index: number) => {
-        return (
-          <div key={val.id + index} className="w-[100vw] h-[100%]">
-            {gridLayOut ? (
-              <ProductCard val={val} />
-            ) : (
-              <ProductCardRow val={val} />
-            )}
-          </div>
-        )
-      })}
+      {reverseData
+        ?.filter((val: any) => {
+          if (search === '') {
+            return val
+          } else if (
+            val.title.toLowerCase().includes(search.toLowerCase()) ||
+            val.category.toLowerCase().includes(search.toLowerCase()) ||
+            val.description.toLowerCase().includes(search.toLowerCase())
+          ) {
+            return val
+          }
+        })
+        .map((val: any, index: number) => {
+          return (
+            <div key={val.id + index} className="w-[100vw] h-[100%]">
+              {gridLayOut ? (
+                <ProductCard val={val} />
+              ) : (
+                <ProductCardRow val={val} />
+              )}
+            </div>
+          )
+        })}
     </section>
   )
 }

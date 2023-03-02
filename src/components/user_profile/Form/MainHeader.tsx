@@ -20,7 +20,7 @@ function MainHeader() {
           {lang ? 'Add New Product' : 'განცხადების დამატება'}
         </Link>
       </div>
-      <h1 className="font-bolder text-[1.5rem] ">
+      <h1 className="font-bolder text-[1.5rem] text-gray-500 ">
         {lang ? 'add new product' : 'განცხადების დამატება '}
       </h1>
     </div>
