@@ -9,6 +9,7 @@ import {
   ramGBArray,
   ramDDRArray,
   ramMHZArray,
+  ssdCapacities,
 } from '../../../components/context/ContextUtils'
 
 type SubStringType = {
@@ -124,6 +125,22 @@ function FilterPCSpecs() {
       ge: 'მეგაჰერცი',
     },
   ]
+
+  const SubStringHDD = [
+    {
+      arr: ['HDD', 'SSD'],
+
+      en: 'Type',
+      ge: 'ტიპი',
+    },
+    {
+      arr: ssdCapacities,
+
+      en: 'Capacity',
+      ge: 'ტევადობა',
+    },
+  ]
+
   const style = {
     mainDiv: `w-[450px] h-[50px]  max_sm:w-[220px]   max_sm:h-[40px]  max_lg:w-[200px]    max_md:w-[180px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
@@ -147,8 +164,11 @@ function FilterPCSpecs() {
       setComponentsCategory(true)
       setSubData(SubStringArrayGPU)
     } else if (location.pathname === '/components/ram') {
-      // setComponentsCategory(false)
+      setComponentsCategory(true)
       setSubData(SubSTringArrayRAM)
+    } else if (location.pathname === '/components/harddisk') {
+      setComponentsCategory(true)
+      setSubData(SubStringHDD)
     }
   }, [location, productData])
 
@@ -192,6 +212,13 @@ function FilterPCSpecs() {
           val.aditionalObj.RAMGB.includes(...stack) ||
           val.aditionalObj.RAMMHZ.includes(...stack) ||
           val.aditionalObj.RAMPLATFORM.includes(...stack)
+        ) {
+          filterDataComponents.push(val)
+        }
+      } else if (val.category === 'HDD/SSD') {
+        if (
+          val.aditionalObj.DISKcapasity.includes(...stack) ||
+          val.aditionalObj.DISKtype.includes(...stack)
         ) {
           filterDataComponents.push(val)
         }
