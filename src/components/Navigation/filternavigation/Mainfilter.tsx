@@ -31,13 +31,9 @@ function Mainfilter() {
     ComponentsCategory,
   } = UseProductContext()
 
-  const { MainFilterDropDown } = UseNavContext()
+  const {} = UseNavContext()
   const style = {
-    mainDiv: ` ${
-      MainFilterDropDown
-        ? 'w-[95%]  max_sm:h-[200px] max_sm:flex-col h-[100px] mdxl:justify-end   justify-between flex items-center  max_md:w-[100%] max_md:ml-5 bg-gray-100 rounded-[12px]   filtershaddow max_sm:justify-center gap-5 max_sm:gap-2'
-        : 'hidden'
-    } `,
+    mainDiv: ` ${'w-[95%]  max_sm:h-[200px] max_sm:flex-col h-[100px] mdxl:justify-end   justify-between flex items-center  max_md:w-[100%] max_md:ml-5 bg-gray-100 rounded-[12px]   filtershaddow max_sm:justify-center gap-5 max_sm:gap-2'} `,
     dropdown: `w-[220px] h-[50px] max_sm:w-[220px] max_sm:h-[40px]  max_sm:ml-8    max_md:w-[180px] max_md:h-[40px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer  `,
     iconDiv: ` flex gap-2 mr-3`,
     iconGrid: `text-[1rem] max_sm:hidden cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${

@@ -12,8 +12,11 @@ type Cell = {
   dropDownSideNav: boolean
   setDropDownSideNav: React.Dispatch<React.SetStateAction<boolean>>
 
-  MainFilterDropDown: boolean
-  setMainFilterDropDown: React.Dispatch<React.SetStateAction<boolean>>
+  searchBarIcon: boolean
+  setsearchBarIcon: React.Dispatch<React.SetStateAction<boolean>>
+
+  searchBarShow: boolean
+  setSearchBarShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // type SubCategoryState = {
@@ -71,8 +74,12 @@ export const NavContextProvider = ({
   useEffect(() => {
     setDropDownSideNav(false)
   }, [location])
-  const [MainFilterDropDown, setMainFilterDropDown] = useState<boolean>(true)
   // rssizing of to make filter nav reapear after 900px
+
+  // search bar responsive
+  const [searchBarIcon, setsearchBarIcon] = useState<boolean>(false)
+  // search bar drop on responsivnes
+  const [searchBarShow, setSearchBarShow] = useState<boolean>(false)
   const [windoWith, setWindowWidth] = useState<any>({
     width: window.innerWidth,
   })
@@ -80,21 +87,29 @@ export const NavContextProvider = ({
   useEffect(() => {
     function handleResize() {
       setWindowWidth({ width: window.innerWidth })
-      if (windoWith.width < 770) {
-        setMainFilterDropDown(true)
+
+      if (windoWith.width > 898) {
+        setsearchBarIcon(true)
+        setSearchBarShow(false)
+      } else {
+        setsearchBarIcon(false)
       }
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [windoWith])
+
   return (
     <NavContext.Provider
       value={{
         dropDownSideNav,
         setDropDownSideNav,
-        MainFilterDropDown,
-        setMainFilterDropDown,
+
+        searchBarIcon,
+        setsearchBarIcon,
+        searchBarShow,
+        setSearchBarShow,
       }}
     >
       {children}

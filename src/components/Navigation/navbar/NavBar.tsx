@@ -11,12 +11,11 @@ import DropdownSideNav from '../sidenavigation/DropdownSideNav'
 import { FaBars } from 'react-icons/fa'
 import { BsFilter } from 'react-icons/bs'
 import { UseProductContext } from '../../context/ProductContext'
-
+import { motion as m } from 'framer-motion'
 function NavBar() {
   const {
     userAuth,
-    handleLogOut,
-    user,
+
     loadingRegister,
     setLang,
     lang,
@@ -26,19 +25,26 @@ function NavBar() {
   const {
     dropDownSideNav,
     setDropDownSideNav,
-    MainFilterDropDown,
-    setMainFilterDropDown,
+
+    searchBarIcon,
+    searchBarShow,
+    setSearchBarShow,
   } = UseNavContext()
   const style = {
     nav: `w-[100%] h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0   `,
-    searchDiv: `bg-white w-[300px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-2 border-red-600`,
+    searchDiv: `bg-white  max_lg:w-[400px] max_md2:hidden w-[500px] h-[40px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
+    searchShowInResponsive: `bg-white  absolute     w-[300px] h-[40px]     rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
     searchInput: `w-[80%]  outline-none`,
-    icon: `w-[70px] h-[70px] max_sm:hidden `,
-    divImg: `w-[60px] h-[60px] flex items-center justify-center cursor-pointer  border-[3px] border-yellow-300 rounded-[50%]  `,
+    icon: `w-[70px] h-[70px] max_sm:hidden  text-yellow-400`,
+    divImg: `w-[60px] h-[60px] flex items-center justify-center cursor-pointer  border-[3px] border-yellow-300 rounded-[50%] ${
+      searchBarShow && 'ml-[7rem]'
+    } `,
     img: `w-[45px] h-[45px] rounded-[50%]`,
     langIcon: `w-[40px] h-[40px] max_sm:hidden`,
-    dropDownWrapper: `flex  gap-5 mr-[10rem] `,
-    dropDownNavigationBars: ` text-[3rem] text-yellow-500    cursor-pointer   mdxl:hidden `,
+    dropDownWrapper: `flex items-center justify-between  gap-20 mr-[10rem] `,
+    dropDownNavigationBars: ` text-[3rem] text-yellow-500    cursor-pointer   mdxl:hidden ${
+      searchBarShow && 'hidden'
+    } `,
     dropDownFilter: `text-[3rem] text-yellow-500 cursor-pointer   mdxl:hidden `,
   }
   const [dropDown, setDropDown] = React.useState<boolean>(false)
@@ -50,26 +56,46 @@ function NavBar() {
           onClick={() => setDropDownSideNav(!dropDownSideNav)}
           className={style.dropDownNavigationBars}
         />
-        {/* drops filter in responsive mode  */}
-        <BsFilter
-          onClick={() => setMainFilterDropDown(!MainFilterDropDown)}
-          className={style.dropDownFilter}
+        <BiSearchAlt
+          onClick={() => setSearchBarShow(!searchBarShow)}
+          className={` ${
+            searchBarIcon
+              ? 'hidden '
+              : 'text-yellow-400 text-[2rem]  cursor-pointer hover:text-yellow-300 '
+          } `}
         />
       </div>
       {dropDownSideNav && <DropdownSideNav />}
       <div className={style.searchDiv}>
-        <BiSearchAlt />
-        <div className="h-[60%] w-[1px] bg-gray-300"></div>
+        <BiSearchAlt className="text-yellow-400 text-[1.2rem]  " />
+        <div className="h-[60%] w-[1px] bg-yellow-400"></div>
         <input
           className={style.searchInput}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
+      {searchBarShow && (
+        <m.div
+          className={style.searchShowInResponsive}
+          initial={{ x: 100 }}
+          animate={{ x: 0 }}
+        >
+          <BiSearchAlt
+            className="text-yellow-400 text-[1.2rem] hover:text-yellow-300  cursor-pointer  "
+            onClick={() => setSearchBarShow(!searchBarShow)}
+          />
+          <div className="h-[60%] w-[1px] bg-yellow-400"></div>
+          <input
+            className={style.searchInput}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </m.div>
+      )}
       <div
         className={` 
-          text-white text-[1rem] flex gap-4 s
+          text-white text-[1rem] flex gap-4 
         `}
       >
         {userAuth && (
