@@ -14,7 +14,7 @@ import {
 
 type SubStringType = {
   arr: string[]
-
+  index: number
   en: string
   ge: string
 }
@@ -74,15 +74,14 @@ function FilterPCSpecs() {
     },
   ]
   const style = {
-    mainDiv: `w-[450px] h-[50px]  max_sm:w-[220px]   max_sm:h-[40px]  max_lg:w-[200px]    max_md:w-[180px] rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
+    mainDiv: `w-[220px] h-[50px]   max_sm:h-[40px]  max_lg:w-[200px]       rounded-[16px] border-[1px] flex items-center justify-between  cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
-    linkDiv: `bg-white z-50 absolute border-[1px] max_sm:w-[220px] max_sm:items-center max_sm:justify-center  justify-center items-start max-w-[1000x]  flex-wrap  rounded-[12px] boxShaddow flex  max_sm:flex-col      px-2 gap-1 `,
+    linkDiv: `  z-50 absolute   max_sm:w-[220px] max_sm:items-center max_sm:justify-center  justify-center items-start max-w-[1000x]  flex-col  rounded-[12px]   flex  max_sm:flex-col      px-2 gap-1 `,
     cpudiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
     ramdiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
     hddsdddiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
     ddr: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
   }
-
   // const [unCheckData, setUnCheckData] = useState<[]>([])
   // filter for PC specs
   //stack saves values from checkbox input as an array
@@ -120,12 +119,20 @@ function FilterPCSpecs() {
       )
     }
   }, [stack]) // use effect re triggers every time new value is passed to stack
+  const [dropDown, setDropDown] = useState<boolean[]>(
+    new Array(SubStringArray.length).fill(false),
+  )
 
+  const handleFilterDropDown = (index: number) => {
+    let newValue = [...dropDown]
+    newValue[index] = !newValue[index]
+    setDropDown(newValue)
+  }
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)
   const [checkedValues, setCheckedValues] = useState<string[]>([])
   const SubString: FC<SubStringType> = ({
     arr,
-
+    index,
     en,
     ge,
   }): JSX.Element => {
@@ -146,25 +153,35 @@ function FilterPCSpecs() {
     return (
       <div
         key={ge}
-        className="flex flex-col items-center w-[8rem] justify-center bg-white gap-2  border-gray-100 border-2 text-[14px] rounded-[12px]"
+        className="flex flex-col items-center max_sm:mr-5  w-[200px] justify-center bg-white gap-2  border-gray-100 border-2 border-yellow-400 text-[14px] rounded-[12px]"
       >
-        <p className="">{lang ? en : ge}</p>
+        <div
+          className="cursor-pointer h-[30px] w-[100%] flex  items-center justify-betwneen text-gray-400 text-[1rem]"
+          onClick={() => handleFilterDropDown(index)}
+        >
+          <p className="ml-2 w-[150px]">{lang ? en : ge}</p>
+          {!dropDown[index] ? <IoIosArrowDown /> : <IoIosArrowUp />}
+        </div>
 
-        {arr.map((val) => (
-          <label
-            key={val}
-            className="w-[5rem]  flex items-center justify-between labelStyle"
-          >
-            {val}
-            <input
-              value={val}
-              checked={checkedValues.includes(val)}
-              onChange={handleCheckBox}
-              type="checkbox"
-              className="cursor-pointer"
-            />
-          </label>
-        ))}
+        {arr.map((val) => {
+          if (dropDown[index]) {
+            return (
+              <label
+                key={val}
+                className="w-[5rem]  flex items-center justify-between labelStyle"
+              >
+                {val}
+                <input
+                  value={val}
+                  checked={checkedValues.includes(val)}
+                  onChange={handleCheckBox}
+                  type="checkbox"
+                  className="cursor-pointer"
+                />
+              </label>
+            )
+          }
+        })}
       </div>
     )
   }
@@ -175,8 +192,8 @@ function FilterPCSpecs() {
         className={style.mainDiv}
         onClick={() => setsubCategoryDropDown(!subCategoryDropDown)}
       >
-        <div className="  max_sm:ml-[3.5rem]  ">
-          <p>{lang ? 'Filter' : 'ფილტრი'}</p>
+        <div className="  max_sm:ml-[3.5rem]   ">
+          <p className="sm:ml-[4rem]">{lang ? 'Filter' : 'ფილტრი'}</p>
         </div>
         <div className={style.arrowDiv}>
           {!subCategoryDropDown ? (
@@ -189,9 +206,9 @@ function FilterPCSpecs() {
 
       {subCategoryDropDown && (
         <div className={style.linkDiv}>
-          {SubStringArray.map((val) => {
+          {SubStringArray.map((val, index) => {
             const { arr, en, ge } = val
-            return <SubString arr={arr} en={en} ge={ge} />
+            return <SubString arr={arr} en={en} ge={ge} index={index} />
           })}
         </div>
       )}

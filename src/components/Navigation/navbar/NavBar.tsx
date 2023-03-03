@@ -61,7 +61,7 @@ function NavBar() {
           className={` ${
             searchBarIcon
               ? 'hidden '
-              : 'text-yellow-400 text-[2rem]  cursor-pointer hover:text-yellow-300 '
+              : 'text-yellow-400 text-[2rem] mdxl:hidden  cursor-pointer hover:text-yellow-300 '
           } `}
         />
       </div>

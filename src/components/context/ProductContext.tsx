@@ -292,6 +292,7 @@ export const ProductContextProvider = ({
       setPCsubCategory(true)
       setComponentssubCategory(false)
       setComponentsCategory(false)
+      setLaptopsubCategory(false)
     }
 
     // sub category filter logic
