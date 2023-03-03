@@ -74,6 +74,11 @@ type Cell = {
 
   search: string
   setSearch: React.Dispatch<React.SetStateAction<string>>
+
+  PhonesubCategory: boolean
+  setPhonesubCategory: React.Dispatch<React.SetStateAction<boolean>>
+
+  setPhoneData: unknown | any
 }
 
 type FilterVal = {
@@ -271,6 +276,8 @@ export const ProductContextProvider = ({
   const [ComponentsSubCategory, setComponentssubCategory] = useState<boolean>(
     false,
   )
+  // phone category filter state
+  const [PhonesubCategory, setPhonesubCategory] = useState<boolean>(false)
   // use effect for routing subcategorys and cancaling dorp down window
 
   // this useEffect and line 134 useEffect are connected
@@ -286,6 +293,7 @@ export const ProductContextProvider = ({
       setComponentssubCategory(false)
 
       setComponentsCategory(false)
+      setPhonesubCategory(false)
     }
     // pc category switcher
     if (location.pathname === '/desktop') {
@@ -293,6 +301,7 @@ export const ProductContextProvider = ({
       setComponentssubCategory(false)
       setComponentsCategory(false)
       setLaptopsubCategory(false)
+      setPhonesubCategory(false)
     }
 
     // sub category filter logic
@@ -317,6 +326,7 @@ export const ProductContextProvider = ({
       setPCsubCategory(false)
       setComponentssubCategory(false)
       setComponentsCategory(false)
+      setPhonesubCategory(false)
     }
 
     // sub category filter logic
@@ -339,7 +349,8 @@ export const ProductContextProvider = ({
       setLaptopsubCategory(false)
       setPCsubCategory(false)
       setComponentsCategory(false)
-      console.log(PCsubCategory)
+      setPhonesubCategory(false)
+
       setComponentssubCategory(true)
     }
     // sub categorys for components
@@ -347,6 +358,7 @@ export const ProductContextProvider = ({
     if (location.pathname == '/components/cpu') {
       setComponentsCategory(true)
       setComponentssubCategory(true)
+
       setComponentsData(
         productData?.filter(
           (val: { category: string }) => val.category == 'CPU',
@@ -394,6 +406,27 @@ export const ProductContextProvider = ({
         ),
       )
     }
+
+    if (location.pathname === '/phone') {
+      setPhonesubCategory(true)
+      setLaptopsubCategory(false)
+      setPCsubCategory(false)
+      setComponentssubCategory(false)
+
+      setComponentsCategory(false)
+    } else if (location.pathname === '/phone/new-phones') {
+      setPhoneData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'New',
+        ),
+      )
+    } else if (location.pathname === '/phone/used-phones') {
+      setPhoneData(
+        productData?.filter(
+          (val: { category: string }) => val.category === 'Used',
+        ),
+      )
+    }
   }, [location, productData])
 
   //object for page routers
@@ -418,7 +451,12 @@ export const ProductContextProvider = ({
 
       data: ComponentsData,
     },
-    { path: '/phone', data: PhoneData },
+    {
+      path: '/phone',
+      subPath1: 'new-phones',
+      subPath2: 'used-phones',
+      data: PhoneData,
+    },
     { path: '/electronics', data: ElectronicsData },
   ]
   // search bar logic
@@ -452,6 +490,7 @@ export const ProductContextProvider = ({
 
         setPCData,
         setLaptopData,
+        setPhoneData,
         ComponentsSubCategory,
         setComponentsData,
         setComponentssubCategory,
@@ -459,6 +498,8 @@ export const ProductContextProvider = ({
         setComponentsCategory,
         search,
         setSearch,
+        PhonesubCategory,
+        setPhonesubCategory,
       }}
     >
       {children}

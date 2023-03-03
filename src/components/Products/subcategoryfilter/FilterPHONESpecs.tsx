@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom'
 import { UseFormContext } from '../../../components/context/FormContext'
 import { UseProductContext } from '../../../components/context/ProductContext'
 import {
-  ramGBArray,
-  ssdCapacities,
-  ramDDRArray,
-  powerSupplyWatts,
-  AllPCGPU,
-  motherboardSockets,
+  phoneCameraPixels,
+  phoneCPUs,
+  phoneCompanies,
+  phoneScreenSizes,
 } from '../../../components/context/ContextUtils'
 
 type SubStringType = {
@@ -26,57 +24,44 @@ type PCFilterType = {
 
 function FilterPCSpecs() {
   const { lang } = UseFormContext()
-  const { setPCData, productData } = UseProductContext()
+  const { setPhoneData, productData } = UseProductContext()
 
   const SubStringArray = [
     {
-      arr: AllPCGPU,
+      arr: phoneCompanies,
 
-      en: 'GPU',
-      ge: 'ვიდოე ბარათი',
+      en: 'Company',
+      ge: 'მწარმოებელი',
     },
     {
-      arr: motherboardSockets,
+      arr: phoneCameraPixels,
 
-      en: 'SOCKET',
-      ge: 'დაფის სოკეტი',
+      en: 'Pixels',
+      ge: 'კამერის პიქსელები',
     },
     {
-      arr: powerSupplyWatts,
+      arr: phoneScreenSizes,
 
-      en: 'PSU',
-      ge: 'კვების ბლოკი',
+      en: 'Screen size',
+      ge: 'ეკრანის ზომა ',
     },
     {
-      arr: ['i3', 'i5', 'i7', 'i9', 'Ryzen', 'FX', 'Phenom', 'Athlon'],
+      arr: phoneCPUs,
 
       en: 'CPU type',
       ge: 'პროცესორის ტიპი',
     },
     {
-      arr: ramGBArray,
+      arr: ['2GB', '3GB', '4GB', '6GB', '8GB'],
 
       en: 'RAM',
       ge: 'ოპერატიული',
     },
-    {
-      arr: ramDDRArray,
-
-      en: 'DDR',
-      ge: 'დდრ',
-    },
 
     {
-      arr: ssdCapacities,
-
-      en: 'Size',
-      ge: 'დისკის ზომა',
-    },
-    {
-      arr: ['SSD', 'HDD'],
-
-      en: 'Disk type',
-      ge: 'მყარი დისკი',
+      arr: ['2GB', '4GB', '8GB', '16GB', '32GB', '64GB', '128GB', '256GB'],
+      en: 'ROM',
+      ge: 'შიდა მეხსიერება',
     },
   ]
   const style = {
@@ -94,33 +79,30 @@ function FilterPCSpecs() {
   //stack saves values from checkbox input as an array
   const [stack, setStack] = useState<string[]>([])
   // filterDataPC saves filtered value based on stack
-  const [filterDataPC, setfilterdDataPc] = useState<any>([])
+  const [filterDataPhone, setfilterDataPhone] = useState<any>([])
   useEffect(() => {
     // filter productData
     productData?.filter((val: PCFilterType) => {
       //check if object is part of the PC category
-      if (val.category == 'Pre built' || val.category == 'Used Pc') {
+      if (val.category == 'Used' || val.category == 'New') {
         if (
           //checking specs based on stack values
-          val.aditionalObj.chip.includes(...stack) ||
-          val.aditionalObj.gpu.includes(...stack) ||
-          val.aditionalObj.harddrive.includes(...stack) ||
-          val.aditionalObj.harddriveGB.includes(...stack) ||
-          val.aditionalObj.mb.includes(...stack) ||
-          val.aditionalObj.mbSocket.includes(...stack) ||
-          val.aditionalObj.psu.includes(...stack) ||
-          val.aditionalObj.ramGb.includes(...stack) ||
-          val.aditionalObj.ramSlot.includes(...stack)
+          val.aditionalObj.PHONECPU.includes(...stack) ||
+          val.aditionalObj.PHONEcamera.includes(...stack) ||
+          val.aditionalObj.PHONEcompany.includes(...stack) ||
+          val.aditionalObj.PHONEmodel.includes(...stack) ||
+          val.aditionalObj.PHONEram.includes(...stack) ||
+          val.aditionalObj.PHONEscreen.includes(...stack)
         ) {
           // pushing filtered data to filterDataPC state
-          filterDataPC.push(val)
+          filterDataPhone.push(val)
         }
       }
     })
     // adding filtered data and filtering  duplicat values
     if (stack.length > 0) {
-      setPCData(
-        filterDataPC.filter((obj: { id: any }, index: any, self: any[]) => {
+      setPhoneData(
+        filterDataPhone.filter((obj: { id: any }, index: any, self: any[]) => {
           return index === self.findIndex((t) => t.id === obj.id)
         }),
       )

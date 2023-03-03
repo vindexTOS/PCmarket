@@ -35,8 +35,8 @@ module.exports = {
       max_md2: { max: '900px' },
       max_md: { max: '767px' },
       // => @media (max-width: 767px) { ... }
-
       max_sm: { max: '640px' },
+      max_sm8: { max: '825px' },
       // => @media (max-width: 639px) { ... }
       max_smm: { max: '500px' },
       // => @media (max-width:500px) { ... }

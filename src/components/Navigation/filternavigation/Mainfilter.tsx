@@ -14,7 +14,9 @@ import FilterPCSpecs from '../../../components/Products/subcategoryfilter/FIlter
 import { UseNavContext } from '../../context/NavContext'
 import FilterLAPTOPSpecs from '../../Products/subcategoryfilter/FilterLAPTOPSpecs'
 import FilterCOMPONENTSspecs from '../../Products/subcategoryfilter/FilterCOMPONENTSspecs'
+import FilterPHONESpecs from '../../Products/subcategoryfilter/FilterPHONESpecs'
 import Componentsfilter from './Componentsfilter'
+import Phonefilter from './Phonefilter'
 function Mainfilter() {
   const { lang } = UseFormContext()
   const {
@@ -29,6 +31,7 @@ function Mainfilter() {
     LaptopsubCategory,
     ComponentsSubCategory,
     ComponentsCategory,
+    PhonesubCategory,
   } = UseProductContext()
 
   const {} = UseNavContext()
@@ -38,10 +41,10 @@ function Mainfilter() {
     iconDiv: ` flex gap-2 mr-3`,
     iconGrid: `text-[1rem] max_sm:hidden cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${
       gridLayOut
-        ? 'text-white bg-yellow-400'
-        : ' text-gray-400 bg-gray-300 hover:bg-yellow-400 hover:text-white '
+        ? 'text-white bg-yellow-400 max_sm8:hidden'
+        : ' text-gray-400 bg-gray-300  max_sm8:hidden hover:bg-yellow-400 hover:text-white '
     }`,
-    iconRow: `text-[1rem]   cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${
+    iconRow: `text-[1rem] max_sm8:hidden  cursor-pointer rounded-[50%] w-[1.8rem] h-[1.8rem] flex items-center justify-center ${
       !gridLayOut
         ? 'text-white bg-yellow-400'
         : ' text-gray-400 bg-gray-300  hover:bg-yellow-400 hover:text-white'
@@ -62,6 +65,7 @@ function Mainfilter() {
 
       {/* {dropDownSideNav && <DropdownSideNav />} */}
       {/* <h1 onClick={() => console.log(filterState.RAM)}>log</h1> */}
+
       {LaptopsubCategory && <FilterLAPTOPSpecs />}
       {LaptopsubCategory && <Laptopfilter />}
 
@@ -72,6 +76,11 @@ function Mainfilter() {
       {/* components filter  */}
       {ComponentsCategory && <FilterCOMPONENTSspecs />}
       {ComponentsSubCategory && <Componentsfilter />}
+
+      {/* phone filter */}
+      {PhonesubCategory && <FilterPHONESpecs />}
+      {PhonesubCategory && <Phonefilter />}
+
       <div className={style.dropdownAndBtnWrapper}>
         <div>
           <div
@@ -104,13 +113,13 @@ function Mainfilter() {
         <div className={style.iconDiv}>
           <p
             onClick={() => setGridLayOut(!gridLayOut)}
-            className={style.iconGrid}
+            className={`${style.iconGrid}  `}
           >
             <BsGridFill />
           </p>
           <p
             onClick={() => setGridLayOut(!gridLayOut)}
-            className={`${style.iconRow} max_md:hidden`}
+            className={`${style.iconRow} max_sm8:hidden`}
           >
             <MdTableRows />
           </p>

@@ -59,7 +59,7 @@ function Phone() {
       <div className={style.partCompanyWrapper}>
         <div className={style.parts}>
           <p className="text-[10px] ml-5 text-gray-500  ">
-            {lang ? 'platform' : 'პლატფორმა'}
+            {lang ? 'screen size' : 'ეკრანის ზომა'}
           </p>
           <select
             {...register('PHONESCREEN')}
