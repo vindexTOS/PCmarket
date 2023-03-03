@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
-
+import { BsTelephoneFill } from 'react-icons/bs'
 type MainInfoProps = {
   category: string
   date: string
@@ -12,6 +12,8 @@ type MainInfoProps = {
   priceCur: string
   sallType: string
   uid: string
+  number: string
+  location: { keyen: string; key: string }
 }
 
 const MainInfo: FC<MainInfoProps> = ({
@@ -24,9 +26,11 @@ const MainInfo: FC<MainInfoProps> = ({
   priceCur,
   sallType,
   uid,
+  number,
+  location,
 }): JSX.Element => {
   const { lang, userData } = UseFormContext()
-  const { productData, location } = UseProductContext()
+  const { productData } = UseProductContext()
   const [userProduct, setUserProduct] = React.useState([])
   React.useEffect(() => {
     let newVal = productData?.filter((val: any) => {
@@ -37,8 +41,10 @@ const MainInfo: FC<MainInfoProps> = ({
 
     setUserProduct(newVal)
   }, [productData])
+  // state to show hidden number
+  const [showNum, setShowNum] = React.useState<boolean>(false)
   const style = {
-    mainInfoDiv: `  w-[40%] h-[90%] p-2 flex flex-col justify-between     `,
+    mainInfoDiv: `  w-[40%] h-[90%] p-2 flex flex-col justify-between    `,
     subInfo: ` flex gap-5 border-2 p-1 rounded-[12px]`,
     unitedFirst: `pb-20 flex gap-2 flex-col`,
     price: `w-[90%] h-[120px] boxShaddow rounded-[30px]  flex items-center justify-center`,
@@ -46,6 +52,7 @@ const MainInfo: FC<MainInfoProps> = ({
     userAvatar: `w-[70px] h-[70px] rounded-[50%] mx-5 cursor-pointer`,
     userAvatarName: ``,
     priceAndUserInfo: 'flex flex-col   h-[350px] gap-5    ',
+    phoneDiv: `flex  items-center gap-3 border-2 py-1 px-2 w-[12rem] h-[3rem] rounded-[12px] hover:bg-gray-200 cursor-pointer`,
   }
   return (
     <div className={style.mainInfoDiv}>
@@ -97,6 +104,7 @@ const MainInfo: FC<MainInfoProps> = ({
             <h1>{sallType}</h1>
           </div>
         </div>
+        {/* wrapper */}
         <div>
           <div className={style.user}>
             <img className={style.userAvatar} src={userData[0].imgUrl} />
@@ -108,8 +116,37 @@ const MainInfo: FC<MainInfoProps> = ({
                 {userProduct?.length} {lang ? 'advertisement' : 'განცხადება'}
               </h1>
             </div>
+            {/* phone number */}
+            <div
+              className={style.phoneDiv}
+              onClick={() => setShowNum(!showNum)}
+            >
+              <BsTelephoneFill className="text-green-300" />
+
+              {/* showNum,setShowNum */}
+              <div className="flex items-center gap-1 ">
+                {showNum ? (
+                  <p>
+                    <span className="text-gray-400">(+995) </span>
+                    {number.slice(0, 9)}
+                  </p>
+                ) : (
+                  <p> {number.slice(0, 5)}** **</p>
+                )}
+                <p
+                  className={` w-[40px] text-[12px] text-blue-400 ml-2 ${
+                    showNum && 'hidden'
+                  } `}
+                >
+                  {lang ? 'Show Number' : 'ნომრის ჩვენება'}
+                </p>
+              </div>
+              {/* location  */}
+              <div>{lang ? location.keyen : location.key}</div>
+            </div>
           </div>
         </div>
+        {/* wrapper */}
       </div>
     </div>
   )

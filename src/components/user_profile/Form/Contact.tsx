@@ -104,6 +104,7 @@ function Contact() {
           <input
             {...register('number')}
             type="number"
+            maxLength={9}
             className={style.infoInput}
           />
         </div>

@@ -9,7 +9,7 @@ import ImgSlider from './ImgSlider'
 import MainInfo from './MainInfo'
 
 function SingleProduct() {
-  const { productData, location } = UseProductContext()
+  const { productData } = UseProductContext()
   const { lang } = UseFormContext()
   const { productId } = useParams()
 
@@ -19,6 +19,7 @@ function SingleProduct() {
 
   const {
     aditionalObj,
+    location,
     category,
     date,
     description,
@@ -35,7 +36,7 @@ function SingleProduct() {
   } = product || {}
 
   const style = {
-    mainDiv: ` pt-10 w-[90%] h-[100%] flex  gap-5  `,
+    mainDiv: ` pt-10 ml-5 w-[100%] h-[100%] flex  gap-5  `,
   }
 
   // navigate
@@ -54,7 +55,10 @@ function SingleProduct() {
           priceCur={priceCur}
           sallType={sallType}
           uid={uid}
+          number={number}
+          location={location}
         />
+        <h1 onClick={() => console.log(product)}>LOG</h1>
       </div>
     )
   } else {

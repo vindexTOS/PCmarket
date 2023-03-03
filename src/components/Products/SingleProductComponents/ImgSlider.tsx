@@ -16,7 +16,7 @@ type Action = {
 
 const ImgSlider: FC<ImgSliderProps> = ({ imgs }): JSX.Element => {
   const style = {
-    imgDiv: `flex  items-center justify-center gap-2  mb-20  `,
+    imgDiv: `flex  items-center justify-center gap-2  mb-20      `,
 
     imgMapDiv: `flex  flex-col  gap-2 h-[500px] items-start justify-start`,
     imgMapSingle: `w-[90px] h-[90px] outline outline-1 cursor-pointer hover:outline-blue-400  `,

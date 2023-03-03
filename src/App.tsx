@@ -127,7 +127,7 @@ function App() {
         <Route
           path="/:productId"
           element={
-            <div className="flex w-[100%] items-center justify-center">
+            <div className="flex w-[100%] items-center justify-center  bg-white ">
               <SingleProduct />
             </div>
           }
