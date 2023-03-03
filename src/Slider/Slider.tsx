@@ -34,6 +34,7 @@ function Slider() {
         <img
           style={{
             borderTopRightRadius: '160px',
+            userSelect: 'none',
           }}
           className={style.img}
           src={img}

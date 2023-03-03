@@ -50,7 +50,7 @@ function ProductCard({ val }: { val: any }) {
     if (imgIndex !== 0) {
       setImgIndex(imgIndex - 1)
     } else {
-      setImgIndex(0)
+      setImgIndex(imgs.length - 1)
     }
     // console.log(imgs[imgIndex])
   }
@@ -75,7 +75,11 @@ function ProductCard({ val }: { val: any }) {
       </p>
       {imgs ? (
         <div className={style.imgWrapper}>
-          <img className={style.img} src={imgs[imgIndex]} />
+          <img
+            style={{ userSelect: 'none' }}
+            className={style.img}
+            src={imgs[imgIndex]}
+          />
           <span className={style.imgSpan}>
             {' '}
             <IoMdArrowDropleft
@@ -89,7 +93,11 @@ function ProductCard({ val }: { val: any }) {
           </span>
         </div>
       ) : (
-        <img className={style.img} src={Icons.UK} />
+        <img
+          style={{ userSelect: 'none' }}
+          className={style.img}
+          src={Icons.UK}
+        />
       )}
       <p className={style.price}>
         {priceCur}

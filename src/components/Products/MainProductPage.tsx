@@ -26,7 +26,11 @@ function MainProductPage() {
 
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
-    setReversData(productData?.reverse())
+    setReversData(
+      productData?.sort(
+        (a: any, b: any) => b.timestamp.seconds - a.timestamp.seconds,
+      ),
+    )
   }, [user, productData])
 
   return (
