@@ -35,7 +35,7 @@ function SingleProduct() {
   } = product || {}
 
   const style = {
-    mainDiv: ` pt-10 w-[100%] h-[100%] flex   justify-between`,
+    mainDiv: ` pt-10 w-[90%] h-[100%] flex  gap-5  `,
   }
 
   // navigate
@@ -53,6 +53,7 @@ function SingleProduct() {
           price={price}
           priceCur={priceCur}
           sallType={sallType}
+          uid={uid}
         />
       </div>
     )

@@ -124,7 +124,14 @@ function App() {
           })}
         </Route>
         {/* single product */}
-        <Route path="/:productId" element={<SingleProduct />} />
+        <Route
+          path="/:productId"
+          element={
+            <div className="flex w-[100%] items-center justify-center">
+              <SingleProduct />
+            </div>
+          }
+        />
         {/* adding product and user info  */}
         <Route
           path="/myproduct"
