@@ -16,7 +16,7 @@ import UserProfile from './components/user_profile/UserProfile'
 import Footer from './components/Footer'
 import UserInfo from './components/auth_log/UserInfo'
 import MainProductPage from './components/Products/MainProductPage'
-import SingleProduct from './components/Products/SingleProduct'
+import SingleProduct from './components/Products/SingleProductComponents/SingleProduct'
 
 import ProductPage from './components/Products/productCategory/ProductPage'
 

@@ -24,7 +24,7 @@ function ProductCard({ val }: { val: any }) {
   })
 
   const style = {
-    productCard: `bg-white w-[400px] h-[500px] max_sm:w-[350px] max_smm:ml-5 rounded-[15px] boxShaddow flex items-center flex-col justify-between `,
+    productCard: ` bg-white w-[400px] h-[500px] max_sm:w-[350px] max_smm:ml-5 rounded-[15px] boxShaddow flex items-center flex-col justify-between `,
     header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px] cursor-pointer  hover:bg-blue-500 bg-blue-400 text-white flex items-center justify-center  text-[1.3rem] text-center   max_md:text-[1rem]`,
     imgWrapper: `w-[340px] h-[50%] rounded-[15px] border-2 rounded-[20px] flex items-center justify-center`,
     img: `w-[340px] h-[250px] rounded-[15px] border-2 rounded-[20px] `,
