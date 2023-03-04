@@ -142,7 +142,7 @@ const MainInfo: FC<MainInfoProps> = ({
                 </p>
               </div>
               {/* location  */}
-              <div>{lang ? location.keyen : location.key}</div>
+              {/* <div>{lang ? location.keyen : location.key}</div> */}
             </div>
           </div>
         </div>

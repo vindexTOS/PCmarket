@@ -81,6 +81,7 @@ function FilterPCSpecs() {
     ramdiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
     hddsdddiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
     ddr: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
+    button: `bg-orange-400 w-[200px] h-[30px] text-white text-[1.3rem] rounded-[20px] hover:bg-yellow-400  `,
   }
   // const [unCheckData, setUnCheckData] = useState<[]>([])
   // filter for PC specs
@@ -88,7 +89,10 @@ function FilterPCSpecs() {
   const [stack, setStack] = useState<string[]>([])
   // filterDataPC saves filtered value based on stack
   const [filterDataLaptop, setfilterdDataLaptop] = useState<any>([])
-  useEffect(() => {
+  //btn show
+  const [btn, setBtn] = useState<boolean>(false)
+  // filter function
+  const Filter = () => {
     // filter productData
     productData?.filter((val: PCFilterType) => {
       //check if object is part of the  LAPTOP category
@@ -118,7 +122,9 @@ function FilterPCSpecs() {
         }),
       )
     }
-  }, [stack]) // use effect re triggers every time new value is passed to stack
+    setStack([])
+  }
+
   const [dropDown, setDropDown] = useState<boolean[]>(
     new Array(SubStringArray.length).fill(false),
   )
@@ -141,6 +147,7 @@ function FilterPCSpecs() {
       let valuesStack = []
       valuesStack.push(value)
       if (e.target.checked) {
+        setBtn(true)
         setCheckedValues([...checkedValues, value])
         setStack([value])
       } else {
@@ -210,6 +217,11 @@ function FilterPCSpecs() {
             const { arr, en, ge } = val
             return <SubString arr={arr} en={en} ge={ge} index={index} />
           })}
+          {btn && (
+            <button onClick={Filter} className={style.button}>
+              {lang ? 'Filter' : 'გაფილტვრა'}
+            </button>
+          )}
         </div>
       )}
     </div>
