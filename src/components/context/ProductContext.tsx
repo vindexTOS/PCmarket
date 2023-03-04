@@ -6,6 +6,7 @@ import React, {
   useContext,
   createContext,
   useReducer,
+  useMemo,
   Reducer,
   JSXElementConstructor,
   ChangeEventHandler,
@@ -183,11 +184,10 @@ export const ProductContextProvider = ({
   // this useEffect and line 213 useEffect are connected
   useEffect(() => {
     //pre filtering data and sending them to there respective files
+
     setPCData(
       productData?.filter((val: { category: string }) => {
-        // checking if we are on right route first
         if (location.pathname === '/desktop/used-pc') {
-          // filtering sub categorys by using location
           return val.category == 'Used Pc'
         } else if (location.pathname === '/desktop/new-pc') {
           return val.category == 'Pre built'

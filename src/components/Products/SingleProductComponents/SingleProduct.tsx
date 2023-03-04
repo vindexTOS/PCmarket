@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import ImgSlider from './ImgSlider'
 import MainInfo from './MainInfo'
+import Description from './Description'
 
 function SingleProduct() {
   const { productData } = UseProductContext()
@@ -36,29 +37,37 @@ function SingleProduct() {
   } = product || {}
 
   const style = {
-    mainDiv: ` pt-10 ml-5 w-[100%] h-[100%] flex  gap-5  `,
+    mainDiv: ` pt-10 ml-5 w-[100%] h-[100%] flex  max_x:flex-col gap-5   `,
   }
 
   // navigate
   const navigate = useNavigate()
   if (product) {
     return (
-      <div className={style.mainDiv}>
-        <ImgSlider imgs={imgs} />
-        <MainInfo
-          date={date}
-          title={title}
+      <div className="flex items-center justify-center flex-col">
+        <div className={style.mainDiv}>
+          {' '}
+          <ImgSlider imgs={imgs} />
+          <MainInfo
+            date={date}
+            title={title}
+            category={category}
+            name={name}
+            id={id}
+            price={price}
+            priceCur={priceCur}
+            sallType={sallType}
+            uid={uid}
+            number={number}
+            location={location}
+          />
+        </div>
+        {/* <h1 onClick={() => console.log(product)}>LOG</h1> */}
+        <Description
+          description={description}
+          aditionalObj={aditionalObj}
           category={category}
-          name={name}
-          id={id}
-          price={price}
-          priceCur={priceCur}
-          sallType={sallType}
-          uid={uid}
-          number={number}
-          location={location}
         />
-        <h1 onClick={() => console.log(product)}>LOG</h1>
       </div>
     )
   } else {
