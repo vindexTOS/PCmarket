@@ -37,7 +37,7 @@ function SingleProduct() {
   } = product || {}
 
   const style = {
-    mainDiv: ` pt-10 ml-5 w-[100%] h-[100%] flex  max_x:flex-col gap-5   `,
+    mainDiv: ` pt-10   overflow-hidden  w-[100%] h-[100%] flex    max_x:flex-col gap-5   `,
   }
 
   // navigate

@@ -62,10 +62,11 @@ const Description: FC<DescriptionProp> = ({
   // aditionalObj descruction baased on category
 
   const style = {
-    mainDiv: `w-[85%] max_x:w-[95%] h-[900px] flex flex-col gap-40 items-center justify-start boxShaddow bg-white rounded-[16px]`,
+    mainDiv: `w-[85%] max_smm:w-[100vw] max_x:w-[95%] max-h-[2000px] pb-10 flex flex-col gap-40   items-center justify-start boxShaddow bg-white rounded-[16px]`,
     descriptionDiv: `flex  gap-10 w-[90%] max_x:flex-col mt-10 `,
-    specificationsDiv: `flex  gap-10 w-[90%] max_x:flex-col`,
+    specificationsDiv: `flex  gap-10 w-[90%] max_x:flex-col `,
   }
+  // desctructuring different sub categorys
   const {
     chip,
     ddr,
@@ -107,7 +108,9 @@ const Description: FC<DescriptionProp> = ({
     PHONEmodel,
     PHONEram,
   } = aditionalObj || {}
+  // aditoinal information
 
+  // spliting up objects based on there category
   const pcObject = [
     { val: chip, en: 'CPU', ge: 'პროცესორი' },
 
@@ -171,9 +174,10 @@ const Description: FC<DescriptionProp> = ({
     { val: PHONEmodel, en: 'PHONEmodel', ge: 'მოდელი' },
     { val: PHONEram, en: 'PHONEram', ge: 'ოპერატიული' },
   ]
-
+  // default state array of objects that changes based on with category we are on
   const [objectData, setObjectData] = useState<unknown | any>()
 
+  // use effect checks products current category and changes objectData state accordingly
   useEffect(() => {
     if (category == 'New' || category == 'Used') {
       setObjectData(phoneObject)
@@ -194,9 +198,9 @@ const Description: FC<DescriptionProp> = ({
 
   const Specs: FC<SpecsType> = ({ val, en, ge }): JSX.Element => {
     return (
-      <div className="w-[100%]">
+      <div className="w-[100%] max_lg:items-center   max_lg:justify-center ">
         {val && (
-          <div className="flex justify-between w-[50%]">
+          <div className="flex justify-between  max_x:w-[80%] w-[50%] ">
             <h1 className="text-gray-400  ">{lang ? en : ge}</h1>
             <h1>{val}</h1>
           </div>

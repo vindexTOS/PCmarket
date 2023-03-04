@@ -46,12 +46,12 @@ const MainInfo: FC<MainInfoProps> = ({
   // state to show hidden number
   const [showNum, setShowNum] = React.useState<boolean>(false)
   const style = {
-    mainInfoDiv: `  w-[50%]     h-[90%] p-2 flex flex-col justify-between  max_xl:w-[100%]  max_xl:items-center `,
+    mainInfoDiv: `  w-[50%] bg-red    max_smm:w-[100vw]    h-[90%] p-2 flex flex-col justify-between  max_xl:w-[100%]  max_xl:items-center `,
     unitedFirst: `pb-20 flex gap-2 flex-col w-[90%]`,
-    subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[100%]   max_xl:justify-center    max_xl:w-[100%]  `,
-
-    price: `w-[90%]  max_xl:w-[90%]  max_xl:w-[500px] h-[120px] boxShaddow rounded-[30px]  flex items-center justify-center`,
-    user: `flex items-center  justify-start gap-4 max_xl:gap-1 w-[90%]  max_xl:w-[90%]  max_xl:justify-center max_xl:w-[500px]  h-[120px]  boxShaddow  rounded-[30px]`,
+    subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[100%]    max_xl:justify-center    max_xl:w-[100%]  `,
+    pSubInfo: `text-[12px] max_xl:text-[10px] max_smm:flex max_smm:flex-col max_smm:items-center max_smm:justify-center text-gray-400`,
+    price: `w-[90%]  max_xl:w-[90%] max_smm:h-[90px] max_smm:w-[100%]  max_xl:w-[500px] h-[120px] boxShaddow rounded-[30px]  flex items-center justify-center`,
+    user: `flex   max_smm:h-[120px] max_smm:w-[100%] max_x:justify-start items-center  justify-start gap-4 max_xl:gap-1 w-[90%]  max_xl:w-[90%]  max_xl:justify-center max_xl:w-[500px]  h-[120px]  boxShaddow  rounded-[30px]`,
     userAvatar: `w-[70px] h-[70px] rounded-[50%] mx-3 cursor-pointer`,
     userAvatarName: ``,
     priceAndUserInfo: 'flex flex-col   h-[350px] gap-5   max_xl:w-[100%]  ',
@@ -61,19 +61,19 @@ const MainInfo: FC<MainInfoProps> = ({
     <div className={style.mainInfoDiv}>
       <div className={style.unitedFirst}>
         <div className={style.subInfo}>
-          <p className="text-[12px] max_xl:text-[10px] text-gray-400 ">
+          <p className={style.pSubInfo}>
             <span className="font-bold text-gray-500">
               {lang ? 'Category ' : 'კატეგორია '}:
             </span>
             {category}
           </p>
-          <p className="text-[12px] max_xl:text-[10px] text-gray-400 ">
+          <p className={style.pSubInfo}>
             <span className="font-bold text-gray-500">
               {lang ? 'Date ' : 'თარიღი'} :{' '}
             </span>
             {date.slice(0, 21)}
           </p>
-          <p className="text-[12px] max_xl:text-[10px] text-gray-400 ">
+          <p className={style.pSubInfo}>
             <span className="font-bold text-gray-500">
               {lang ? 'User ' : 'მომხარებლი '}:{' '}
             </span>
@@ -84,13 +84,13 @@ const MainInfo: FC<MainInfoProps> = ({
         </div>
         {/* ID div */}
         <h1>
-          <span className="text-[10px] text-gray-500">
+          <span className="text-[10px]  ">
             {lang ? 'Product ID' : 'განცადების ID '} :
           </span>
           <span className="text-[10px] text-gray-400"> {id} </span>
         </h1>
         {/* title  */}
-        <h1 className="text-[2rem]  ">{title}</h1>
+        <h1 className="text-[2rem] max_xl:text-[1rem]   ">{title}</h1>
       </div>
       {/* price and  userInfo  */}
       <div className={style.priceAndUserInfo}>
@@ -120,46 +120,50 @@ const MainInfo: FC<MainInfoProps> = ({
               </h1>
             </div>
             {/* phone number */}
-            <div
-              className={style.phoneDiv}
-              onClick={() => setShowNum(!showNum)}
-            >
-              <BsTelephoneFill className="text-green-300 max_xl:text-[14px] ml-2 " />
+            <div className="flex max_smm:flex-col max_smm:gap-1 gap-4">
+              <div
+                className={style.phoneDiv}
+                onClick={() => setShowNum(!showNum)}
+              >
+                <BsTelephoneFill className="text-green-300 max_xl:text-[14px] ml-2 " />
 
-              {/* showNum,setShowNum */}
-              <div className="flex items-center gap-1 ">
-                {showNum ? (
-                  <p className="max_xl:text-[11px]">
-                    <span className="text-gray-400 max_xl:text-[10px]">
-                      (+995){' '}
-                    </span>
-                    {number.slice(0, 9)}
+                {/* showNum,setShowNum */}
+                <div className="flex  items-center gap-1 ">
+                  {showNum ? (
+                    <p className="max_xl:text-[11px]">
+                      <span className="text-gray-400 max_xl:text-[10px]">
+                        (+995){' '}
+                      </span>
+                      {number.slice(0, 9)}
+                    </p>
+                  ) : (
+                    <p className="max_xl:text-[10px]">
+                      {' '}
+                      {number.slice(0, 5)}** **
+                    </p>
+                  )}
+                  <p
+                    className={` w-[40px]  text-[12px] text-blue-400 ml-2 ${
+                      showNum && 'hidden'
+                    } `}
+                  >
+                    {lang ? 'Show Number' : 'ნომრის ჩვენება'}
                   </p>
-                ) : (
-                  <p className="max_xl:text-[10px]">
-                    {' '}
-                    {number.slice(0, 5)}** **
-                  </p>
-                )}
-                <p
-                  className={` w-[40px]  text-[12px] text-blue-400 ml-2 ${
-                    showNum && 'hidden'
-                  } `}
-                >
-                  {lang ? 'Show Number' : 'ნომრის ჩვენება'}
-                </p>
+                </div>
               </div>
-            </div>
-            {/* location  */}
-            <div className="flex  items-center gap-3 border-2 py-1 px-2 w-[7rem] h-[3rem] rounded-[12px]  cursor-pointer">
-              <GoLocation className="mt-1" />
-              <p className="text-[14px] text-gray-400">
-                {lang ? location.keyen : location.key}
-              </p>
-            </div>
-            {/* message */}
-            <div className="flex  items-center justify-center gap-3 border-2 py-1 px-2  max_xl:mr-5 w-[3.2rem] h-[3rem]   rounded-[12px] text-gray-500 hover:text-black hover:bg-gray-200 cursor-pointer">
-              <AiOutlineMessage className="text-[1.2rem] " />
+              {/* location  */}
+              <div className="flex gap-3   ">
+                <div className="flex  max_smm:w-[8rem] items-center gap-3 border-2 py-1 px-2 w-[7rem] h-[3rem] rounded-[12px]    cursor-pointer">
+                  <GoLocation className="mt-1" />
+                  <p className="text-[14px] text-gray-400">
+                    {lang ? location.keyen : location.key}
+                  </p>
+                </div>
+                {/* message */}
+                <div className="flex  items-center justify-center gap-3 border-2 py-1 px-2  max_xl:mr-5 w-[3.2rem] h-[3rem]   rounded-[12px] text-gray-500 hover:text-black hover:bg-gray-200 cursor-pointer">
+                  <AiOutlineMessage className="text-[1.2rem] " />
+                </div>
+              </div>
             </div>
           </div>
         </div>

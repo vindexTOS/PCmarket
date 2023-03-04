@@ -31,15 +31,15 @@ function NavBar() {
     setSearchBarShow,
   } = UseNavContext()
   const style = {
-    nav: `w-[100%] h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0  border-b-2  `,
+    nav: `w-[100%]  max_smm:w-[100vw]   h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0  border-b-2 overflow-x-hidden `,
     searchDiv: `bg-white  max_lg:w-[400px] max_md2:hidden w-[500px] h-[40px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
     searchShowInResponsive: `bg-white  absolute     w-[300px] h-[40px]     rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
     searchInput: `w-[80%]  outline-none`,
     icon: `w-[70px] h-[70px] max_sm:hidden  text-yellow-400`,
-    divImg: `w-[60px] h-[60px] flex items-center justify-center cursor-pointer  border-[3px] border-yellow-300 rounded-[50%] ${
+    divImg: `w-[60px] h-[60px] flex items-center justify-center cursor-pointer  border-[3px] border-yellow-300  max_smm:absolute   max_smm:right-2  max_smm:top-2 rounded-[50%] ${
       searchBarShow && 'ml-[7rem]'
     } `,
-    img: `w-[45px] h-[45px] rounded-[50%]`,
+    img: `w-[45px] h-[45px] rounded-[50%] `,
     langIcon: `w-[40px] h-[40px] max_sm:hidden`,
     dropDownWrapper: `flex items-center justify-between  gap-20 mr-[10rem] `,
     dropDownNavigationBars: ` text-[3rem] text-yellow-500    cursor-pointer   mdxl:hidden ${
