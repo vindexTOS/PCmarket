@@ -47,8 +47,9 @@ const MainInfo: FC<MainInfoProps> = ({
   const [showNum, setShowNum] = React.useState<boolean>(false)
   const style = {
     mainInfoDiv: `  w-[50%]     h-[90%] p-2 flex flex-col justify-between  max_xl:w-[100%]  max_xl:items-center `,
-    subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[90%]   max_xl:justify-center    max_xl:w-[100%]  `,
-    unitedFirst: `pb-20 flex gap-2 flex-col`,
+    unitedFirst: `pb-20 flex gap-2 flex-col w-[90%]`,
+    subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[100%]   max_xl:justify-center    max_xl:w-[100%]  `,
+
     price: `w-[90%]  max_xl:w-[90%]  max_xl:w-[500px] h-[120px] boxShaddow rounded-[30px]  flex items-center justify-center`,
     user: `flex items-center  justify-start gap-4 max_xl:gap-1 w-[90%]  max_xl:w-[90%]  max_xl:justify-center max_xl:w-[500px]  h-[120px]  boxShaddow  rounded-[30px]`,
     userAvatar: `w-[70px] h-[70px] rounded-[50%] mx-3 cursor-pointer`,
@@ -89,7 +90,7 @@ const MainInfo: FC<MainInfoProps> = ({
           <span className="text-[10px] text-gray-400"> {id} </span>
         </h1>
         {/* title  */}
-        <h1 className="text-[2rem]">{title}</h1>
+        <h1 className="text-[2rem]  ">{title}</h1>
       </div>
       {/* price and  userInfo  */}
       <div className={style.priceAndUserInfo}>
