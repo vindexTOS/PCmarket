@@ -74,7 +74,7 @@ const ImgSlider: FC<ImgSliderProps> = ({ imgs }): JSX.Element => {
         </div>
         <img
           style={{ userSelect: 'none' }}
-          className="h-[500px] w-[520px] max_smm:h-[400px] max_smm:mb-[6.3rem]  max_x:w-[95%] rounded-[5px]  "
+          className="h-[500px] w-[520px] max_smm:h-[400px] max_smm:mb-[6.3rem]  max_x:w-[95%] rounded-[5px] zoom  "
           src={imgs[state.index]}
         />
       </div>

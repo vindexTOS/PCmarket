@@ -90,7 +90,7 @@ const MainInfo: FC<MainInfoProps> = ({
           <span className="text-[10px] text-gray-400"> {id} </span>
         </h1>
         {/* title  */}
-        <h1 className="text-[2rem] max_xl:text-[1rem]   ">{title}</h1>
+        <h1 className="text-[1.5rem] max_xl:text-[1rem]   ">{title}</h1>
       </div>
       {/* price and  userInfo  */}
       <div className={style.priceAndUserInfo}>

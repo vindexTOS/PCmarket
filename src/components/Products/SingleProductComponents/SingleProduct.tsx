@@ -8,7 +8,7 @@ import { UseFormContext } from '../../context/FormContext'
 import ImgSlider from './ImgSlider'
 import MainInfo from './MainInfo'
 import Description from './Description'
-
+import SimularProducts from './SimularProducts'
 function SingleProduct() {
   const { productData } = UseProductContext()
   const { lang } = UseFormContext()
@@ -62,12 +62,13 @@ function SingleProduct() {
             location={location}
           />
         </div>
-        {/* <h1 onClick={() => console.log(product)}>LOG</h1> */}
+        {/* <h1 onClick={() => console.log(product)}>LOG</h1> */}{' '}
         <Description
           description={description}
           aditionalObj={aditionalObj}
           category={category}
         />
+        <SimularProducts category={category} />
       </div>
     )
   } else {
