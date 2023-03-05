@@ -1,9 +1,9 @@
-import React, { Reducer, useReducer } from 'react'
+import React, { Reducer, useReducer, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { UseProductContext } from '../../context/ProductContext'
 import { motion as m } from 'framer-motion'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import ImgSlider from './ImgSlider'
 import MainInfo from './MainInfo'
@@ -13,11 +13,19 @@ function SingleProduct() {
   const { productData } = UseProductContext()
   const { lang } = UseFormContext()
   const { productId } = useParams()
+  const local = useLocation()
 
-  const product = productData?.find(
+  const [reLoadData, setReLoadData] = React.useState(productData)
+  const topScrollRef = useRef<HTMLSpanElement>(null)
+
+  React.useEffect(() => {
+    setReLoadData(product)
+    const element = topScrollRef.current as HTMLDivElement
+    element?.scrollIntoView({ behavior: 'smooth' })
+  }, [local])
+  let product = productData?.find(
     (producte: { id: any }) => String(producte.id) === productId,
   )
-
   const {
     aditionalObj,
     location,
@@ -40,11 +48,10 @@ function SingleProduct() {
     mainDiv: ` pt-10  z-20  overflow-hidden  w-[100%] h-[100%] flex    max_x:flex-col gap-5   `,
   }
 
-  // navigate
-  const navigate = useNavigate()
   if (product) {
     return (
       <div className="flex items-center justify-center flex-col">
+        <span ref={topScrollRef}></span>
         <div className={style.mainDiv}>
           {' '}
           <ImgSlider imgs={imgs} />

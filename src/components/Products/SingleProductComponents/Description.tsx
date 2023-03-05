@@ -57,7 +57,7 @@ const Description: FC<DescriptionProp> = ({
   category,
 }) => {
   const { lang, location } = UseFormContext()
-  const { productData } = UseProductContext()
+  const { productData, simularProRender } = UseProductContext()
 
   // aditionalObj descruction baased on category
 
@@ -66,6 +66,7 @@ const Description: FC<DescriptionProp> = ({
     descriptionDiv: `flex  gap-10 w-[90%] max_x:flex-col mt-10 `,
     specificationsDiv: `flex  gap-10 w-[90%] max_x:flex-col `,
   }
+
   // desctructuring different sub categorys
   const {
     chip,
@@ -194,7 +195,7 @@ const Description: FC<DescriptionProp> = ({
     } else if (category == 'Pre built' || category == 'Used Pc') {
       setObjectData(pcObject)
     }
-  }, [productData, location])
+  }, [productData, location, simularProRender])
 
   const Specs: FC<SpecsType> = ({ val, en, ge }): JSX.Element => {
     return (

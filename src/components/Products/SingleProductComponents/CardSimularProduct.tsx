@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import { MdFavoriteBorder } from 'react-icons/md'
+import { UseProductContext } from '../../context/ProductContext'
 type SimularProductCardProps = {
   imgs: string[]
   price: string
@@ -9,6 +10,7 @@ type SimularProductCardProps = {
   description: string
   title: string
   name: string
+  id: string
 }
 
 const CardSimularProduct: FC<SimularProductCardProps> = ({
@@ -18,7 +20,9 @@ const CardSimularProduct: FC<SimularProductCardProps> = ({
   name,
   title,
   description,
+  id,
 }): JSX.Element => {
+  const { simularProRender, setSimularProRender } = UseProductContext()
   const style = {
     mainDiv: `rounded-[7px]  bg-white   w-[255px] h-[310px] flex flex-col items-center  gap-3 select-none `,
     img: `w-[230px] h-[150px] rounded-[7px] mt-3`,
@@ -28,7 +32,7 @@ const CardSimularProduct: FC<SimularProductCardProps> = ({
   }
 
   return (
-    <Link to={'/'}>
+    <Link to={`/${id}`} onClick={() => setSimularProRender(!simularProRender)}>
       <div className={style.mainDiv}>
         <img className={style.img} src={imgs[0]} />
         <div className={style.user}>

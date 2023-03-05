@@ -80,6 +80,9 @@ type Cell = {
   setPhonesubCategory: React.Dispatch<React.SetStateAction<boolean>>
 
   setPhoneData: unknown | any
+
+  simularProRender: boolean
+  setSimularProRender: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type FilterVal = {
@@ -464,6 +467,10 @@ export const ProductContextProvider = ({
   useEffect(() => {
     console.log(productData)
   }, [search])
+
+  /// page re render for aditionalInfo on simular products click
+  const [simularProRender, setSimularProRender] = useState<boolean>(false)
+
   return (
     <ProductContext.Provider
       value={{
@@ -500,6 +507,8 @@ export const ProductContextProvider = ({
         setSearch,
         PhonesubCategory,
         setPhonesubCategory,
+        simularProRender,
+        setSimularProRender,
       }}
     >
       {children}
