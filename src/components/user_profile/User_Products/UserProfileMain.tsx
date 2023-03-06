@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
 import UserNav from './UserNav'
+import UserProduct from './UserProduct'
+
 function UserProfileMain() {
   const { UserProfileMainId } = useParams()
 
@@ -17,30 +19,44 @@ function UserProfileMain() {
     (val: any) => val.uid === UserProfileMainId,
   )
   const { imgUrl, userName } = singleUserInfo || {}
-  const {
-    aditionalObj,
-    location,
-    category,
-    date,
-    description,
-    id,
-    name,
-    imgs,
-    number,
-    price,
-    priceCur,
-    priceNegotiation,
-    sallType,
-    title,
-    uid,
-  } = singleUser || {}
 
-  const style = { mainDiv: `w-[100vw] h-[100vh]` }
+  const style = {
+    mainDiv: `w-[100%] h-[100%]`,
+    productDiv: `w-[100%] h-[100%]  items-center justify-center mt-10  productGrid`,
+  }
 
   return (
     <div className={style.mainDiv}>
+      {/* <button onClick={() => console.log(singleUser)}>PN</button> */}
+
       <UserNav imgUrl={imgUrl} userName={userName} singleUser={singleUser} />
-      <button onClick={() => console.log(singleUser[0].number)}>PN</button>
+      <div className={style.productDiv}>
+        {' '}
+        {singleUser?.map((val: any) => {
+          const {
+            location,
+            date,
+            id,
+            imgs,
+            price,
+            priceCur,
+            title,
+            userName,
+          } = val
+          return (
+            <UserProduct
+              date={date}
+              id={id}
+              imgs={imgs}
+              price={price}
+              priceCur={priceCur}
+              title={title}
+              location={location}
+              userName={userName}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

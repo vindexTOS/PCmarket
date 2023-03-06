@@ -83,7 +83,15 @@ const SimularProducts: FC<SimularProProps> = ({ category }): JSX.Element => {
         style={{ overflowX: 'scroll', whiteSpace: 'nowrap' }}
       >
         {simularData?.map((val: any) => {
-          const { imgs, price, priceCur, title, description, name, id } = val
+          const {
+            imgs,
+            price,
+            priceCur,
+            title,
+            description,
+            id,
+            sallType,
+          } = val
           return (
             <CardSimularProduct
               title={title}
@@ -91,7 +99,7 @@ const SimularProducts: FC<SimularProProps> = ({ category }): JSX.Element => {
               price={price}
               priceCur={priceCur}
               description={description}
-              name={name}
+              name={sallType}
               id={id}
             />
           )

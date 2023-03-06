@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { FaUserCircle } from 'react-icons/fa'
-import { MdFavoriteBorder } from 'react-icons/md'
+import { MdFavoriteBorder, MdOutlinePointOfSale } from 'react-icons/md'
 import { UseProductContext } from '../../context/ProductContext'
 
 type SimularProductCardProps = {
@@ -41,7 +40,7 @@ const CardSimularProduct: FC<SimularProductCardProps> = ({
       <div className={style.mainDiv}>
         <img className={style.img} src={imgs[0]} />
         <div className={style.user}>
-          <FaUserCircle className="text-[1rem] text-gray-400" />
+          <MdOutlinePointOfSale className="text-[1rem] text-gray-400" />
           <h1 className="text-[10px] text-gray-400">{name}</h1>
         </div>
         <div className={style.header}>

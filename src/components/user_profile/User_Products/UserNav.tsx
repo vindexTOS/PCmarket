@@ -25,49 +25,53 @@ const UserNav: FC<NavProps> = ({
     contactDiv: `flex w-[200px] justify-between`,
     phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-[1px] py-1 px-2 w-[12rem] h-[3rem]  rounded-[8px] hover:bg-gray-200 cursor-pointer`,
   }
-  return (
-    <div className={style.navDiv}>
-      <div className={style.imgNameDiv}>
-        <img className={style.img} src={imgUrl} />
-        <h1 className={style.name}>{userName}</h1>
-      </div>
-      {/* <button onClick={() => console.log(singleUser)}>ON click</button> */}
-      <div className="flex max_smm:flex-col max_smm:gap-1 gap-4">
-        <div className={style.phoneDiv} onClick={() => setShowNum(!showNum)}>
-          <BsTelephoneFill className="text-green-300 max_xl:text-[14px] ml-2 " />
+  if (singleUser) {
+    return (
+      <div className={style.navDiv}>
+        <div className={style.imgNameDiv}>
+          <img className={style.img} src={imgUrl} />
+          <h1 className={style.name}>{userName}</h1>
+        </div>
+        {/* <button onClick={() => console.log(singleUser)}>ON click</button> */}
+        <div className="flex max_smm:flex-col max_smm:gap-1 gap-4">
+          <div className={style.phoneDiv} onClick={() => setShowNum(!showNum)}>
+            <BsTelephoneFill className="text-green-300 max_xl:text-[14px] ml-2 " />
 
-          {/* showNum,setShowNum */}
-          <div className="flex  items-center gap-1 ">
-            {showNum ? (
-              <p className="max_xl:text-[11px]">
-                <span className="text-gray-400 max_xl:text-[10px]">
-                  (+995){' '}
-                </span>
-                {singleUser[0].number.slice(0, 9)}
+            {/* showNum,setShowNum */}
+            <div className="flex  items-center gap-1 ">
+              {showNum ? (
+                <p className="max_xl:text-[11px]">
+                  <span className="text-gray-400 max_xl:text-[10px]">
+                    (+995){' '}
+                  </span>
+                  {singleUser[0].number.slice(0, 9)}
+                </p>
+              ) : (
+                <p className="max_xl:text-[10px]">
+                  {' '}
+                  {singleUser[0].number.slice(0, 5)}** **
+                </p>
+              )}
+              <p
+                className={` w-[40px]  text-[12px] text-blue-400 ml-2 ${
+                  showNum && 'hidden'
+                } `}
+              >
+                {lang ? 'Show Number' : 'ნომრის ჩვენება'}
               </p>
-            ) : (
-              <p className="max_xl:text-[10px]">
-                {' '}
-                {singleUser[0].number.slice(0, 5)}** **
-              </p>
-            )}
-            <p
-              className={` w-[40px]  text-[12px] text-blue-400 ml-2 ${
-                showNum && 'hidden'
-              } `}
-            >
-              {lang ? 'Show Number' : 'ნომრის ჩვენება'}
-            </p>
+            </div>
+          </div>
+          {/*  */}
+
+          <div className="w-[3rem] h-[3rem]  bg-white border-[1px] rounded-[8px] flex items-center justify-center">
+            <AiOutlineMessage className="text-[1.2rem]" />
           </div>
         </div>
-        {/*  */}
-
-        <div className="w-[3rem] h-[3rem]  bg-white border-[1px] rounded-[8px] flex items-center justify-center">
-          <AiOutlineMessage className="text-[1.2rem]" />
-        </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return <div>loading</div>
+  }
 }
 
 export default UserNav
