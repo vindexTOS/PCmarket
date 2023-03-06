@@ -27,22 +27,13 @@ function UserProfileMain() {
 
   return (
     <div className={style.mainDiv}>
-      {/* <button onClick={() => console.log(singleUser)}>PN</button> */}
+      {/* <button onClick={() => console.log(userName)}>PN</button> */}
 
       <UserNav imgUrl={imgUrl} userName={userName} singleUser={singleUser} />
       <div className={style.productDiv}>
         {' '}
         {singleUser?.map((val: any) => {
-          const {
-            location,
-            date,
-            id,
-            imgs,
-            price,
-            priceCur,
-            title,
-            userName,
-          } = val
+          const { location, date, id, imgs, price, priceCur, title } = val
           return (
             <UserProduct
               date={date}

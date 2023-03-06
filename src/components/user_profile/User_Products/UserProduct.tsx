@@ -11,7 +11,7 @@ type UserProductProps = {
 
   id: string
 
-  imgs: string
+  imgs: string[]
 
   price: string
   priceCur: string

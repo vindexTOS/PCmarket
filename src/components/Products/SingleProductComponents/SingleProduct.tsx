@@ -45,7 +45,7 @@ function SingleProduct() {
   } = product || {}
 
   const style = {
-    mainDiv: ` pt-10  z-20  overflow-hidden  w-[100%] h-[100%] flex    max_x:flex-col gap-5   `,
+    mainDiv: ` pt-10  px-10  z-20 max_x:px-0 max_x:w-[100%]  w-[100vw] h-[100%] flex  justify-between max_xml:flex-col gap-5   `,
   }
 
   if (product) {

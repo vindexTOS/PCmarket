@@ -62,16 +62,16 @@ const MainInfo: FC<MainInfoProps> = ({
     subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[100%]    max_xl:justify-center    max_xl:w-[100%]  `,
     pSubInfo: `text-[12px] max_xl:text-[10px] max_smm:flex max_smm:flex-col max_smm:items-center max_smm:justify-center text-gray-400`,
     price: `w-[90%]  max_xl:w-[90%] max_smm:h-[90px] max_smm:w-[100%]  max_xl:w-[500px] h-[120px] boxShaddow rounded-[30px]  flex items-center justify-center`,
-    user: `flex   max_smm:h-[120px] max_smm:w-[100%] max_x:justify-start items-center  justify-start gap-4 max_xl:gap-1 w-[90%]  max_xl:w-[90%]  max_xl:justify-center max_xl:w-[500px]  h-[120px]  boxShaddow  rounded-[30px]`,
-    userAvatar: `w-[70px] h-[70px] rounded-[50%] mx-3 cursor-pointer`,
+    user: `flex    max_smm:h-[120px] max_smm:w-[100%] max_x:justify-start items-center  justify-start gap-4 max_xl:gap-1 w-[90%]  max_xl:w-[90%] max_smm1:justify-between   max_xl:justify-center max_xl:w-[500px]  h-[120px]  boxShaddow  rounded-[30px]`,
+    userAvatar: `w-[70px] h-[70px] rounded-[50%] mx-3  `,
     userAvatarName: ``,
     priceAndUserInfo: 'flex flex-col   h-[350px] gap-5   max_xl:w-[100%]  ',
-    phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-2 py-1 px-2 w-[12rem] h-[3rem] rounded-[12px] hover:bg-gray-200 cursor-pointer`,
+    phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-2 py-1 px-2 w-[12rem] h-[3rem] rounded-[12px] hover:bg-gray-200 cursor-pointer  max_x:w-[9rem]  `,
   }
 
   return (
     <div className={style.mainInfoDiv}>
-      <button onClick={() => console.log(userInfo)}>ON CLICK</button>
+      {/* <button onClick={() => console.log(userInfo)}>ON CLICK</button> */}
       <div className={style.unitedFirst}>
         <div className={style.subInfo}>
           <p className={style.pSubInfo}>
@@ -90,9 +90,10 @@ const MainInfo: FC<MainInfoProps> = ({
             <span className="font-bold text-gray-500">
               {lang ? 'User ' : 'მომხარებლი '}:{' '}
             </span>
-            <span className="text-blue-300">
-              {userData && userData[0]?.userName}
-            </span>
+            <Link to={`/user/${userid}`}>
+              {' '}
+              <span className="text-blue-300 hover:underline">{userName}</span>
+            </Link>
           </p>
         </div>
         {/* ID div */}
@@ -123,20 +124,20 @@ const MainInfo: FC<MainInfoProps> = ({
         {/* wrapper */}
         <div>
           <div className={style.user}>
-            <img className={style.userAvatar} src={imgUrl} />
-            <div className="flex flex-col gap-2 mr-5 ">
-              <Link to={`/user/${userid}`}>
+            <img className={style.userAvatar} src={imgUrl} />{' '}
+            <Link to={`/user/${userid}`}>
+              <div className="flex flex-col gap-2 mr-5 ">
                 <h1 className="text-blue-600 hover:text-blue-400 hover:underline cursor-pointer">
                   {userName}
                 </h1>
-              </Link>
-              <h1 className="text-[10px] max_xl:text-[8px]  text-gray-500 text-center cursor-pointer">
-                {UserProfileMain?.length}{' '}
-                {lang ? 'advertisement' : 'განცხადება'}
-              </h1>
-            </div>
+                <h1 className="text-[10px] max_xl:text-[8px]  text-gray-500 text-center cursor-pointer">
+                  {UserProfileMain?.length}{' '}
+                  {lang ? 'advertisement' : 'განცხადება'}
+                </h1>{' '}
+              </div>{' '}
+            </Link>
             {/* phone number */}
-            <div className="flex max_smm:flex-col max_smm:gap-1 gap-4">
+            <div className="flex  max_smm1:flex-col   max_smm:gap-1 gap-4">
               <div
                 className={style.phoneDiv}
                 onClick={() => setShowNum(!showNum)}
@@ -168,8 +169,8 @@ const MainInfo: FC<MainInfoProps> = ({
                 </div>
               </div>
               {/* location  */}
-              <div className="flex gap-3   ">
-                <div className="flex  max_smm:w-[8rem] items-center gap-3 border-2 py-1 px-2 w-[7rem] h-[3rem] rounded-[12px]    cursor-pointer">
+              <div className="flex gap-1   ">
+                <div className="flex  items-center max_x:justify-center  gap-3 border-2 py-1 px-2  w-[7rem] h-[3rem] rounded-[12px]  max_smm:w-[5rem]    cursor-pointer">
                   <GoLocation className="mt-1" />
                   <p className="text-[14px] text-gray-400">
                     {lang ? location.keyen : location.key}

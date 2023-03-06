@@ -28,6 +28,7 @@ module.exports = {
 
       max_Xll: { max: '1360px' },
       max_xl: { max: '1286px' },
+      max_xml: { max: '1270px' },
       // => @media (max-width: 1279px) { ... }
       max_x: { max: '1150px' },
       max_lg: { max: '1050px' },
@@ -38,6 +39,7 @@ module.exports = {
       max_sm: { max: '640px' },
       max_sm8: { max: '825px' },
       // => @media (max-width: 639px) { ... }
+      max_smm1: { max: '565px' },
       max_smm: { max: '500px' },
       // => @media (max-width:500px) { ... }
     },
