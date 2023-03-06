@@ -23,7 +23,7 @@ function SingleProduct() {
     const element = topScrollRef.current as HTMLDivElement
     element?.scrollIntoView({ behavior: 'smooth' })
   }, [local])
-  let product = productData?.find(
+  const product = productData?.find(
     (producte: { id: any }) => String(producte.id) === productId,
   )
   const {
@@ -64,7 +64,7 @@ function SingleProduct() {
             price={price}
             priceCur={priceCur}
             sallType={sallType}
-            uid={uid}
+            userid={uid}
             number={number}
             location={location}
           />

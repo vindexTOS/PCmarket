@@ -62,7 +62,7 @@ const Description: FC<DescriptionProp> = ({
   // aditionalObj descruction baased on category
 
   const style = {
-    mainDiv: `w-[85%] max_smm:w-[100vw] max_x:w-[95%] max-h-[2000px] pb-10 flex flex-col gap-40   items-center justify-start boxShaddow bg-white rounded-[16px]`,
+    mainDiv: `w-[85%] max_smm:w-[95vw] max_x:w-[95%] max-h-[2000px] pb-10 flex flex-col gap-40   items-center justify-start boxShaddow bg-white rounded-[16px]`,
     descriptionDiv: `flex  gap-10 w-[90%] max_x:flex-col mt-10 `,
     specificationsDiv: `flex  gap-10 w-[90%] max_x:flex-col `,
   }

@@ -4,6 +4,7 @@ import { UseProductContext } from '../../context/ProductContext'
 import { BsTelephoneFill } from 'react-icons/bs'
 import { GoLocation } from 'react-icons/go'
 import { AiOutlineMessage } from 'react-icons/ai'
+import { Link, useParams } from 'react-router-dom'
 type MainInfoProps = {
   category: string
   date: string
@@ -13,7 +14,7 @@ type MainInfoProps = {
   price: string
   priceCur: string
   sallType: string
-  uid: string
+  userid: string
   number: string
   location: { keyen: string; key: string }
 }
@@ -27,16 +28,25 @@ const MainInfo: FC<MainInfoProps> = ({
   price,
   priceCur,
   sallType,
-  uid,
+  userid,
   number,
   location,
 }): JSX.Element => {
-  const { lang, userData } = UseFormContext()
+  const { lang, userData, user, allUsers } = UseFormContext()
   const { productData } = UseProductContext()
   const [userProduct, setUserProduct] = React.useState([])
+  const userInfo = allUsers?.filter((user: any) => {
+    if (user.uid === userid) {
+      return user
+    }
+  })
+
+  const { uid, userName, imgUrl } = userInfo[0]
+
+  // userProduct
   React.useEffect(() => {
     let newVal = productData?.filter((val: any) => {
-      if (val.uid === userData[0].uid) {
+      if (val.uid === uid) {
         return val
       }
     })
@@ -44,9 +54,10 @@ const MainInfo: FC<MainInfoProps> = ({
     setUserProduct(newVal)
   }, [productData])
   // state to show hidden number
+
   const [showNum, setShowNum] = React.useState<boolean>(false)
   const style = {
-    mainInfoDiv: `  w-[50%] bg-red    max_smm:w-[100vw]    h-[90%] p-2 flex flex-col justify-between  max_xl:w-[100%]  max_xl:items-center `,
+    mainInfoDiv: `  w-[50%] bg-red    max_smm:w-[95vw]    h-[90%] p-2 flex flex-col justify-between  max_xl:w-[100%]  max_xl:items-center `,
     unitedFirst: `pb-20 flex gap-2 flex-col w-[90%]`,
     subInfo: ` flex gap-5 border-2 p-1 rounded-[12px] w-[100%]    max_xl:justify-center    max_xl:w-[100%]  `,
     pSubInfo: `text-[12px] max_xl:text-[10px] max_smm:flex max_smm:flex-col max_smm:items-center max_smm:justify-center text-gray-400`,
@@ -57,8 +68,10 @@ const MainInfo: FC<MainInfoProps> = ({
     priceAndUserInfo: 'flex flex-col   h-[350px] gap-5   max_xl:w-[100%]  ',
     phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-2 py-1 px-2 w-[12rem] h-[3rem] rounded-[12px] hover:bg-gray-200 cursor-pointer`,
   }
+
   return (
     <div className={style.mainInfoDiv}>
+      <button onClick={() => console.log(userInfo)}>ON CLICK</button>
       <div className={style.unitedFirst}>
         <div className={style.subInfo}>
           <p className={style.pSubInfo}>
@@ -110,11 +123,13 @@ const MainInfo: FC<MainInfoProps> = ({
         {/* wrapper */}
         <div>
           <div className={style.user}>
-            <img className={style.userAvatar} src={userData[0].imgUrl} />
+            <img className={style.userAvatar} src={imgUrl} />
             <div className="flex flex-col gap-2 mr-5 ">
-              <h1 className="text-blue-600 hover:text-blue-400 hover:underline cursor-pointer">
-                {userData[0].userName}
-              </h1>
+              <Link to={`/user/${userid}`}>
+                <h1 className="text-blue-600 hover:text-blue-400 hover:underline cursor-pointer">
+                  {userName}
+                </h1>
+              </Link>
               <h1 className="text-[10px] max_xl:text-[8px]  text-gray-500 text-center cursor-pointer">
                 {userProduct?.length} {lang ? 'advertisement' : 'განცხადება'}
               </h1>

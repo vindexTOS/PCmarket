@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import { MdFavoriteBorder } from 'react-icons/md'
 import { UseProductContext } from '../../context/ProductContext'
+
 type SimularProductCardProps = {
   imgs: string[]
   price: string
@@ -24,15 +25,19 @@ const CardSimularProduct: FC<SimularProductCardProps> = ({
 }): JSX.Element => {
   const { simularProRender, setSimularProRender } = UseProductContext()
   const style = {
-    mainDiv: `rounded-[7px]  bg-white   w-[255px] h-[310px] flex flex-col items-center  gap-3 select-none `,
+    mainDiv: `rounded-[7px]  bg-white   w-[255px] h-[310px] flex flex-col items-center  gap-3 select-none  max_xl:w-[266px] max_x:w-[350px]  max_sm:w-[400px]  `,
     img: `w-[230px] h-[150px] rounded-[7px] mt-3`,
     user: `flex gap-2 items-center justify-start w-[230px]`,
     header: `flex flex-col `,
     price: `flex items-start justify-between w-[230px] h-[40px] mb-2 `,
   }
-
+  // setSimularProRender(!simularProRender)  this state makes Description.tsx re render so it can re populate AditionalObj after chainging link
   return (
-    <Link to={`/${id}`} onClick={() => setSimularProRender(!simularProRender)}>
+    <Link
+      key={id}
+      to={`/${id}`}
+      onClick={() => setSimularProRender(!simularProRender)}
+    >
       <div className={style.mainDiv}>
         <img className={style.img} src={imgs[0]} />
         <div className={style.user}>

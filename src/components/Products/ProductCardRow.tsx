@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseFormContext } from '../context/FormContext'
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
-
+import { Link, useNavigate } from 'react-router-dom'
 function ProductCardRow({ val }: { val: any }) {
   const { lang, allUsers } = UseFormContext()
 
@@ -42,8 +42,11 @@ function ProductCardRow({ val }: { val: any }) {
     }
     // console.log(imgs[imgIndex])
   }
+
+  // navigate
+  const navigate = useNavigate()
   const style = {
-    mainDiv: `w-[90%] h-[400px] max_Xll:h-[350px] max_Xll:w-[85%]  max_smm:flex-col  max_md2:h-[280px] max_md:h-[560px]  bg-white boxShaddow  flex   items-center jusitfy-between rounded-[5px] `,
+    mainDiv: `w-[90%] h-[400px] max_Xll:h-[350px] max_Xll:w-[85%]  max_smm:flex-col  max_md2:h-[280px] max_md:h-[560px]  bg-white boxShaddow  flex   items-center jusitfy-between rounded-[5px] hover:outline  hover:outline-blue-300 `,
     location: `ml-6 mt-1 gap-1 text-[12px]`,
     imgTextWrapper: `flex flex-col w-[400px] h-[100%]`,
     imgWrapper: `h-[100%] w-[400px] max_lg:w-[250px] flex  max_smm:w-[400px]  items-center p-5`,
@@ -52,7 +55,7 @@ function ProductCardRow({ val }: { val: any }) {
     dateNameWrapper: `flex items-center  max_lg:text-[10px] `,
     date: `flex gap-1 ml-[7rem] mb-2 max_Xll:ml-[3rem] max_lg:ml-[1rem]  `,
     userDiv: `flex ml-6 mb-2 w-[5rem]   `,
-    textWrapper: `h-[90%] w-[1450px]  flex flex-col gap-5`,
+    textWrapper: `h-[90%] w-[1450px]  flex flex-col gap-5 cursor-pointer`,
     header: ` text-[1.1rem] font-bold mt-5 max_Xll:text-[14px] max_md:text-[12px] max_smm:hidden `,
     headerSmall: `font-bold max_smm:text-[15px] text-center py-2   xm:hidden`,
     p: `text-gray-400 pr-5  max_smm:hidden  max_Xll:text-[10px] max_lg:text-[9px] `,
@@ -95,6 +98,7 @@ function ProductCardRow({ val }: { val: any }) {
         {/* <div className={style.imgWrapper}>
           <img className={style.img} src={imgs[imgIndex]} />
         </div> */}
+
         <div className={style.dateNameWrapper}>
           {' '}
           <div className={style.userDiv}>
@@ -107,7 +111,7 @@ function ProductCardRow({ val }: { val: any }) {
           </div>
         </div>
       </div>
-      <div className={style.textWrapper}>
+      <div className={style.textWrapper} onClick={() => navigate(`/${id}`)}>
         <h1 className={style.header}>
           {title.length >= 80 ? `${title.slice(0, 80)}...` : title}
         </h1>
@@ -139,7 +143,7 @@ function ProductCardRow({ val }: { val: any }) {
             </h1>
           </>
         )}
-      </div>
+      </div>{' '}
     </div>
   )
 }

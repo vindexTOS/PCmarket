@@ -50,13 +50,12 @@ const SimularProducts: FC<SimularProProps> = ({ category }): JSX.Element => {
 
   const style = {
     // mainDiv: `w-[85%] relative max_smm:w-[100vw] max_x:w-[95%] h-[400px]  bg-white rounded-[20px] boxShaddow mt-10 overflox-x-hidden `,
-    mainDiv: `w-[85%] max_smm:w-[100vw] max_x:w-[95%] h-[400px]   rounded-[20px]   mt-10    flex-col
-    `,
+    mainDiv: `w-[85%] max_smm:w-[95vw] max_x:w-[95%] h-[400px] rounded-[20px] mt-10  flex-col  `,
     headerAndArrows: `w-[100%] flex justify-between  py-5`,
     header: `text-[1.2rem] font-bold`,
     arrowDiv: `flex  gap-5 text-[1.5rem] font-bold`,
     arrow: `bg-yellow-300 text-white rounded-[50%] w-[2.5rem] h-[2.5rem] flex items-center justify-center hover:bg-yellow-200 cursor-pointer `,
-    cardMap: ` w-[85%] h-[450px] flex flex-row  gap-1     max_sm:w-[70%]      absolute scroll`,
+    cardMap: ` w-[85%] h-[450px] flex flex-row  gap-1 max_x:w-[95%]  max_lg:w-[95%]   rounded-[7px]  absolute scroll`,
     cardMapWrapper: ``,
   }
 
