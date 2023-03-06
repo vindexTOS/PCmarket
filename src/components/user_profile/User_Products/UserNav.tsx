@@ -5,6 +5,7 @@ import { AiOutlineMessage } from 'react-icons/ai'
 import { BsTelephoneFill } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { UseProfileContext } from '../../context/ProfileContext'
+import UserRaitingStars from './UserRaitingStars'
 type NavProps = {
   imgUrl: string
   userName: string
@@ -73,6 +74,7 @@ const UserNav: FC<NavProps> = ({
             </div>{' '}
           </div>
           <div onClick={() => setRatingPopUp(!ratingPopUp)}>Raiting</div>
+          <UserRaitingStars />
         </div>
       </div>
     )

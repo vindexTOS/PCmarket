@@ -38,6 +38,7 @@ export const ProfileContextProvider = ({
   const [ratingComment, setRatingComment] = useState<string>('')
   // getting data from input
   const RateingSend = async (userId: string) => {
+    // sending both doc owners aka sellers uid and commentators aka reviwers uid for future comperesons and filters
     const { uid } = auth.currentUser as { uid: string }
     if (ratingComment !== '' && starRating > 0) {
       try {
@@ -54,6 +55,7 @@ export const ProfileContextProvider = ({
       }
     }
   }
+  // pulling user data from firebase
   const [reviewsData, setReviewsData] = useState<unknown | any>()
   useEffect(() => {
     const q = query(collection(db, 'user_reviews'), orderBy('timestamp'))
