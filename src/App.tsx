@@ -19,7 +19,7 @@ import MainProductPage from './components/Products/MainProductPage'
 import SingleProduct from './components/Products/SingleProductComponents/SingleProduct'
 
 import ProductPage from './components/Products/productCategory/ProductPage'
-import UserProduct from './components/user_profile/User_Products/UserProduct'
+import UserProfileMain from './components/user_profile/User_Products/UserProfileMain'
 
 type RoutesProps = {}
 
@@ -142,8 +142,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* UserProduct */}
-        <Route path="/user/:userproductId" element={<UserProduct />} />
+        {/* UserProfileMain */}
+        <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

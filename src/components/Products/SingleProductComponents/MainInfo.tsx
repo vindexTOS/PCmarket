@@ -34,7 +34,7 @@ const MainInfo: FC<MainInfoProps> = ({
 }): JSX.Element => {
   const { lang, userData, user, allUsers } = UseFormContext()
   const { productData } = UseProductContext()
-  const [userProduct, setUserProduct] = React.useState([])
+  const [UserProfileMain, setUserProfileMain] = React.useState([])
   const userInfo = allUsers?.filter((user: any) => {
     if (user.uid === userid) {
       return user
@@ -43,7 +43,7 @@ const MainInfo: FC<MainInfoProps> = ({
 
   const { uid, userName, imgUrl } = userInfo[0]
 
-  // userProduct
+  // UserProfileMain
   React.useEffect(() => {
     let newVal = productData?.filter((val: any) => {
       if (val.uid === uid) {
@@ -51,7 +51,7 @@ const MainInfo: FC<MainInfoProps> = ({
       }
     })
 
-    setUserProduct(newVal)
+    setUserProfileMain(newVal)
   }, [productData])
   // state to show hidden number
 
@@ -131,7 +131,8 @@ const MainInfo: FC<MainInfoProps> = ({
                 </h1>
               </Link>
               <h1 className="text-[10px] max_xl:text-[8px]  text-gray-500 text-center cursor-pointer">
-                {userProduct?.length} {lang ? 'advertisement' : 'განცხადება'}
+                {UserProfileMain?.length}{' '}
+                {lang ? 'advertisement' : 'განცხადება'}
               </h1>
             </div>
             {/* phone number */}
