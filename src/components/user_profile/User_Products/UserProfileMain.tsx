@@ -2,6 +2,9 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
+import { UseProfileContext } from '../../context/ProfileContext'
+import ProtectedRouteRating from '../UserRating/ProtectedRouteRating'
+import UserRatingMain from '../UserRating/UserRatingMain'
 import UserNav from './UserNav'
 import UserProduct from './UserProduct'
 
@@ -10,6 +13,7 @@ function UserProfileMain() {
 
   const { lang, userData, user, allUsers } = UseFormContext()
   const { productData } = UseProductContext()
+  const { ratingPopUp } = UseProfileContext()
 
   const singleUser = productData?.filter(
     (val: any) => val.uid === UserProfileMainId,
@@ -48,6 +52,11 @@ function UserProfileMain() {
           )
         })}
       </div>
+      {ratingPopUp && (
+        <ProtectedRouteRating>
+          <UserRatingMain />
+        </ProtectedRouteRating>
+      )}
     </div>
   )
 }

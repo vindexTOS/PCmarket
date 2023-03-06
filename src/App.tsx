@@ -20,6 +20,8 @@ import SingleProduct from './components/Products/SingleProductComponents/SingleP
 
 import ProductPage from './components/Products/productCategory/ProductPage'
 import UserProfileMain from './components/user_profile/User_Products/UserProfileMain'
+import UserRatingMain from './components/user_profile/UserRating/UserRatingMain'
+import ProtectedRouteRating from './components/user_profile/UserRating/ProtectedRouteRating'
 
 type RoutesProps = {}
 
@@ -144,6 +146,15 @@ function App() {
         />
         {/* UserProfileMain */}
         <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
+        {/* user rating */}
+        <Route
+          path="/user/rating"
+          element={
+            <ProtectedRouteRating>
+              <UserRatingMain />
+            </ProtectedRouteRating>
+          }
+        />
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
