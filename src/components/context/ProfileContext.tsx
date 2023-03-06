@@ -1,5 +1,6 @@
-import React, { useContext, createContext, useState } from 'react'
+import React, { useContext, createContext, useState, useEffect } from 'react'
 import { UseFormContext } from './FormContext'
+import { db, auth } from '../../components/firebase/firebaseconfig'
 import {
   addDoc,
   collection,
@@ -16,6 +17,8 @@ type Cell = {
   ratingPopUp: boolean
   setRatingPopUp: React.Dispatch<React.SetStateAction<boolean>>
   setRatingComment: React.Dispatch<React.SetStateAction<string>>
+  RateingSend: (userId: string) => void
+  reviewsData: unknown | any
 }
 
 const ProfileContext = createContext<Cell | null>(null)
@@ -25,7 +28,7 @@ export const ProfileContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const {} = UseFormContext()
+  const { user } = UseFormContext()
   //user raiting system
   // state for take values from stars
   const [starRating, setStarRating] = useState<number>(0)
@@ -33,6 +36,37 @@ export const ProfileContextProvider = ({
   const [ratingPopUp, setRatingPopUp] = useState<boolean>(false)
   // rating comment state
   const [ratingComment, setRatingComment] = useState<string>('')
+  // getting data from input
+  const RateingSend = async (userId: string) => {
+    const { uid } = auth.currentUser as { uid: string }
+    if (ratingComment !== '' && starRating > 0) {
+      try {
+        await addDoc(collection(db, 'user_reviews'), {
+          sellerUser: userId,
+          userCommentFrom: uid,
+          rate: starRating,
+          comment: ratingComment,
+          date: Date(),
+          timestamp: serverTimestamp(),
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+  const [reviewsData, setReviewsData] = useState<unknown | any>()
+  useEffect(() => {
+    const q = query(collection(db, 'user_reviews'), orderBy('timestamp'))
+    const unsub = onSnapshot(q, (querrySnapShot) => {
+      let data: {}[] = []
+
+      querrySnapShot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id })
+      })
+      setReviewsData(data)
+    })
+    return () => unsub()
+  }, [user])
   return (
     <ProfileContext.Provider
       value={{
@@ -41,6 +75,8 @@ export const ProfileContextProvider = ({
         ratingPopUp,
         setRatingPopUp,
         setRatingComment,
+        RateingSend,
+        reviewsData,
       }}
     >
       {children}

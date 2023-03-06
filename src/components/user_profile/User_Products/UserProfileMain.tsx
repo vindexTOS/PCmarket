@@ -18,11 +18,11 @@ function UserProfileMain() {
   const singleUser = productData?.filter(
     (val: any) => val.uid === UserProfileMainId,
   )
-
+  // sellers information
   const singleUserInfo = allUsers?.find(
     (val: any) => val.uid === UserProfileMainId,
   )
-  const { imgUrl, userName } = singleUserInfo || {}
+  const { imgUrl, userName, uid } = singleUserInfo || {}
 
   const style = {
     mainDiv: `w-[100%] h-[100%]`,
@@ -54,7 +54,7 @@ function UserProfileMain() {
       </div>
       {ratingPopUp && (
         <ProtectedRouteRating>
-          <UserRatingMain />
+          <UserRatingMain userId={uid} />
         </ProtectedRouteRating>
       )}
     </div>
