@@ -3,9 +3,10 @@ import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { BsTelephoneFill } from 'react-icons/bs'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UseProfileContext } from '../../context/ProfileContext'
 import UserRaitingStars from './UserRaitingStars'
+import ProtectedPopUp from '../UserRating/ProtectedPopUp'
 type NavProps = {
   imgUrl: string
   userName: string
@@ -18,7 +19,7 @@ const UserNav: FC<NavProps> = ({
   singleUser,
 }): JSX.Element => {
   const { lang, userData, user, allUsers } = UseFormContext()
-  const { ratingPopUp, setRatingPopUp } = UseProfileContext()
+  const { reviewsData, popUprate } = UseProfileContext()
   const [showNum, setShowNum] = React.useState<boolean>(false)
   const navigate = useNavigate()
   const style = {
@@ -29,6 +30,7 @@ const UserNav: FC<NavProps> = ({
     contactDiv: `flex w-[200px] justify-between`,
     phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-[1px] py-1 px-2 w-[12rem] h-[3rem]  rounded-[8px] hover:bg-gray-200 cursor-pointer`,
   }
+
   if (singleUser) {
     return (
       <div className={style.navDiv}>

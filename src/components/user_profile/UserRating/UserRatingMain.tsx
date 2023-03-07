@@ -16,7 +16,7 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
     RateingSend,
     reviewsData,
   } = UseProfileContext()
-  const { userData, lang } = UseFormContext()
+  const { userData, lang, user } = UseFormContext()
   const { allUsers } = UseFormContext()
   // this image is sign in users
   const { imgUrl, userName } = userData[0] || {}
@@ -57,7 +57,9 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
   }, [])
 
   // this checks if user is in its own profile
+
   const profileOwnerCheck = UserProfileMainId === userData[0].uid
+
   return (
     <div className={style.mainDiv}>
       <div className={style.ratingDiv}>

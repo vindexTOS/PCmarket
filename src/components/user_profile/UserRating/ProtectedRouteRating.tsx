@@ -1,20 +1,14 @@
 import React from 'react'
 import { UseFormContext } from '../../context/FormContext'
-
+import { UseProfileContext } from '../../context/ProfileContext'
+import { Link, useNavigate } from 'react-router-dom'
 const ProtectedRouteRating = ({ children }: { children: JSX.Element }) => {
+  const navigate = useNavigate()
   const { user, lang } = UseFormContext()
   if (user) {
     return children
   } else {
-    return (
-      <div>
-        <p>
-          {lang
-            ? 'authorise or register if you want to access this page'
-            : 'გაიარეთ ავტორიზაცია ან დარეგისტრიდით თუ გსურთ ამ გვერდზე წვდომა '}
-        </p>
-      </div>
-    )
+    return <Link to="/"></Link>
   }
 }
 

@@ -19,8 +19,9 @@ type Cell = {
   setRatingComment: React.Dispatch<React.SetStateAction<string>>
   RateingSend: (userId: string) => void
   reviewsData: unknown | any
+  popUprate: boolean
+  setPopUpRate: React.Dispatch<React.SetStateAction<boolean>>
 }
-
 const ProfileContext = createContext<Cell | null>(null)
 
 export const ProfileContextProvider = ({
@@ -69,6 +70,8 @@ export const ProfileContextProvider = ({
     })
     return () => unsub()
   }, [user])
+  /// pop up state for unregisterd users when they try to excses ratings
+  const [popUprate, setPopUpRate] = useState<boolean>(false)
   return (
     <ProfileContext.Provider
       value={{
@@ -79,6 +82,8 @@ export const ProfileContextProvider = ({
         setRatingComment,
         RateingSend,
         reviewsData,
+        popUprate,
+        setPopUpRate,
       }}
     >
       {children}

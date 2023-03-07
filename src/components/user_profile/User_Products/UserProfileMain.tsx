@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
 import { UseProfileContext } from '../../context/ProfileContext'
+import ProtectedPopUp from '../UserRating/ProtectedPopUp'
 import ProtectedRouteRating from '../UserRating/ProtectedRouteRating'
 import UserRatingMain from '../UserRating/UserRatingMain'
 import UserNav from './UserNav'
@@ -52,11 +53,9 @@ function UserProfileMain() {
           )
         })}
       </div>
-      {ratingPopUp && (
-        <ProtectedRouteRating>
-          <UserRatingMain userId={uid} />
-        </ProtectedRouteRating>
-      )}
+      {user
+        ? ratingPopUp && <UserRatingMain userId={uid} />
+        : ratingPopUp && <ProtectedPopUp userId={uid} />}
     </div>
   )
 }
