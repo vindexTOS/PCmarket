@@ -1,30 +1,49 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProfileContext } from '../../context/ProfileContext'
+import { MdCancel } from 'react-icons/md'
 import RatingStars from './RatingStars'
 import AllRatingsPage from './AllRatingsPage'
+import { useFormContext } from 'react-hook-form'
 type UseRatingProps = {
   userId?: string
 }
 const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
-  const { setRatingPopUp, setRatingComment, RateingSend } = UseProfileContext()
+  const {
+    setRatingPopUp,
+    setRatingComment,
+    RateingSend,
+    reviewsData,
+  } = UseProfileContext()
   const { userData, lang } = UseFormContext()
+  const { allUsers } = UseFormContext()
   // this image is sign in users
   const { imgUrl, userName } = userData[0] || {}
-
+  // drop down comments
+  const [dropDown, setDropDown] = useState<boolean>(false)
   const style = {
     mainDiv: ` w-[100vw] h-[100%] flex items-center justify-center bg-gray-300 absolute top-[5.7rem] bg-opacity-30 `,
     ratingDiv: `w-[80%] h-[80%]  bg-white boxShaddow rounded-[12px] flex flex-col items-center justify-center`,
   }
+  const { UserProfileMainId } = useParams()
+
+  const singleUserInfo = allUsers?.find(
+    (val: any) => val.uid === UserProfileMainId,
+  )
+  const { uid } = singleUserInfo || {}
+  const userRatingFilter = reviewsData
+    ?.filter((val: any) => val.sellerUser === uid)
+    .map((val: any) => val.rate)
+
   return (
     <div className={style.mainDiv}>
       <div className={style.ratingDiv}>
         <button
-          className="w-[100%] flex ml-10 mt-2"
+          className="w-[100%] flex ml-6 mt-3"
           onClick={() => setRatingPopUp(false)}
         >
-          X
+          <MdCancel className="text-[1.5rem] text-red-500 hover:text-red-600" />
         </button>
         {/* <button onClick={() => console.log(userId)}>LOGINGLG</button> */}
 
@@ -48,6 +67,14 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
           </div>
         </div>
         {/* <div>Other Ratings</div> */}
+        <div className="mb-10 flex gap-1">
+          <p className="text-gray-400  ">
+            {lang ? 'Other Reviews ' : 'სხვა შეფასებები'}
+          </p>{' '}
+          <p className="text-blue-400 hover:text-blue-300">
+            {userRatingFilter.length}
+          </p>
+        </div>
         <AllRatingsPage userId={userId} />
       </div>
     </div>

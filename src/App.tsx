@@ -147,14 +147,12 @@ function App() {
         {/* UserProfileMain */}
         <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
         {/* user rating */}
-        <Route
+        {/* <Route
           path="/user/rating"
           element={
-            <ProtectedRouteRating>
-              <UserRatingMain />
-            </ProtectedRouteRating>
+           
           }
-        />
+        /> */}
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
