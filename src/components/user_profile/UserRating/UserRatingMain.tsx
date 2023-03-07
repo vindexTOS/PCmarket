@@ -69,9 +69,9 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
         >
           <MdCancel className="text-[1.5rem] text-red-500 hover:text-red-600" />
         </button>
-        <button onClick={() => console.log(revCheck, profileOwnerCheck)}>
+        {/* <button onClick={() => console.log(revCheck, profileOwnerCheck)}>
           LOGINGLG
-        </button>
+        </button> */}
 
         <div className="flex gap-3 items-center h-[100%]">
           <div className=" flex items-center justify-center  mb-[9rem] w-[60px] h-[60px] bg-yellow-300 rounded-[50%]  ">

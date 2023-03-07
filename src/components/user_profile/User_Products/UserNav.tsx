@@ -73,7 +73,7 @@ const UserNav: FC<NavProps> = ({
             {/*  */}
             <div className="w-[3rem] h-[3rem]  bg-white border-[1px] rounded-[8px] flex items-center justify-center">
               <AiOutlineMessage className="text-[1.2rem]" />
-            </div>{' '}
+            </div>
           </div>
           <UserRaitingStars />
         </div>

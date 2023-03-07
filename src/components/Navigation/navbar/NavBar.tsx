@@ -12,6 +12,8 @@ import { FaBars } from 'react-icons/fa'
 import { BsFilter } from 'react-icons/bs'
 import { UseProductContext } from '../../context/ProductContext'
 import { motion as m } from 'framer-motion'
+import LOGO from './LOGO'
+import AUTH from './AUTH'
 function NavBar() {
   const {
     userAuth,
@@ -51,6 +53,7 @@ function NavBar() {
   return (
     <nav className={style.nav}>
       <div className={style.dropDownWrapper}>
+        <LOGO />
         {/* this drops down main menu  */}
         <FaBars
           onClick={() => setDropDownSideNav(!dropDownSideNav)}
@@ -129,7 +132,7 @@ function NavBar() {
             {dropDown && <UserSettings />}
           </div>
         )}
-        {!userAuth && <LoginRegister />}
+        {!userAuth && <AUTH />}
       </div>
 
       <div className="mr-10 cursor-pointer" onClick={() => setLang(!lang)}>
