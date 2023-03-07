@@ -73,7 +73,6 @@ const UserNav: FC<NavProps> = ({
               <AiOutlineMessage className="text-[1.2rem]" />
             </div>{' '}
           </div>
-          <div onClick={() => setRatingPopUp(!ratingPopUp)}>Raiting</div>
           <UserRaitingStars />
         </div>
       </div>

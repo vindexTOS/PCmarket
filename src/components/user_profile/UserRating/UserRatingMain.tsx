@@ -20,8 +20,13 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
   return (
     <div className={style.mainDiv}>
       <div className={style.ratingDiv}>
-        <button onClick={() => setRatingPopUp(false)}>X</button>
-        <button onClick={() => console.log(userId)}>LOGINGLG</button>
+        <button
+          className="w-[100%] flex ml-10 mt-2"
+          onClick={() => setRatingPopUp(false)}
+        >
+          X
+        </button>
+        {/* <button onClick={() => console.log(userId)}>LOGINGLG</button> */}
 
         <div className="flex gap-3 items-center h-[100%]">
           <div className=" flex items-center justify-center  mb-[9rem] w-[60px] h-[60px] bg-yellow-300 rounded-[50%]  ">
