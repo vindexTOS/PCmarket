@@ -36,7 +36,7 @@ function NavBar() {
   } = UseNavContext()
   const style = {
     nav: `w-[100%]  max_smm:w-[100vw]   h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0  border-b-2   `,
-    searchDiv: `bg-white  max_lg:w-[400px] max_md2:hidden w-[500px] h-[40px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
+    searchDiv: `bg-white    max_x:w-[300px] max_md2:hidden w-[500px] h-[40px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
     searchShowInResponsive: `bg-white  absolute     w-[300px] h-[40px]     rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
     searchInput: `w-[80%]  outline-none`,
     icon: `w-[70px] h-[70px] max_sm:hidden  text-yellow-400`,

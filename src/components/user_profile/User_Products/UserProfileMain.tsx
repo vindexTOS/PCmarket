@@ -8,7 +8,6 @@ import ProtectedRouteRating from '../UserRating/ProtectedRouteRating'
 import UserRatingMain from '../UserRating/UserRatingMain'
 import UserNav from './UserNav'
 import UserProduct from './UserProduct'
-
 function UserProfileMain() {
   const { UserProfileMainId } = useParams()
 

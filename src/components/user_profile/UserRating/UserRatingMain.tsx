@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProfileContext } from '../../context/ProfileContext'
 import { MdCancel } from 'react-icons/md'
+import { BsStar } from 'react-icons/bs'
+
 import RatingStars from './RatingStars'
 import AllRatingsPage from './AllRatingsPage'
 import { useFormContext } from 'react-hook-form'
@@ -15,6 +17,7 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
     setRatingComment,
     RateingSend,
     reviewsData,
+    deleteRating,
   } = UseProfileContext()
   const { userData, lang, user } = UseFormContext()
   const { allUsers } = UseFormContext()
@@ -39,6 +42,9 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
   //checking if the logged in users uid excists inside of the reviewsData array than checking if Location UserProfileMainId and sellerUser id are the sam
   // if this both are true we push alues inisde of the empty array and checking it in return if check.length is more than 0 if its more then 0 its gonna return true if its not it gonna return false
   const [revCheck, setRevCheck] = useState<boolean>(false)
+  const [comment, setComment] = useState<string>('')
+  const [stars, setStars] = useState<number>(0)
+  const [id, setId] = useState<string>('')
   React.useEffect(() => {
     const reviewCheck = () => {
       let check = []
@@ -48,6 +54,9 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
           UserProfileMainId === reviewsData[i].sellerUser
         ) {
           check.push(reviewsData[i])
+          setComment(reviewsData[i].comment)
+          setStars(reviewsData[i].rate)
+          setId(reviewsData[i].id)
         }
       }
       setRevCheck(check.length > 0)
@@ -85,7 +94,7 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
                   placeholder={`${
                     lang ? 'Rate The Seller' : 'შეაფასე გამყიდველი'
                   }`}
-                  className="border-2 w-[500px] max-h-[150px] outline-0"
+                  className="border-2 w-[500px] max-h-[150px]  max_sm8:max-w-[300px] max_sm8:min-w-[200px]  max_smm:w-[120px] outline-0"
                   onChange={(e) => setRatingComment(e.target.value)}
                 ></textarea>
                 <button
@@ -97,7 +106,20 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
               </div>
             )
           ) : (
-            <div>Your Revwie</div>
+            <div className="flex flex-col items-start gap-2">
+              {
+                <p className="flex items-center justify-center  ml-2 gap-2">
+                  {new Array(stars).fill('val').map((val: any) => {
+                    return <BsStar className="text-[1rem] text-yellow-300" />
+                  })}
+                </p>
+              }
+              {/* <h1 onClick={() => console.log(reviewsData)}> tru sss</h1> */}
+              <div className="border-2 w-[500px] max-h-[500px]  max_sm8:max-w-[300px] max_sm8:min-w-[200px]  max_smm:w-[120px] flex  py-3 outline-0 rounded-[30px]">
+                <h1 className="ml-5 text-gray-500"> {comment}</h1>
+              </div>
+              <div onClick={() => deleteRating(id)}>DELETE</div>
+            </div>
           )}
         </div>
         {/* <div>Other Ratings</div> */}

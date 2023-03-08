@@ -10,6 +10,8 @@ import {
   query,
   orderBy,
   onSnapshot,
+  deleteDoc,
+  doc,
 } from 'firebase/firestore'
 type Cell = {
   starRating: number
@@ -21,6 +23,7 @@ type Cell = {
   reviewsData: unknown | any
   popUprate: boolean
   setPopUpRate: React.Dispatch<React.SetStateAction<boolean>>
+  deleteRating: (ID: string) => void
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -72,6 +75,18 @@ export const ProfileContextProvider = ({
   }, [user])
   /// pop up state for unregisterd users when they try to excses ratings
   const [popUprate, setPopUpRate] = useState<boolean>(false)
+
+  // delete rating comment
+
+  const deleteRating = async (ID: string) => {
+    const docRef = doc(collection(db, `user_reviews`), ID)
+    try {
+      await deleteDoc(docRef)
+      console.log('Document successfully deleted!')
+    } catch (error) {
+      console.error('Error removing documt: ', error)
+    }
+  }
   return (
     <ProfileContext.Provider
       value={{
@@ -84,6 +99,7 @@ export const ProfileContextProvider = ({
         reviewsData,
         popUprate,
         setPopUpRate,
+        deleteRating,
       }}
     >
       {children}

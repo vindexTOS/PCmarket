@@ -12,9 +12,9 @@ const AllRatingsPage: FC<AllRatingProps> = ({ userId }) => {
 
   const style = {
     mainDiv: `flex flex-col items-center gap-3   w-[80%] bg-white rounded-b-[12px]   pb-4   scroll overflow-y-scroll`,
-    commentDiv: `flex gap-2  `,
-    img: `rounded-[50%]   w-[40px] h-[40px]`,
-    p: ` w-[700px]  px-2  max-h-[700px] border-[1px] rounded-[12px] flex flex-col items-start justify-center `,
+    commentDiv: `flex gap-2   `,
+    img: `rounded-[50%]   w-[40px] h-[40px] max_smm:w-[30px] max_smm:h-[30px]`,
+    p: ` w-[700px]  max_x:w-[600px] max_lg:w-[550px] max_md2:w-[500px]   max_sm8:max-w-[300px] max_sm8:min-w-[200px]  max_smm:w-[120px] px-2  max-h-[700px] border-[1px] rounded-[12px] flex flex-col items-start justify-center `,
     starDiv: `flex text-yellow-300 gap-1`,
   }
   return (

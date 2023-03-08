@@ -23,9 +23,9 @@ const UserNav: FC<NavProps> = ({
   const [showNum, setShowNum] = React.useState<boolean>(false)
   const navigate = useNavigate()
   const style = {
-    navDiv: `w-[100%] h-[250px] mt-1 bg-white flex items-center justify-between px-40`,
-    imgNameDiv: `flex items-center justify-between w-[300px] h-[240px]   `,
-    img: `w-[100px] h-[100px] rounded-[50%]`,
+    navDiv: `w-[100%] h-[250px] mt-1 bg-white flex items-center justify-between px-40 max_md2:flex-col max_md2:h-[320px]  max_md2:pb-5`,
+    imgNameDiv: `flex items-center justify-between w-[300px] h-[240px]   max_md2:justify-center  max_md2:gap-5 `,
+    img: `w-[100px] h-[100px] rounded-[50%]  max_md2:w-[70px]  max_md2:h-[70px]`,
     name: `text-[2rem] text-gray-400`,
     contactDiv: `flex w-[200px] justify-between`,
     phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-[1px] py-1 px-2 w-[12rem] h-[3rem]  rounded-[8px] hover:bg-gray-200 cursor-pointer`,
