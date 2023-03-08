@@ -117,7 +117,7 @@ function NavBar() {
                     src={userData ? userData[0]?.imgUrl : Icons.Picture}
                   />
                 </div>
-                <div className="flex flex-col max_sm:hidden">
+                <div className="flex flex-col w-[10rem]   max_sm:hidden">
                   <p className="text-gray-400">
                     {userData && userData[0]?.userName}
                   </p>
@@ -125,7 +125,7 @@ function NavBar() {
                     to="/myproduct"
                     className="text-gray-600 max_sm:hidden text-[12px]"
                   >
-                    {lang ? 'My Product' : 'ჩემი პროდუქტი'}
+                    {lang ? 'Add product' : 'პროდუქტის დამატება'}
                   </Link>
                 </div>
               </div>

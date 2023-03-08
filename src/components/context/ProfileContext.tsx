@@ -24,6 +24,9 @@ type Cell = {
   popUprate: boolean
   setPopUpRate: React.Dispatch<React.SetStateAction<boolean>>
   deleteRating: (ID: string) => void
+
+  editOpen: boolean
+  setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -87,6 +90,13 @@ export const ProfileContextProvider = ({
       console.error('Error removing documt: ', error)
     }
   }
+
+  // profile edit
+  // set profile pop up to open
+  const [editOpen, setEditOpen] = useState<boolean>(false)
+  const editProfile = () => {
+    const docRef = doc(collection(db, 'user_info'))
+  }
   return (
     <ProfileContext.Provider
       value={{
@@ -100,6 +110,8 @@ export const ProfileContextProvider = ({
         popUprate,
         setPopUpRate,
         deleteRating,
+        editOpen,
+        setEditOpen,
       }}
     >
       {children}

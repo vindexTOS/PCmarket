@@ -38,7 +38,9 @@ function UserSettings() {
         </div>
         <div className="text-[1.2rem] hover:bg-gray-300 text-gray-500 w-[345px] h-[3rem] pl-2  flex items-center justify-start ">
           {' '}
-          <Link to={`/user/${user?.uid}`}>პროდუქტი და პროფილი</Link>
+          <Link to={`/user/${user?.uid}`}>
+            {lang ? 'Products And Profile' : 'პროდუქტი და პროფილი'}
+          </Link>
         </div>
         <button className="bg-red-600" type="submit" onClick={handleLogOut}>
           {lang ? 'Log Out' : 'გასვლა'}

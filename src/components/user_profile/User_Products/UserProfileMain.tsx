@@ -44,7 +44,12 @@ function UserProfileMain() {
     <div className={style.mainDiv}>
       {/* <button onClick={() => console.log(userName)}>PN</button> */}
 
-      <UserNav imgUrl={imgUrl} userName={userName} singleUser={singleUser} />
+      <UserNav
+        imgUrl={imgUrl}
+        userName={userName}
+        singleUser={singleUser}
+        userID={uid}
+      />
       <div className={style.productDiv}>
         {' '}
         {singleUser?.map((val: any, index: number) => {

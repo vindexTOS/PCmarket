@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Icons } from '../../../utils/data/Photos'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProductContext } from '../../context/ProductContext'
-
+import { motion as m } from 'framer-motion'
 type UserProductProps = {
   location: { key: string; keyen: string }
 
@@ -137,12 +137,31 @@ const UserProduct: FC<UserProductProps> = ({
             >
               <h1>{lang ? 'Delete' : 'წაშლა'}</h1>
               {deleteIndex[index] && (
-                <div className=" ">
-                  <button onClick={() => deleteProduct(id)}>Yes</button>
-                  <button onClick={() => deleteCheck(index, 'false')}>
-                    No
-                  </button>
-                </div>
+                <m.div
+                  initial={{ y: -100 }}
+                  animate={{ y: 0 }}
+                  className="absolute mt-[15rem] mr-[11.5rem] z-40   bg-white boxShaddow w-[400px] max_sm:w-[350px]  h-[11rem] rounded-[30px] flex flex-col items-center justify-center gap-8 "
+                >
+                  <h1 className="text-gray-400 text-center ">
+                    {lang
+                      ? 'Are you sure that you want to delete this item ? '
+                      : 'დარწმუნებული ხართ რომ გსურთ პროდუქტის წაშლა ?'}
+                  </h1>
+                  <div className="flex gap-5">
+                    <button
+                      className="w-[9rem]  h-[2.3rem] bg-red-600 hover:bg-red-500 rounded-[30px]"
+                      onClick={() => deleteProduct(id)}
+                    >
+                      {lang ? 'Yes' : 'დიახ'}
+                    </button>
+                    <button
+                      className=" w-[9rem] h-[2.3rem] bg-green-400 hover:bg-green-300 rounded-[30px]"
+                      onClick={() => deleteCheck(index, 'false')}
+                    >
+                      {lang ? 'No' : 'არა'}
+                    </button>
+                  </div>
+                </m.div>
               )}
             </div>
           ) : (
