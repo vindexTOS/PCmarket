@@ -14,6 +14,7 @@ import { UseProductContext } from '../../context/ProductContext'
 import { motion as m } from 'framer-motion'
 import LOGO from './LOGO'
 import AUTH from './AUTH'
+import AUTHPOPUP from './AUTHPOPUP'
 function NavBar() {
   const {
     userAuth,
@@ -31,6 +32,7 @@ function NavBar() {
     searchBarIcon,
     searchBarShow,
     setSearchBarShow,
+    authPopUp,
   } = UseNavContext()
   const style = {
     nav: `w-[100%]  max_smm:w-[100vw]   h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0  border-b-2   `,
@@ -54,6 +56,7 @@ function NavBar() {
     <nav className={style.nav}>
       <div className={style.dropDownWrapper}>
         <LOGO />
+        {authPopUp && <AUTHPOPUP />}
         {/* this drops down main menu  */}
         <FaBars
           onClick={() => setDropDownSideNav(!dropDownSideNav)}

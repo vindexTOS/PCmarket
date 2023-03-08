@@ -17,6 +17,9 @@ type Cell = {
 
   searchBarShow: boolean
   setSearchBarShow: React.Dispatch<React.SetStateAction<boolean>>
+
+  authPopUp: boolean
+  setAuthPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // type SubCategoryState = {
@@ -100,6 +103,9 @@ export const NavContextProvider = ({
     return () => window.removeEventListener('resize', handleResize)
   }, [windoWith])
 
+  // authorisation pop up
+  const [authPopUp, setAuthPopUp] = useState<boolean>(false)
+
   return (
     <NavContext.Provider
       value={{
@@ -110,6 +116,8 @@ export const NavContextProvider = ({
         setsearchBarIcon,
         searchBarShow,
         setSearchBarShow,
+        authPopUp,
+        setAuthPopUp,
       }}
     >
       {children}

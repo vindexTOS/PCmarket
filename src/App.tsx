@@ -23,6 +23,7 @@ import UserProfileMain from './components/user_profile/User_Products/UserProfile
 import UserRatingMain from './components/user_profile/UserRating/UserRatingMain'
 
 import ProtectedPopUp from './components/user_profile/UserRating/ProtectedPopUp'
+import AUTHpage from './components/auth_log/AUTHpage'
 type RoutesProps = {}
 
 function App() {
@@ -158,6 +159,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user_info" element={<UserInfo />} />
+        <Route path="/auth" element={<AUTHpage />} />
       </Routes>
       <Footer />
     </>
