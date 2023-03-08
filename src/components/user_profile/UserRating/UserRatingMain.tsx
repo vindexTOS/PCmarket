@@ -63,7 +63,7 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
       console.log(check.length)
     }
     reviewCheck()
-  }, [])
+  }, [reviewsData])
 
   // this checks if user is in its own profile
 
@@ -118,7 +118,12 @@ const UserRatingMain: FC<UseRatingProps> = ({ userId }): JSX.Element => {
               <div className="border-2 w-[500px] max-h-[500px]  max_sm8:max-w-[300px] max_sm8:min-w-[200px]  max_smm:w-[120px] flex  py-3 outline-0 rounded-[30px]">
                 <h1 className="ml-5 text-gray-500"> {comment}</h1>
               </div>
-              <div onClick={() => deleteRating(id)}>DELETE</div>
+              <div
+                className="w-[80px] h-[35px] flex items-center justify-center bg-red-500 text-white rounded-[12px] cursor-pointer"
+                onClick={() => deleteRating(id)}
+              >
+                Delete
+              </div>
             </div>
           )}
         </div>

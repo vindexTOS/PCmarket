@@ -1,5 +1,13 @@
 import { create } from 'domain'
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore'
+
 import React, {
   useEffect,
   useState,
@@ -83,6 +91,10 @@ type Cell = {
 
   simularProRender: boolean
   setSimularProRender: React.Dispatch<React.SetStateAction<boolean>>
+
+  deleteProduct: (id: string) => void
+  makeSureCheck: boolean
+  setMakeSureCheck: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type FilterVal = {
@@ -470,6 +482,20 @@ export const ProductContextProvider = ({
 
   /// page re render for aditionalInfo on simular products click
   const [simularProRender, setSimularProRender] = useState<boolean>(false)
+  // delete product with ID
+  const [makeSureCheck, setMakeSureCheck] = useState<boolean>(false)
+
+  // firebase function to delete prdouct
+  const deleteProduct = async (id: string) => {
+    const docRef = doc(collection(db, 'user_product'), id)
+
+    try {
+      await deleteDoc(docRef)
+      console.log('Document successfully deleted!')
+    } catch (error) {
+      console.error('Error removing documt: ', error)
+    }
+  }
 
   return (
     <ProductContext.Provider
@@ -509,6 +535,9 @@ export const ProductContextProvider = ({
         setPhonesubCategory,
         simularProRender,
         setSimularProRender,
+        deleteProduct,
+        makeSureCheck,
+        setMakeSureCheck,
       }}
     >
       {children}

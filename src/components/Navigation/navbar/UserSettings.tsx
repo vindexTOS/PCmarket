@@ -1,6 +1,6 @@
 import React from 'react'
 import { UseFormContext } from '../../context/FormContext'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 function UserSettings() {
   const {
     userAuth,
@@ -10,6 +10,7 @@ function UserSettings() {
     setLang,
     lang,
     userData,
+    allUsers,
   } = UseFormContext()
   const style = {
     mainDiv: `absolute w-[350px] h-[310px]  max_lg:right-4    bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
@@ -17,6 +18,7 @@ function UserSettings() {
     pDiv: `w-[100%] flex flex-col items-start p-5 justify-center border-b-[1px]`,
     edits: `w-[350px] h-[50%] `,
   }
+
   return (
     <div className={style.mainDiv}>
       <div className="flex flex-col  ">
@@ -34,7 +36,10 @@ function UserSettings() {
             </div>
           </Link>
         </div>
-
+        <div className="text-[1.2rem] hover:bg-gray-300 text-gray-500 w-[345px] h-[3rem] pl-2  flex items-center justify-start ">
+          {' '}
+          <Link to={`/user/${user?.uid}`}>პროდუქტი და პროფილი</Link>
+        </div>
         <button className="bg-red-600" type="submit" onClick={handleLogOut}>
           {lang ? 'Log Out' : 'გასვლა'}
         </button>

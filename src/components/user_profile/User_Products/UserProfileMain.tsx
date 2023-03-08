@@ -28,7 +28,18 @@ function UserProfileMain() {
     mainDiv: `w-[100%] h-[100%]`,
     productDiv: `w-[100%] h-[100%]  items-center justify-center mt-10  productGrid`,
   }
-
+  const [deleteIndex, setDeleteIndex] = React.useState(
+    new Array(singleUser?.length).fill(false),
+  )
+  const deleteCheck = (index: number, check: string) => {
+    let newDelete = [...deleteIndex]
+    newDelete[index] = !newDelete[index]
+    setDeleteIndex(newDelete)
+    if (check === 'false') {
+      newDelete[index] = !newDelete[index]
+      setDeleteIndex(newDelete)
+    }
+  }
   return (
     <div className={style.mainDiv}>
       {/* <button onClick={() => console.log(userName)}>PN</button> */}
@@ -36,7 +47,7 @@ function UserProfileMain() {
       <UserNav imgUrl={imgUrl} userName={userName} singleUser={singleUser} />
       <div className={style.productDiv}>
         {' '}
-        {singleUser?.map((val: any) => {
+        {singleUser?.map((val: any, index: number) => {
           const { location, date, id, imgs, price, priceCur, title } = val
           return (
             <UserProduct
@@ -48,6 +59,10 @@ function UserProfileMain() {
               title={title}
               location={location}
               userName={userName}
+              index={index}
+              deleteCheck={deleteCheck}
+              deleteIndex={deleteIndex}
+              setDeleteIndex={setDeleteIndex}
             />
           )
         })}

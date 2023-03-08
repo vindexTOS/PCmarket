@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Icons } from '../../../utils/data/Photos'
 import { UseFormContext } from '../../context/FormContext'
+import { UseProductContext } from '../../context/ProductContext'
 
 type UserProductProps = {
   location: { key: string; keyen: string }
@@ -18,6 +19,10 @@ type UserProductProps = {
 
   title: string
   userName: string
+  index: number
+  deleteCheck: (index: number, check: string) => void
+  deleteIndex: boolean[]
+  setDeleteIndex: React.Dispatch<React.SetStateAction<boolean[]>>
 }
 
 const UserProduct: FC<UserProductProps> = ({
@@ -34,11 +39,16 @@ const UserProduct: FC<UserProductProps> = ({
 
   title,
   userName,
+  index,
+  deleteCheck,
+  deleteIndex,
+  setDeleteIndex,
 }) => {
-  const { lang } = UseFormContext()
+  const { lang, user } = UseFormContext()
+  const { deleteProduct, setMakeSureCheck, makeSureCheck } = UseProductContext()
   const style = {
     productCard: ` bg-white w-[400px] h-[500px] max_sm:w-[350px] max_smm:ml-5 rounded-[15px] boxShaddow flex items-center flex-col justify-between `,
-    header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px] cursor-pointer  hover:bg-blue-500 bg-blue-400 text-white flex items-center justify-center  text-[1.3rem] text-center   max_md:text-[1rem]`,
+    header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px] cursor-pointer  hover:bg-yellow-300 bg-yellow-400 text-white flex items-center justify-center  text-[1.3rem] text-center   max_md:text-[1rem]`,
     imgWrapper: `w-[340px] h-[50%] rounded-[15px] border-2 rounded-[20px] flex items-center justify-center`,
     img: `w-[340px] h-[250px] rounded-[15px] border-2 rounded-[20px] `,
     imgSpan: `hover:blurCs flex items-center justify-between opacity-0 hover:opacity-20 w-[380px] h-[250px] absolute    rounded-[15px] bg-gray-100  `,
@@ -68,9 +78,12 @@ const UserProduct: FC<UserProductProps> = ({
     // console.log(imgs[imgIndex])
   }
 
+  const { UserProfileMainId } = useParams()
+
+  const checkUserProfile = user?.uid === UserProfileMainId
   return (
     <div key={id} className={style.productCard}>
-      {/* <h1 onClick={() => console.log(location)}>LOg</h1> */}
+      {/* <h1 onClick={() => console.log(checkUserProfile)}>LOg</h1> */}
       <Link to={`/${id}`} className={style.header}>
         {title?.length >= 60 ? `${title.slice(0, 60)}...` : title}
       </Link>
@@ -80,6 +93,7 @@ const UserProduct: FC<UserProductProps> = ({
         </span>
         {lang ? location.keyen : location.key}
       </p>
+
       {imgs ? (
         <div className={style.imgWrapper}>
           <img
@@ -116,8 +130,28 @@ const UserProduct: FC<UserProductProps> = ({
           <p className="text-gray-400"> {date.slice(4, 16)}</p>
         </div>
         <div className={style.userDiv}>
-          <p>{lang ? 'User' : 'ავტორი'}: </p>
-          <p className="text-gray-400 ml-1"> {userName}</p>
+          {checkUserProfile ? (
+            <div
+              onClick={() => deleteCheck(index, 'true')}
+              className=" cursor-pointer bg-red-500 hover:bg-red-600 rounded-[30px] w-[9rem] h-[2.3rem] flex items-center justify-center text-[1.2rem] text-white"
+            >
+              <h1>{lang ? 'Delete' : 'წაშლა'}</h1>
+              {deleteIndex[index] && (
+                <div className=" ">
+                  <button onClick={() => deleteProduct(id)}>Yes</button>
+                  <button onClick={() => deleteCheck(index, 'false')}>
+                    No
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              {' '}
+              <p>{lang ? 'User' : 'ავტორი'}: </p>
+              <p className="text-gray-400 ml-1"> {userName}</p>
+            </>
+          )}
         </div>
       </div>
     </div>
