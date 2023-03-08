@@ -43,7 +43,7 @@ export const ProfileContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const { user } = UseFormContext()
+  const { user, allUsers } = UseFormContext()
   //user raiting system
   // state for take values from stars
   const [starRating, setStarRating] = useState<number>(0)
@@ -100,10 +100,21 @@ export const ProfileContextProvider = ({
   }
 
   // profile edit
+  // make sure that if user does not changes user name old user name remaines
+  const [oldName, setOldName] = useState<string>('')
+  // old img
+  const [oldImg, setOldImg] = useState<string>('')
+  useEffect(() => {
+    const singleUser = allUsers?.find((val: any) => val.uid === user?.uid)
+
+    setOldName(singleUser?.userName)
+    setOldImg(singleUser?.imgUrl)
+  }, [allUsers])
   // set profile pop up to open
   const [editOpen, setEditOpen] = useState<boolean>(false)
   // name input for update
-  const [userNameUpdate, setUserNameUpdate] = useState<string>('')
+  const [userNameUpdate, setUserNameUpdate] = useState<string>(`${oldName}`)
+
   // img update state
   const [profilePicHtmlUpdate, setProfilePicHtmlUpdate] = useState<string>('')
   const [profilePicUpdate, setProfilePicUpdate] = useState<Blob | null>(null)
@@ -119,7 +130,9 @@ export const ProfileContextProvider = ({
       setProfilePicUpdate(newProfilePic)
     }
   }
+  // make sure that if img is not change we keep old img
 
+  const [oldImgUrl, setOldImgUrl] = useState<string>(`${oldImg}`)
   const editProfile = async (docId: string) => {
     try {
       if (profilePicUpdate !== null) {
@@ -128,9 +141,10 @@ export const ProfileContextProvider = ({
         const docRef = doc(db, 'user_info', docId)
         await uploadBytes(imgRef, profilePicUpdate)
         const url = await getDownloadURL(imgRef)
-
+        setOldImgUrl(url)
         await updateDoc(docRef, {
           imgUrl: url,
+          userName: userNameUpdate,
         })
       }
     } catch (e) {
