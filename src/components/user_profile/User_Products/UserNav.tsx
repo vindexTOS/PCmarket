@@ -12,6 +12,7 @@ type NavProps = {
   userName: string
   singleUser: [{ number: string }]
   userID: string
+  docId: string
 }
 
 const UserNav: FC<NavProps> = ({
@@ -19,9 +20,20 @@ const UserNav: FC<NavProps> = ({
   userName,
   singleUser,
   userID,
+  docId,
 }): JSX.Element => {
   const { lang, userData, user, allUsers } = UseFormContext()
-  const { reviewsData, popUprate, editOpen, setEditOpen } = UseProfileContext()
+  const {
+    reviewsData,
+    popUprate,
+    editOpen,
+    setEditOpen,
+    userNameUpdate,
+    setUserNameUpdate,
+    profileImgUpdate,
+    profilePicHtmlUpdate,
+    editProfile,
+  } = UseProfileContext()
   const [showNum, setShowNum] = React.useState<boolean>(false)
 
   const [hoverImg, setHoverImg] = React.useState<boolean>(false)
@@ -34,12 +46,12 @@ const UserNav: FC<NavProps> = ({
     contactDiv: `flex w-[200px] justify-between`,
     phoneDiv: `flex  items-center max_xl:p-0 gap-3 border-[1px] py-1 px-2 w-[12rem] h-[3rem]  rounded-[8px] hover:bg-gray-200 cursor-pointer`,
     popUpMain: `w-[100vw] h-[100vh] mt-[17rem] right-0 bg-gray-100 bg-opacity-50 absolute z-50  flex items-center justify-center`,
-    popUpInner: ` flex flex-col items-center justify-between py-10 bg-white boxShaddow w-[400px] h-[300px] rounded-[30px] max_ms:w-[350px]`,
+    popUpInner: ` flex flex-col items-center justify-between py-10 bg-white boxShaddow w-[400px] h-[300px]  rounded-[30px] max_ms:w-[300px]`,
     popUpbtn: `text-black flex items-center justify-between gap-5`,
     popUpButton: `w-[9rem] h-[2.4rem] rounded-[30px] text-white font-bold   `,
     editImgNameDiv: `flex flex-col gap-5 items-center justify-center `,
     editImg: `w-[70px] h-[70px] rounded-[50%] cursor-pointer`,
-    editHeader: `w-[9rem] h-[2rem] outline outline-2  flex items-center justify-center text-gray-400 rounded-[20px]`,
+    editHeader: `w-[12rem]  h-[2rem] outline outline-2  flex items-center justify-center text-gray-400 rounded-[20px]`,
   }
   const { UserProfileMainId } = useParams()
   const UserEditCheck = UserProfileMainId === user?.uid
@@ -76,11 +88,18 @@ const UserNav: FC<NavProps> = ({
                     onMouseOver={() => setHoverImg(!hoverImg)}
                     onMouseLeave={() => setHoverImg(!hoverImg)}
                     className={style.editImg}
-                    src={imgUrl}
-                  />{' '}
+                    src={profilePicHtmlUpdate ? profilePicHtmlUpdate : imgUrl}
+                  />
                 </label>
-                <input type="file" className="hidden" id="img" />
                 <input
+                  type="file"
+                  onChange={(e) => profileImgUpdate(e)}
+                  className="hidden"
+                  id="img"
+                />
+                <input
+                  value={userNameUpdate}
+                  onChange={(e) => setUserNameUpdate(e.target.value)}
                   type="text"
                   maxLength={10}
                   className={style.editHeader}
@@ -95,6 +114,7 @@ const UserNav: FC<NavProps> = ({
                   Cancel
                 </button>
                 <button
+                  onClick={() => editProfile(docId)}
                   className={`${style.popUpButton} bg-green-400 hover:bg-green-300`}
                 >
                   Save

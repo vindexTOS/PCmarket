@@ -22,7 +22,7 @@ function UserProfileMain() {
   const singleUserInfo = allUsers?.find(
     (val: any) => val.uid === UserProfileMainId,
   )
-  const { imgUrl, userName, uid } = singleUserInfo || {}
+  const { imgUrl, userName, uid, id } = singleUserInfo || {}
 
   const style = {
     mainDiv: `w-[100%] h-[100%]`,
@@ -42,16 +42,17 @@ function UserProfileMain() {
   }
   return (
     <div className={style.mainDiv}>
-      {/* <button onClick={() => console.log(userName)}>PN</button> */}
+      {/* <button onClick={() => console.log(singleUserInfo)}>PN</button> */}
 
       <UserNav
         imgUrl={imgUrl}
         userName={userName}
         singleUser={singleUser}
         userID={uid}
+        docId={id}
       />
+
       <div className={style.productDiv}>
-        {' '}
         {singleUser?.map((val: any, index: number) => {
           const { location, date, id, imgs, price, priceCur, title } = val
           return (

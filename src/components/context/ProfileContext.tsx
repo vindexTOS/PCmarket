@@ -12,7 +12,9 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  updateDoc,
 } from 'firebase/firestore'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 type Cell = {
   starRating: number
   setStarRating: React.Dispatch<React.SetStateAction<number>>
@@ -27,6 +29,12 @@ type Cell = {
 
   editOpen: boolean
   setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setUserNameUpdate: React.Dispatch<React.SetStateAction<string>>
+  userNameUpdate: string
+  profileImgUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void
+  profilePicHtmlUpdate: string
+
+  editProfile: (docId: string) => void
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -94,8 +102,40 @@ export const ProfileContextProvider = ({
   // profile edit
   // set profile pop up to open
   const [editOpen, setEditOpen] = useState<boolean>(false)
-  const editProfile = () => {
-    const docRef = doc(collection(db, 'user_info'))
+  // name input for update
+  const [userNameUpdate, setUserNameUpdate] = useState<string>('')
+  // img update state
+  const [profilePicHtmlUpdate, setProfilePicHtmlUpdate] = useState<string>('')
+  const [profilePicUpdate, setProfilePicUpdate] = useState<Blob | null>(null)
+  const profileImgUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      let newHtml = profilePicHtmlUpdate
+      let newProfilePic = profilePicUpdate
+
+      newHtml = URL.createObjectURL(e.target.files[0])
+      newProfilePic = e.target.files[0]
+
+      setProfilePicHtmlUpdate(newHtml)
+      setProfilePicUpdate(newProfilePic)
+    }
+  }
+
+  const editProfile = async (docId: string) => {
+    try {
+      if (profilePicUpdate !== null) {
+        const storage = getStorage()
+        const imgRef = ref(storage, `user_avatar${user?.uid}`)
+        const docRef = doc(db, 'user_info', docId)
+        await uploadBytes(imgRef, profilePicUpdate)
+        const url = await getDownloadURL(imgRef)
+
+        await updateDoc(docRef, {
+          imgUrl: url,
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
   return (
     <ProfileContext.Provider
@@ -112,6 +152,11 @@ export const ProfileContextProvider = ({
         deleteRating,
         editOpen,
         setEditOpen,
+        userNameUpdate,
+        setUserNameUpdate,
+        profileImgUpdate,
+        profilePicHtmlUpdate,
+        editProfile,
       }}
     >
       {children}
