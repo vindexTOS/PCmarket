@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import { PaletteColors, usePalette } from 'react-palette'
 import { Photodata } from '../../utils/data/Photos'
-import { auth, db, storage } from '../firebase/firebaseconfig'
+import { db, storage, auth } from '../firebase/firebaseconfig'
 import {
   addDoc,
   collection,
@@ -28,7 +28,9 @@ import {
   signOut,
   onAuthStateChanged,
   User as FirebaseUser,
+  fetchSignInMethodsForEmail,
 } from 'firebase/auth'
+
 import {
   ref,
   uploadBytes,
@@ -54,7 +56,7 @@ type Cell = {
   dispatch: React.Dispatch<Action>
   img: string
   data: PaletteColors
-  Register: (email: string, password: string) => void
+  Register: (email: string, password: string, checkPassword: string) => void
   LogIn: (email: string, password: string) => void
   user: FirebaseUser | null
   handleLogOut: () => void
@@ -163,13 +165,20 @@ export const FormContextProvider = ({
   const [loadingRegister, setLoadingRegister] = useState<boolean>(true)
 
   // register and login
-  const Register = (email: string, password: string) => {
-    setUserAuth(true)
 
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
-    return createUserWithEmailAndPassword(auth, email, password)
+  const Register = async (
+    email: string,
+    password: string,
+    checkPassword: string,
+  ) => {
+    if (checkPassword === password) {
+      setUserAuth(true)
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+      return createUserWithEmailAndPassword(auth, email, password)
+    }
   }
   // login RegisterOptions<FieldValues, string> | undefined
   const LogIn = (email: string, password: string) => {

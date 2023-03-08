@@ -10,7 +10,10 @@ const Login: React.FC = () => {
   const { setUserAuth, user, navigate, LogIn } = context
 
   const style = {
-    form: `flex flex-col gap-4`,
+    form: `flex flex-col gap-4 w-[100vw] h-[100vh] flex items-center justify-center`,
+    inputDiv: `w-[14rem] h-[2.3rem] rounded-[20px] outline outline-2  flex items-center justify-center bg-white outline-yellow-300`,
+    input: `bg-none outline-none`,
+    btn: `w-[14rem] h-[2.3rem]  outline outline-2 outline-yellow-400 hover:outline-yellow-300 hover:text-blue-300 bg-white text-gray-400 rounded-[20px]`,
   }
 
   const handleLogAuth = async (e: { preventDefault: () => void }) => {
@@ -28,20 +31,30 @@ const Login: React.FC = () => {
 
   return (
     <form className={style.form} onSubmit={handleLogAuth}>
-      <input
-        value={String(email)}
-        onChange={(e) => setEmail(e.target.value)}
-        type="email"
-        placeholder="Email"
-      />
-      <input
-        value={String(password)}
-        onChange={(e) => setPassword(e.target.value)}
-        type="password"
-        placeholder="password"
-      />
+      <div className={style.inputDiv}>
+        {' '}
+        <input
+          className={style.input}
+          value={String(email)}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Email"
+        />
+      </div>
+      <div className={style.inputDiv}>
+        {' '}
+        <input
+          className={style.input}
+          value={String(password)}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="password"
+        />
+      </div>
       {err != '' && <p>{err}</p>}
-      <button type="submit">Submit</button>
+      <button className={style.btn} type="submit">
+        Sign In
+      </button>
     </form>
   )
 }
