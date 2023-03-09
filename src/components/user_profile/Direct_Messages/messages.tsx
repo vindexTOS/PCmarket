@@ -23,6 +23,10 @@ function Messages() {
     img: `w-[50px] h-[50px] rounded-[50%]`,
     imgName: `flex  items-center justify-center gap-5 hover:bg-blue-200 hover:text-white pr-2 rounded-[30px]`,
     textArea: `flex outline outline-[2px] outline-gray-300 items-center justify-between `,
+    sender: `text-red-600      `,
+    receiver: `text-green-600    `,
+    message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[600px]  rounded-[30px] py-2 `,
+    messageUser: `w-[100%] ml-6    flex   max-h-[600px ]  rounded-[30px] py-2 `,
   }
 
   return (
@@ -38,8 +42,8 @@ function Messages() {
           onClick={() => setDmPopUp(!dmPopUp)}
         />
       </div>
-      <div className="h-[350px] w-[400px] ">
-        <button onClick={() => console.log(resivedMessages)}>on clik</button>
+      <div className="h-[350px] w-[400px] flex flex-col    gap-1 overflow-x-hidden overflow-y-scroll">
+        {/* <button onClick={() => console.log(resivedMessages)}>on clik</button> */}
         {resivedMessages
           ?.filter(
             (item: any) =>
@@ -48,8 +52,35 @@ function Messages() {
               (item.senderUid === user?.uid &&
                 item.resiverUid === messageUser?.uid),
           )
-          .map((val: any) => {
-            return <div>{val.message}</div>
+          .map((val: any, index: number) => {
+            return (
+              <div
+                key={index}
+                className={
+                  val.senderUid === user?.uid ? style.sender : style.receiver
+                }
+              >
+                {/* <img
+              className={style.img}
+              src={
+                val.senderUid === user?.uid
+                  ? user?.imgUrl
+                  : messageUser?.imgUrl
+              }
+            /> */}
+                <div
+                  className={
+                    val.senderUid === user?.uid
+                      ? style.message
+                      : style.messageUser
+                  }
+                >
+                  <p className="outline outline-[1px]  rounded-[30px] p-2">
+                    {val.message}
+                  </p>
+                </div>
+              </div>
+            )
           })}
       </div>
       <div className={style.textArea}>
