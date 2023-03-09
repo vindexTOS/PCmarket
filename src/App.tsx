@@ -27,7 +27,7 @@ import AUTHpage from './components/auth_log/AUTHpage'
 
 import Messages from './components/user_profile/Direct_Messages/messages'
 import { UseProfileContext } from './components/context/ProfileContext'
-type RoutesProps = {}
+import MainMessage from './components/user_profile/Direct_Messages/MainMessage'
 
 function App() {
   const { RouteProductPage } = UseProductContext()
@@ -152,7 +152,7 @@ function App() {
         {/* UserProfileMain */}
         <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
         {/* user rating */}
-        {/* <Route path="/messages/:UserProfileMainId" element={<Messages />} /> */}
+        <Route path="/messages/:UserProfileMainId" element={<MainMessage />} />
 
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />

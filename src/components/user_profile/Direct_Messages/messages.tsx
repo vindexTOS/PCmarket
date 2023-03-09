@@ -14,25 +14,30 @@ function Messages() {
     message,
     setMessage,
     resivedMessages,
+    scroll,
   } = UseProfileContext()
 
   const style = {
-    mainDiv: `flex flex-col fixed top-60 left-[74%] w-[400px] h-[500px] border-2 z-50 boxShaddow bg-white rounded-l-[30px]`,
+    mainDiv: `flex flex-col fixed top-[14rem] max_Xll:left-[70%] max_xl:left-[65%] max_x:left-[60%]  max_lg:left-[55%] max_md2:left-[40%] max_sm:left-0  left-[74%] w-[400px] h-[500px]  border-2 z-50 boxShaddow bg-white rounded-[30px]`,
     headDiv: `border-b-2 flex  items-center justify-between p-4  `,
     cancel: `cursor-pointer text-[1.7rem] text-red-500 hover:text-red-600 mt-2 mr-5 `,
     img: `w-[50px] h-[50px] rounded-[50%]`,
     imgName: `flex  items-center justify-center gap-5 hover:bg-blue-200 hover:text-white pr-2 rounded-[30px]`,
-    textArea: `flex outline outline-[2px] outline-gray-300 items-center justify-between `,
-    sender: `text-red-600      `,
+    textArea: `flex outline outline-[2px] outline-gray-300 items-center justify-between rounded-[30px] h-[4rem] `,
+    sender: ` text-yellow-400  `,
     receiver: `text-green-600    `,
-    message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[600px]  rounded-[30px] py-2 `,
-    messageUser: `w-[100%] ml-6    flex   max-h-[600px ]  rounded-[30px] py-2 `,
+    message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[600px]  rounded-[30px] py-1 `,
+    messageUser: `w-[100%]  px-3   flex   max-h-[600px ]  rounded-[30px] py-1`,
   }
 
   return (
     <div className={style.mainDiv}>
       <div className={style.headDiv}>
-        <Link to={`/user/${messageUser?.uid}`} className={style.imgName}>
+        <Link
+          onClick={() => setDmPopUp(!dmPopUp)}
+          to={`/messages/${messageUser?.uid}`}
+          className={style.imgName}
+        >
           <img className={style.img} src={messageUser?.imgUrl} />
           <h1>{messageUser?.userName}</h1>
         </Link>
@@ -75,17 +80,18 @@ function Messages() {
                       : style.messageUser
                   }
                 >
-                  <p className="outline outline-[1px]  rounded-[30px] p-2">
+                  <p className="outline outline-[1px] boxShaddow bg-gray-100   rounded-[30px] p-4">
                     {val.message}
                   </p>
                 </div>
               </div>
             )
           })}
+        <span ref={scroll}></span>
       </div>
       <div className={style.textArea}>
         <textarea
-          className="resize-none outline-0 text-gray-400 w-[80%] "
+          className="resize-none outline-0 text-gray-400 w-[80%] rounded-[30px] "
           placeholder="   Send message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

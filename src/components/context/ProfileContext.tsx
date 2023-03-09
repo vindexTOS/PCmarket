@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useState, useEffect } from 'react'
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useRef,
+} from 'react'
 import { UseFormContext } from './FormContext'
 import { db, auth } from '../../components/firebase/firebaseconfig'
 import {
@@ -48,6 +54,7 @@ type Cell = {
   setMessage: React.Dispatch<React.SetStateAction<string>>
 
   resivedMessages: unknown | any
+  scroll: React.RefObject<HTMLSpanElement>
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -176,7 +183,13 @@ export const ProfileContextProvider = ({
   }
   // sending messages to firebase
   const [message, setMessage] = useState<string>('')
+
+  const scroll = React.useRef<HTMLSpanElement>(null)
   const sendDm = async (userId: string) => {
+    const element = scroll.current as HTMLDivElement
+
+    element.scrollIntoView({ behavior: 'smooth' })
+
     const { uid } = auth.currentUser as { uid: string }
     if (message !== '') {
       try {
@@ -207,6 +220,8 @@ export const ProfileContextProvider = ({
     })
     return () => unsub()
   }, [user])
+  // ref for auto scroll in chat
+
   return (
     <ProfileContext.Provider
       value={{
@@ -235,6 +250,7 @@ export const ProfileContextProvider = ({
         message,
         setMessage,
         resivedMessages,
+        scroll,
       }}
     >
       {children}
