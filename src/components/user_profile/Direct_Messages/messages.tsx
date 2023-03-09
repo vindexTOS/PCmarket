@@ -5,7 +5,7 @@ import { MdCancel } from 'react-icons/md'
 import { TbSend } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 function Messages() {
-  const {} = UseFormContext()
+  const { user } = UseFormContext()
   const {
     setDmPopUp,
     dmPopUp,
@@ -38,11 +38,19 @@ function Messages() {
           onClick={() => setDmPopUp(!dmPopUp)}
         />
       </div>
-      <div className="h-[200px] w-[400px] ">
+      <div className="h-[350px] w-[400px] ">
         <button onClick={() => console.log(resivedMessages)}>on clik</button>
-        {resivedMessages?.map((val: any) => {
-          return <div>{val.message}</div>
-        })}
+        {resivedMessages
+          ?.filter(
+            (item: any) =>
+              (item.senderUid === messageUser?.uid &&
+                item.resiverUid === user?.uid) ||
+              (item.senderUid === user?.uid &&
+                item.resiverUid === messageUser?.uid),
+          )
+          .map((val: any) => {
+            return <div>{val.message}</div>
+          })}
       </div>
       <div className={style.textArea}>
         <textarea
