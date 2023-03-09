@@ -5,6 +5,7 @@ import { BsTelephoneFill } from 'react-icons/bs'
 import { GoLocation } from 'react-icons/go'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { Link, useParams } from 'react-router-dom'
+import { UseProfileContext } from '../../context/ProfileContext'
 type MainInfoProps = {
   category: string
   date: string
@@ -33,6 +34,7 @@ const MainInfo: FC<MainInfoProps> = ({
   location,
 }): JSX.Element => {
   const { lang, userData, user, allUsers } = UseFormContext()
+  const { DirectMessage } = UseProfileContext()
   const { productData } = UseProductContext()
   const [UserProfileMain, setUserProfileMain] = React.useState([])
   const userInfo = allUsers?.filter((user: any) => {
@@ -91,7 +93,6 @@ const MainInfo: FC<MainInfoProps> = ({
               {lang ? 'User ' : 'მომხარებლი '}:{' '}
             </span>
             <Link to={`/user/${userid}`}>
-              {' '}
               <span className="text-blue-300 hover:underline">{userName}</span>
             </Link>
           </p>
@@ -177,7 +178,10 @@ const MainInfo: FC<MainInfoProps> = ({
                   </p>
                 </div>
                 {/* message */}
-                <div className="flex  items-center justify-center gap-3 border-2 py-1 px-2  max_xl:mr-5 w-[3.2rem] h-[3rem]   rounded-[12px] text-gray-500 hover:text-black hover:bg-gray-200 cursor-pointer">
+                <div
+                  onClick={() => DirectMessage(userid)}
+                  className="flex  items-center justify-center gap-3 border-2 py-1 px-2  max_xl:mr-5 w-[3.2rem] h-[3rem]   rounded-[12px] text-gray-500 hover:text-black hover:bg-gray-200 cursor-pointer"
+                >
                   <AiOutlineMessage className="text-[1.2rem] " />
                 </div>
               </div>

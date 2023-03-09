@@ -24,10 +24,14 @@ import UserRatingMain from './components/user_profile/UserRating/UserRatingMain'
 
 import ProtectedPopUp from './components/user_profile/UserRating/ProtectedPopUp'
 import AUTHpage from './components/auth_log/AUTHpage'
+
+import Messages from './components/user_profile/Direct_Messages/messages'
+import { UseProfileContext } from './components/context/ProfileContext'
 type RoutesProps = {}
 
 function App() {
   const { RouteProductPage } = UseProductContext()
+  const { dmPopUp } = UseProfileContext()
   return (
     <>
       <NavBar />
@@ -148,12 +152,7 @@ function App() {
         {/* UserProfileMain */}
         <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
         {/* user rating */}
-        {/* <Route
-          path="/user/rating"
-          element={
-           
-          }
-        /> */}
+        {/* <Route path="/messages/:UserProfileMainId" element={<Messages />} /> */}
 
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />
@@ -161,6 +160,7 @@ function App() {
         <Route path="/user_info" element={<UserInfo />} />
         <Route path="/auth" element={<AUTHpage />} />
       </Routes>
+      {dmPopUp && <Messages />}
       <Footer />
     </>
   )

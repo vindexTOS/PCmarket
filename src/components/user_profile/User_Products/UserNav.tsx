@@ -24,8 +24,6 @@ const UserNav: FC<NavProps> = ({
 }): JSX.Element => {
   const { lang, userData, user, allUsers } = UseFormContext()
   const {
-    reviewsData,
-    popUprate,
     editOpen,
     setEditOpen,
     userNameUpdate,
@@ -33,6 +31,8 @@ const UserNav: FC<NavProps> = ({
     profileImgUpdate,
     profilePicHtmlUpdate,
     editProfile,
+
+    DirectMessage,
   } = UseProfileContext()
   const [showNum, setShowNum] = React.useState<boolean>(false)
 
@@ -156,7 +156,11 @@ const UserNav: FC<NavProps> = ({
               </div>
             </div>
             {/*  */}
-            <div className="w-[3rem] h-[3rem]  bg-white border-[1px] rounded-[8px] flex items-center justify-center">
+
+            <div
+              onClick={() => DirectMessage(userID)}
+              className="w-[3rem] h-[3rem]  bg-white border-[1px] rounded-[8px] flex items-center justify-center cursor-pointer"
+            >
               <AiOutlineMessage className="text-[1.2rem]" />
             </div>
           </div>

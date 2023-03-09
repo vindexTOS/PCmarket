@@ -35,6 +35,19 @@ type Cell = {
   profilePicHtmlUpdate: string
 
   editProfile: (docId: string) => void
+
+  dmPopUp: boolean
+  setDmPopUp: React.Dispatch<React.SetStateAction<boolean>>
+
+  DirectMessage: (uid: string) => void
+  messageUser: any | unknown
+
+  sendDm: (userId: string) => void
+
+  message: string
+  setMessage: React.Dispatch<React.SetStateAction<string>>
+
+  resivedMessages: unknown | any
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -151,6 +164,49 @@ export const ProfileContextProvider = ({
       console.error(e)
     }
   }
+  // message pop up
+  const [dmPopUp, setDmPopUp] = useState<boolean>(false)
+  // user info in direct messages
+  const [messageUser, setMessageUser] = useState<any | unknown>()
+  //function for DM
+  const DirectMessage = (uid: string) => {
+    setDmPopUp(!dmPopUp)
+    const dmUser = allUsers?.find((val: any) => val.uid === uid)
+    setMessageUser(dmUser)
+  }
+  // sending messages to firebase
+  const [message, setMessage] = useState<string>('')
+  const sendDm = async (userId: string) => {
+    const { uid } = auth.currentUser as { uid: string }
+    if (message !== '') {
+      try {
+        await addDoc(collection(db, 'user_messages'), {
+          message: message,
+          senderUid: uid,
+          resiverUid: userId,
+          date: Date(),
+          timestamp: serverTimestamp(),
+        })
+        setMessage('')
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  const [resivedMessages, setResivedMessages] = useState<unknown | any>()
+  useEffect(() => {
+    const q = query(collection(db, 'user_messages'), orderBy('timestamp'))
+    const unsub = onSnapshot(q, (querrySnapShot) => {
+      let data: {}[] = []
+
+      querrySnapShot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id })
+      })
+      setResivedMessages(data)
+    })
+    return () => unsub()
+  }, [user])
   return (
     <ProfileContext.Provider
       value={{
@@ -171,6 +227,14 @@ export const ProfileContextProvider = ({
         profileImgUpdate,
         profilePicHtmlUpdate,
         editProfile,
+        dmPopUp,
+        setDmPopUp,
+        DirectMessage,
+        messageUser,
+        sendDm,
+        message,
+        setMessage,
+        resivedMessages,
       }}
     >
       {children}
