@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UseProfileContext } from '../../context/ProfileContext'
 import UserRaitingStars from './UserRaitingStars'
 import ProtectedPopUp from '../UserRating/ProtectedPopUp'
+import UserNavLoadings from './UserNavLoadings'
 type NavProps = {
   imgUrl: string
   userName: string
@@ -169,7 +170,7 @@ const UserNav: FC<NavProps> = ({
       </div>
     )
   } else {
-    return <div>loading</div>
+    return <UserNavLoadings />
   }
 }
 

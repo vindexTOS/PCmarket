@@ -8,6 +8,7 @@ import ProtectedRouteRating from '../UserRating/ProtectedRouteRating'
 import UserRatingMain from '../UserRating/UserRatingMain'
 import UserNav from './UserNav'
 import UserProduct from './UserProduct'
+import MainLoadingGrid from '../../Products/loadingGrids/mainLoadingGrid'
 function UserProfileMain() {
   const { UserProfileMainId } = useParams()
 
@@ -23,6 +24,7 @@ function UserProfileMain() {
     (val: any) => val.uid === UserProfileMainId,
   )
   const { imgUrl, userName, uid, id } = singleUserInfo || {}
+  const fakeArray = new Array(20).fill('val')
 
   const style = {
     mainDiv: `w-[100%] h-[100%]`,
@@ -40,44 +42,54 @@ function UserProfileMain() {
       setDeleteIndex(newDelete)
     }
   }
-  return (
-    <div className={style.mainDiv}>
-      {/* <button onClick={() => console.log(singleUserInfo)}>PN</button> */}
+  if (productData || user) {
+    return (
+      <div className={style.mainDiv}>
+        {/* <button onClick={() => console.log(singleUserInfo)}>PN</button> */}
 
-      <UserNav
-        imgUrl={imgUrl}
-        userName={userName}
-        singleUser={singleUser}
-        userID={uid}
-        docId={id}
-      />
+        <UserNav
+          imgUrl={imgUrl}
+          userName={userName}
+          singleUser={singleUser}
+          userID={uid}
+          docId={id}
+        />
 
-      <div className={style.productDiv}>
-        {singleUser?.map((val: any, index: number) => {
-          const { location, date, id, imgs, price, priceCur, title } = val
-          return (
-            <UserProduct
-              date={date}
-              id={id}
-              imgs={imgs}
-              price={price}
-              priceCur={priceCur}
-              title={title}
-              location={location}
-              userName={userName}
-              index={index}
-              deleteCheck={deleteCheck}
-              deleteIndex={deleteIndex}
-              setDeleteIndex={setDeleteIndex}
-            />
-          )
-        })}
+        <div className={style.productDiv}>
+          {singleUser?.map((val: any, index: number) => {
+            const { location, date, id, imgs, price, priceCur, title } = val
+            return (
+              <UserProduct
+                date={date}
+                id={id}
+                imgs={imgs}
+                price={price}
+                priceCur={priceCur}
+                title={title}
+                location={location}
+                userName={userName}
+                index={index}
+                deleteCheck={deleteCheck}
+                deleteIndex={deleteIndex}
+                setDeleteIndex={setDeleteIndex}
+              />
+            )
+          })}
+        </div>
+        {user
+          ? ratingPopUp && <UserRatingMain userId={uid} />
+          : ratingPopUp && <ProtectedPopUp userId={uid} />}
       </div>
-      {user
-        ? ratingPopUp && <UserRatingMain userId={uid} />
-        : ratingPopUp && <ProtectedPopUp userId={uid} />}
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className={style.productDiv}>
+        {fakeArray.map((val: any) => (
+          <MainLoadingGrid />
+        ))}
+      </div>
+    )
+  }
 }
 
 export default UserProfileMain
