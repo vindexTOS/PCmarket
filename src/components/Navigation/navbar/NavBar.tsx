@@ -65,6 +65,16 @@ function NavBar() {
     )
     setUserNotification(userNot)
   }, [resivedMessages])
+
+  const userPhoto = () => {
+    if (userData) {
+      if (userData[0]?.imgUrl) {
+        return userData[0]?.imgUrl
+      }
+    } else {
+      return Utils.userpfp
+    }
+  }
   return (
     <nav className={style.nav}>
       {/* <button onClick={() => console.log(userNot)}>on click</button> */}
@@ -129,16 +139,7 @@ function NavBar() {
                   className={style.divImg}
                   onClick={() => setDropDown(!dropDown)}
                 >
-                  <img
-                    className={style.img}
-                    src={
-                      userData
-                        ? userData[0]?.imgUrl
-                        : userData[0]?.imgUrl
-                        ? Utils.userpfp
-                        : null
-                    }
-                  />
+                  <img className={style.img} src={userPhoto()} />
 
                   {userNotification?.length > 0 && (
                     <m.div
