@@ -108,20 +108,24 @@ const MainMessage = () => {
       >
         {/* <button onClick={() => console.log(val.uid)}>CLick</button> */}
         <img className={style.contactImg} src={val.imgUrl} />
-        <h1 className="text-[1.5rem] text-gray-400">{val.userName}</h1>
-        {hasUnseenMessages && <div className="text-red-500">New message!</div>}
+        <h1 className="text-[1.5rem] max_md2:w-[4rem] text-gray-400 max_md2:text-[1rem]">
+          {val.userName}
+        </h1>
+        {hasUnseenMessages && (
+          <div className="text-red-500 max_md2:text-[12px]">New message!</div>
+        )}
       </Link>
     )
   }
   return (
     <div className={style.mainDiv}>
-      <div className="flex justify-between  ">
-        <div className="w-[50%] h-[350px] flex  flex-col p-4 gap-2 scroll overflow-y-scroll">
+      <div className="flex justify-between flex max_md2:flex-col flex max_md2:items-center flex max_md2:justify-center flex max_md2:w-[100%] ">
+        <div className="w-[50%] h-[350px]  max_md2:w-[80%] flex-col p-4 gap-2 scroll overflow-y-scroll">
           {contacts?.map((val: any) => {
             return <Notifications {...val} />
           })}
         </div>
-        <div className="w-[50%]  ">
+        <div className="w-[50%] max_md2:w-[80%] ">
           <div className={style.headDiv}>
             {/* <button onClick={() => console.log()}>ON CLICK</button> */}
             <Link
@@ -172,7 +176,7 @@ const MainMessage = () => {
 
           <div className={style.textArea}>
             <textarea
-              className="resize-none outline-0 text-gray-400 w-[100%] rounded-[30px] "
+              className="resize-none outline-0 text-gray-400 w-[100%]   rounded-[30px] "
               placeholder="   Send message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}

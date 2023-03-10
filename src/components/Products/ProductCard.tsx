@@ -54,13 +54,7 @@ function ProductCard({ val }: { val: any }) {
     }
     // console.log(imgs[imgIndex])
   }
-  const typeLink = () => {
-    let link = ''
-    if ((val.category = 'Pre built' || val.category == 'Used Pc')) {
-      link = 'desktop'
-    }
-    return link
-  }
+
   return (
     <div key={id} className={style.productCard}>
       {/* <h1 onClick={() => console.log(location)}>LOg</h1> */}

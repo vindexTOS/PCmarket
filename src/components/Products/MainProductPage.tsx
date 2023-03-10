@@ -4,7 +4,7 @@ import ProductCardRow from './ProductCardRow'
 import { UseProductContext } from '../context/ProductContext'
 import { useParams } from 'react-router-dom'
 import { UseFormContext } from '../context/FormContext'
-
+import MinLoadingGrid from './loadingGrids/mainLoadingGrid'
 function MainProductPage() {
   const {
     productData,
@@ -33,35 +33,48 @@ function MainProductPage() {
     )
   }, [user, productData])
 
-  return (
-    <section className={style.section}>
-      {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
+  const fakeArray = new Array(20).fill('val')
 
-      {reverseData
-        ?.filter((val: any) => {
-          if (search === '') {
-            return val
-          } else if (
-            val.title.toLowerCase().includes(search.toLowerCase()) ||
-            val.category.toLowerCase().includes(search.toLowerCase()) ||
-            val.description.toLowerCase().includes(search.toLowerCase())
-          ) {
-            return val
-          }
-        })
-        .map((val: any) => {
-          return (
-            <div className="w-[100vw] h-[100%]">
-              {gridLayOut ? (
-                <ProductCard key={val.id} val={val} />
-              ) : (
-                <ProductCardRow key={val.id} val={val} />
-              )}
-            </div>
-          )
+  if (productData) {
+    return (
+      <section className={style.section}>
+        {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
+
+        {reverseData
+          ?.filter((val: any) => {
+            if (search === '') {
+              return val
+            } else if (
+              val.title.toLowerCase().includes(search.toLowerCase()) ||
+              val.category.toLowerCase().includes(search.toLowerCase()) ||
+              val.description.toLowerCase().includes(search.toLowerCase())
+            ) {
+              return val
+            }
+          })
+          .map((val: any) => {
+            return (
+              <div className="w-[100vw] h-[100%]">
+                {gridLayOut ? (
+                  <ProductCard key={val.id} val={val} />
+                ) : (
+                  <ProductCardRow key={val.id} val={val} />
+                )}
+              </div>
+            )
+          })}
+      </section>
+    )
+  } else {
+    return (
+      <div className={style.section}>
+        {' '}
+        {fakeArray.map((val: any) => {
+          return <MinLoadingGrid />
         })}
-    </section>
-  )
+      </div>
+    )
+  }
 }
 
 export default MainProductPage
