@@ -351,7 +351,7 @@ export const FormContextProvider = ({
     }, 5000)
   }, [tiemFire])
 
-  const { img } = Photodata[state?.index]
+  const { img } = Photodata[state?.index] || {}
   // slider color
   const { data, loading, error } = usePalette(img)
 
@@ -871,6 +871,7 @@ export const FormContextProvider = ({
             mainObjectReturn(LaptopspecObj),
           )
         }
+        navigate('/')
       } catch (err) {
         console.log(err)
       }

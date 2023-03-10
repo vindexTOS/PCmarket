@@ -75,6 +75,16 @@ function NavBar() {
       return Utils.userpfp
     }
   }
+
+  const userNameA = () => {
+    if (userData) {
+      if (userData[0]?.userName) {
+        return userData[0]?.userName
+      }
+    } else {
+      return 'User Name'
+    }
+  }
   return (
     <nav className={style.nav}>
       {/* <button onClick={() => console.log(userNot)}>on click</button> */}
@@ -150,11 +160,7 @@ function NavBar() {
                   )}
                 </div>
                 <div className="flex flex-col w-[10rem]   max_sm:hidden">
-                  <p className="text-gray-400">
-                    {userData[0]?.userName
-                      ? userData[0]?.userName
-                      : 'User Name'}
-                  </p>
+                  <p className="text-gray-400">{userNameA()}</p>
                   <Link
                     to="/myproduct"
                     className="text-gray-600 max_sm:hidden text-[12px]"

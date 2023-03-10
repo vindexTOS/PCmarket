@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { motion as m } from 'framer-motion'
 import { Utils } from '../../../utils/data/Photos'
-const MainLoadingGrid = () => {
+
+const MainLoadingGrid: FC = () => {
   const style = {
     productCard: ` bg-white w-[400px] h-[500px] max_sm:w-[350px] max_smm:ml-5 rounded-[15px] boxShaddow flex items-center flex-col justify-between `,
     header: ` h-[70px] rounded-t-[15px] w-[100%]  border-b-[1px]   flex items-center justify-start       `,
@@ -40,7 +41,7 @@ const MainLoadingGrid = () => {
           transition={{ duration: 2, repeat: Infinity, type: 'spring' }}
         ></m.div>
       </div>
-      <m.p
+      <m.div
         animate={{
           backgroundColor: [
             'rgba(255,228,69,1)',
@@ -52,7 +53,7 @@ const MainLoadingGrid = () => {
         className={style.location}
       >
         <m.div></m.div>
-      </m.p>
+      </m.div>
 
       <div className={style.imgWrapper}>
         <m.div

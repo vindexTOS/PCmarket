@@ -27,9 +27,12 @@ function MainProductPage() {
   const [reverseData, setReversData] = React.useState([])
   React.useEffect(() => {
     setReversData(
-      productData?.sort(
-        (a: any, b: any) => b.timestamp.seconds - a.timestamp.seconds,
-      ),
+      productData?.sort((a: any, b: any) => {
+        if (a.timestamp && b.timestamp) {
+          return b.timestamp.seconds - a.timestamp.seconds
+        }
+        return 0
+      }),
     )
   }, [user, productData])
 
@@ -52,9 +55,9 @@ function MainProductPage() {
               return val
             }
           })
-          .map((val: any) => {
+          .map((val: any, index: number) => {
             return (
-              <div className="w-[100vw] h-[100%]">
+              <div key={index} className="w-[100vw] h-[100%]">
                 {gridLayOut ? (
                   <ProductCard key={val.id} val={val} />
                 ) : (
@@ -69,8 +72,8 @@ function MainProductPage() {
     return (
       <div className={style.section}>
         {' '}
-        {fakeArray.map((val: any) => {
-          return <MinLoadingGrid />
+        {fakeArray.map((val: any, index: number) => {
+          return <MinLoadingGrid key={index} />
         })}
       </div>
     )
