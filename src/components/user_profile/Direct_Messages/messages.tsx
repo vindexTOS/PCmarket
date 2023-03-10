@@ -26,10 +26,15 @@ function Messages() {
     textArea: `flex outline outline-[2px] outline-gray-300 items-center justify-between rounded-[30px] h-[4rem] `,
     sender: ` text-yellow-400  `,
     receiver: `text-green-600    `,
-    message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[600px]  rounded-[30px] py-1 `,
+    message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[10000px]  rounded-[30px] py-1 `,
     messageUser: `w-[100%]  px-3   flex   max-h-[600px ]  rounded-[30px] py-1`,
   }
-
+  React.useEffect(() => {
+    const element = scroll?.current as HTMLDivElement
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [dmPopUp])
   return (
     <div className={style.mainDiv}>
       <div className={style.headDiv}>
@@ -80,9 +85,10 @@ function Messages() {
                       : style.messageUser
                   }
                 >
-                  <p className="outline outline-[1px] boxShaddow bg-gray-100   rounded-[30px] p-4">
+                  <p className="outline outline-[1px] boxShaddow bg-gray-100 max-w-[400px] text-[15px] text-clip rounded-[30px] overflow-hidden p-4">
                     {val.message}
                   </p>
+                  <span ref={scroll}></span>
                 </div>
               </div>
             )

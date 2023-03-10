@@ -7,6 +7,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UseProfileContext } from '../../context/ProfileContext'
 import UserRaitingStars from './UserRaitingStars'
 import ProtectedPopUp from '../UserRating/ProtectedPopUp'
+import { Utils } from '../../../utils/data/Photos'
+
 import UserNavLoadings from './UserNavLoadings'
 type NavProps = {
   imgUrl: string
@@ -61,7 +63,7 @@ const UserNav: FC<NavProps> = ({
       <div className={style.navDiv}>
         <div className={style.imgNameDiv}>
           <div className="flex items-center justify-center gap-3">
-            <img className={style.img} src={imgUrl} />
+            <img className={style.img} src={imgUrl ? imgUrl : Utils.userpfp} />
             <div className={style.name}>
               <h1>{userName}</h1>
             </div>
@@ -139,12 +141,12 @@ const UserNav: FC<NavProps> = ({
                     <span className="text-gray-400 max_xl:text-[10px]">
                       (+995){' '}
                     </span>
-                    {singleUser[0].number.slice(0, 9)}
+                    {singleUser[0]?.number.slice(0, 9)}
                   </p>
                 ) : (
                   <p className="max_xl:text-[10px]">
                     {' '}
-                    {singleUser[0].number.slice(0, 5)}** **
+                    {singleUser[0]?.number.slice(0, 5)}** **
                   </p>
                 )}
                 <p

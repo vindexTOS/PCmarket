@@ -9,10 +9,18 @@ import Contact from './Contact'
 import PcSpecs from './Specs/PcSpecs'
 import SpecsMain from './Specs/SpecsMain'
 function ProductForm() {
-  const { lang, handleFormSubmit, handleSubmit, specCheck } = UseFormContext()
+  const {
+    lang,
+    handleFormSubmit,
+    handleSubmit,
+    specCheck,
+    submitError,
+    setSubmitError,
+  } = UseFormContext()
   const style = {
     form: `flex flex-col items-center justify-center w-[53%] h-[100%] max_md:w-[80%]   max_sm:w-[80%]`,
     formDiv: `flex flex-col w-[80%] h-[100%] gap-5 max_lg:w-[100%]    sm:w-[110%]  max_md2:w-[120%] max_Xl:w-[120%] mt-20 max_sm:w-[100%]`,
+    btn: `p-2 bg-yellow-400 rounded-[30px] text-white hover:bg-yellow-300 hover:text-blue-600`,
   }
   return (
     <form
@@ -28,7 +36,14 @@ function ProductForm() {
         <TitleCard />
         <Cost />
         <Contact />
-        <button type="submit">submit</button>
+        {submitError !== '' && (
+          <h1 className="flex text-[2rem] items-center justify-center text-red-400">
+            {submitError}
+          </h1>
+        )}
+        <button className={style.btn} type="submit">
+          {lang ? 'Post Product' : 'პროდუქტის დაპოსტვა'}
+        </button>
       </div>
     </form>
   )

@@ -15,6 +15,7 @@ import LOGO from './LOGO'
 import AUTH from './AUTH'
 import AUTHPOPUP from './AUTHPOPUP'
 import { UseProfileContext } from '../../context/ProfileContext'
+import { Utils } from '../../../utils/data/Photos'
 function NavBar() {
   const {
     userAuth,
@@ -130,7 +131,13 @@ function NavBar() {
                 >
                   <img
                     className={style.img}
-                    src={userData ? userData[0]?.imgUrl : Icons.Picture}
+                    src={
+                      userData
+                        ? userData[0]?.imgUrl
+                        : userData[0]?.imgUrl
+                        ? Utils.userpfp
+                        : null
+                    }
                   />
 
                   {userNotification?.length > 0 && (
@@ -143,7 +150,9 @@ function NavBar() {
                 </div>
                 <div className="flex flex-col w-[10rem]   max_sm:hidden">
                   <p className="text-gray-400">
-                    {userData && userData[0]?.userName}
+                    {userData[0]?.userName
+                      ? userData[0]?.userName
+                      : 'User Name'}
                   </p>
                   <Link
                     to="/myproduct"

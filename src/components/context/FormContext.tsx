@@ -121,6 +121,9 @@ type Cell = {
   MbCheck: boolean
   DISKCheck: boolean
   PhoneCheck: boolean
+
+  submitError: string
+  setSubmitError: React.Dispatch<React.SetStateAction<string>>
 }
 type Action = {
   type: string | []
@@ -174,9 +177,6 @@ export const FormContextProvider = ({
     if (checkPassword === password) {
       setUserAuth(true)
 
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
       return createUserWithEmailAndPassword(auth, email, password)
     }
   }
@@ -274,6 +274,9 @@ export const FormContextProvider = ({
           uid,
         })
         navigate('/')
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000)
       }
     } catch (error) {}
   }
@@ -348,7 +351,7 @@ export const FormContextProvider = ({
     }, 5000)
   }, [tiemFire])
 
-  const { img } = Photodata[state.index]
+  const { img } = Photodata[state?.index]
   // slider color
   const { data, loading, error } = usePalette(img)
 
@@ -658,7 +661,7 @@ export const FormContextProvider = ({
   }
 
   //submit form funciton
-
+  const [submitError, setSubmitError] = useState<string>('')
   const handleFormSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
     data: UseFormHandleSubmit<FieldValues>,
@@ -834,32 +837,48 @@ export const FormContextProvider = ({
       }
       return mainData
     }
-    try {
-      if (electronicCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(emptyObj))
-      } else if (PhoneCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(phoneObj))
-      } else if (DISKCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(diskObj))
-      } else if (RAMCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(ramObj))
-      } else if (cputCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(cpuObj))
-      } else if (gputCheck) {
-        await addDoc(collection(db, 'user_product'), mainObjectReturn(gpuObj))
-      } else if (!laptopChack) {
-        await addDoc(
-          collection(db, 'user_product'),
-          mainObjectReturn(PCspecObj),
-        )
-      } else if (laptopChack) {
-        await addDoc(
-          collection(db, 'user_product'),
-          mainObjectReturn(LaptopspecObj),
-        )
+    if (title !== '' && photos !== null) {
+      try {
+        if (electronicCheck) {
+          await addDoc(
+            collection(db, 'user_product'),
+            mainObjectReturn(emptyObj),
+          )
+        } else if (PhoneCheck) {
+          await addDoc(
+            collection(db, 'user_product'),
+            mainObjectReturn(phoneObj),
+          )
+        } else if (DISKCheck) {
+          await addDoc(
+            collection(db, 'user_product'),
+            mainObjectReturn(diskObj),
+          )
+        } else if (RAMCheck) {
+          await addDoc(collection(db, 'user_product'), mainObjectReturn(ramObj))
+        } else if (cputCheck) {
+          await addDoc(collection(db, 'user_product'), mainObjectReturn(cpuObj))
+        } else if (gputCheck) {
+          await addDoc(collection(db, 'user_product'), mainObjectReturn(gpuObj))
+        } else if (!laptopChack) {
+          await addDoc(
+            collection(db, 'user_product'),
+            mainObjectReturn(PCspecObj),
+          )
+        } else if (laptopChack) {
+          await addDoc(
+            collection(db, 'user_product'),
+            mainObjectReturn(LaptopspecObj),
+          )
+        }
+      } catch (err) {
+        console.log(err)
       }
-    } catch (err) {
-      console.log(err)
+    } else {
+      setSubmitError('Add Title And Photo')
+      setTimeout(() => {
+        setSubmitError('')
+      }, 5000)
     }
   }
 
@@ -935,6 +954,8 @@ export const FormContextProvider = ({
         PhoneCheck,
         pricestate,
         dispatchprice,
+        submitError,
+        setSubmitError,
       }}
     >
       {children}

@@ -130,7 +130,7 @@ export const ProfileContextProvider = ({
   // set profile pop up to open
   const [editOpen, setEditOpen] = useState<boolean>(false)
   // name input for update
-  const [userNameUpdate, setUserNameUpdate] = useState<string>(`${oldName}`)
+  const [userNameUpdate, setUserNameUpdate] = useState<string>(``)
 
   // img update state
   const [profilePicHtmlUpdate, setProfilePicHtmlUpdate] = useState<string>('')
@@ -149,23 +149,29 @@ export const ProfileContextProvider = ({
   }
   // make sure that if img is not change we keep old img
 
-  const [oldImgUrl, setOldImgUrl] = useState<string>(`${oldImg}`)
   const editProfile = async (docId: string) => {
+    const storage = getStorage()
+    const imgRef = ref(storage, `user_avatar${user?.uid}`)
+
     try {
       if (profilePicUpdate !== null) {
-        const storage = getStorage()
-        const imgRef = ref(storage, `user_avatar${user?.uid}`)
         const docRef = doc(db, 'user_info', docId)
+
         await uploadBytes(imgRef, profilePicUpdate)
+
         const url = await getDownloadURL(imgRef)
-        setOldImgUrl(url)
-        await updateDoc(docRef, {
-          imgUrl: url,
-          userName: userNameUpdate,
-        })
+        console.log(url)
+
+        if (url) {
+          await updateDoc(docRef, {
+            imgUrl: url,
+            userName: userNameUpdate,
+          })
+        }
       }
     } catch (e) {
       console.error(e)
+      console.log(e)
     }
   }
   // message pop up
