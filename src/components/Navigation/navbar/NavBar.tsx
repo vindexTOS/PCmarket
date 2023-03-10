@@ -57,11 +57,13 @@ function NavBar() {
   // notification check
   // checking if logged in users UID exists in database
 
-  const userNot = resivedMessages?.filter(
-    (val: any) => user?.uid === val.resiverUid,
-  )
-  const [userNotification, setUserNotification] = React.useState(userNot)
-
+  const [userNotification, setUserNotification] = React.useState([])
+  React.useEffect(() => {
+    const userNot = resivedMessages?.filter(
+      (val: any) => user?.uid === val.resiverUid,
+    )
+    setUserNotification(userNot)
+  }, [resivedMessages])
   return (
     <nav className={style.nav}>
       {/* <button onClick={() => console.log(userNot)}>on click</button> */}
@@ -131,7 +133,7 @@ function NavBar() {
                     src={userData ? userData[0]?.imgUrl : Icons.Picture}
                   />
 
-                  {userNotification.length > 0 && (
+                  {userNotification?.length > 0 && (
                     <m.div
                       animate={{ y: [2, 0, 2, 0, 2, 0, 2, 0, 2] }}
                       transition={{ duration: 5, repeat: Infinity }}

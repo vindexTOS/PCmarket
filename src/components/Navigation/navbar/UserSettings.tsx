@@ -50,14 +50,13 @@ function UserSettings() {
           </div>{' '}
         </Link>
         <Link to={`/messages/${user?.uid}`}>
-          {' '}
           <div
             onClick={() => setUserNotification([])}
             className="text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start "
           >
             <AiOutlineMessage className=" w-[2rem] mt-1 text-yellow-400 hover:text-green-300  " />{' '}
             {lang ? 'Messages' : 'შეტყობინებები'}
-            {userNotification.length > 0 && (
+            {userNotification?.length > 0 && (
               <m.div
                 animate={{ y: [2, 0, 2, 0, 2, 0, 2, 0, 2] }}
                 transition={{ duration: 5, repeat: Infinity }}
