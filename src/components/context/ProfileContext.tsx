@@ -1,18 +1,10 @@
-import React, {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useRef,
-} from 'react'
+import React, { useContext, createContext, useState, useEffect } from 'react'
 import { UseFormContext } from './FormContext'
 import { db, auth } from '../../components/firebase/firebaseconfig'
 import {
   addDoc,
   collection,
   serverTimestamp,
-  setDoc,
-  getDoc,
   query,
   orderBy,
   onSnapshot,
@@ -20,6 +12,8 @@ import {
   doc,
   updateDoc,
 } from 'firebase/firestore'
+import { getMessaging, getToken } from 'firebase/messaging'
+
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 type Cell = {
   starRating: number
@@ -55,6 +49,9 @@ type Cell = {
 
   resivedMessages: unknown | any
   scroll: React.RefObject<HTMLSpanElement>
+
+  notification: unknown | any
+  setNotification: React.Dispatch<React.SetStateAction<unknown | any>>
 }
 const ProfileContext = createContext<Cell | null>(null)
 
@@ -183,13 +180,13 @@ export const ProfileContextProvider = ({
   }
   // sending messages to firebase
   const [message, setMessage] = useState<string>('')
-
+  // ref for auto scroll in chat
   const scroll = React.useRef<HTMLSpanElement>(null)
   const sendDm = async (userId: string) => {
     const element = scroll.current as HTMLDivElement
-
-    element.scrollIntoView({ behavior: 'smooth' })
-
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
     const { uid } = auth.currentUser as { uid: string }
     if (message !== '') {
       try {
@@ -208,6 +205,8 @@ export const ProfileContextProvider = ({
   }
 
   const [resivedMessages, setResivedMessages] = useState<unknown | any>()
+  const [notification, setNotification] = useState<unknown | any>()
+
   useEffect(() => {
     const q = query(collection(db, 'user_messages'), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querrySnapShot) => {
@@ -217,10 +216,12 @@ export const ProfileContextProvider = ({
         data.push({ ...doc.data(), id: doc.id })
       })
       setResivedMessages(data)
+      setNotification(data)
+      console.log('chat update')
     })
     return () => unsub()
   }, [user])
-  // ref for auto scroll in chat
+  // notifactions
 
   return (
     <ProfileContext.Provider
@@ -251,6 +252,8 @@ export const ProfileContextProvider = ({
         setMessage,
         resivedMessages,
         scroll,
+        notification,
+        setNotification,
       }}
     >
       {children}

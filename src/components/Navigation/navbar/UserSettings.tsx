@@ -3,24 +3,27 @@ import { UseFormContext } from '../../context/FormContext'
 import { IoMdAddCircle } from 'react-icons/io'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { Link, useParams } from 'react-router-dom'
+import { AiOutlineMessage } from 'react-icons/ai'
+import { UseProfileContext } from '../../context/ProfileContext'
+import { motion as m } from 'framer-motion'
 function UserSettings() {
   const {
-    userAuth,
     handleLogOut,
     user,
-    loadingRegister,
-    setLang,
+
     lang,
-    userData,
-    allUsers,
   } = UseFormContext()
+  const { resivedMessages } = UseProfileContext()
   const style = {
     mainDiv: `absolute w-[350px] h-[310px]  max_lg:right-4    bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
     img: `w-[70px] h-[70px] rounded-[50%]`,
     pDiv: `w-[100%] flex flex-col items-start p-5 justify-center border-b-[1px]`,
     edits: `w-[350px] h-[50%] `,
   }
-
+  const userNot = resivedMessages?.filter(
+    (val: any) => user?.uid === val.resiverUid,
+  )
+  const [userNotification, setUserNotification] = React.useState(userNot)
   return (
     <div className={style.mainDiv}>
       <div className="flex flex-col  ">
@@ -44,6 +47,23 @@ function UserSettings() {
           <div className="text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start ">
             <FaRegUserCircle className=" w-[2rem] mt-1 text-yellow-400 hover:text-green-300  " />{' '}
             {lang ? 'Products And Profile' : 'პროდუქტი და პროფილი'}
+          </div>{' '}
+        </Link>
+        <Link to={`/messages/${user?.uid}`}>
+          {' '}
+          <div
+            onClick={() => setUserNotification([])}
+            className="text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start "
+          >
+            <AiOutlineMessage className=" w-[2rem] mt-1 text-yellow-400 hover:text-green-300  " />{' '}
+            {lang ? 'Messages' : 'შეტყობინებები'}
+            {userNotification.length > 0 && (
+              <m.div
+                animate={{ y: [2, 0, 2, 0, 2, 0, 2, 0, 2] }}
+                transition={{ duration: 5, repeat: Infinity }}
+                className="bg-red-500 w-[10px] h-[10px] rounded-[50%]   ml-[1rem] absolute"
+              ></m.div>
+            )}
           </div>{' '}
         </Link>
         <button className="bg-red-600" type="submit" onClick={handleLogOut}>

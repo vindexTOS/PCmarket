@@ -60,7 +60,7 @@ function Messages() {
           .map((val: any, index: number) => {
             return (
               <div
-                key={index}
+                key={index + val.senderUid}
                 className={
                   val.senderUid === user?.uid ? style.sender : style.receiver
                 }

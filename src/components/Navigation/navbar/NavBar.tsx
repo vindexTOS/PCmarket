@@ -14,6 +14,7 @@ import { motion as m } from 'framer-motion'
 import LOGO from './LOGO'
 import AUTH from './AUTH'
 import AUTHPOPUP from './AUTHPOPUP'
+import { UseProfileContext } from '../../context/ProfileContext'
 function NavBar() {
   const {
     userAuth,
@@ -22,6 +23,7 @@ function NavBar() {
     setLang,
     lang,
     userData,
+    user,
   } = UseFormContext()
   const { search, setSearch } = UseProductContext()
   const {
@@ -33,6 +35,7 @@ function NavBar() {
     setSearchBarShow,
     authPopUp,
   } = UseNavContext()
+  const { resivedMessages } = UseProfileContext()
   const style = {
     nav: `w-[100%]  max_smm:w-[100vw]   h-[90px] bg-[#ffffff] flex items-center justify-between flex-row p-5 max_sm:p-0  border-b-2   `,
     searchDiv: `bg-white    max_x:w-[300px] max_md2:hidden w-[500px] h-[40px] max_sm:hidden h-[2rem] rounded-[20px] flex items-center justify-center gap-2 border-[1px] border-yellow-400`,
@@ -51,8 +54,17 @@ function NavBar() {
     dropDownFilter: `text-[3rem] text-yellow-500 cursor-pointer   mdxl:hidden `,
   }
   const [dropDown, setDropDown] = React.useState<boolean>(false)
+  // notification check
+  // checking if logged in users UID exists in database
+
+  const userNot = resivedMessages?.filter(
+    (val: any) => user?.uid === val.resiverUid,
+  )
+  const [userNotification, setUserNotification] = React.useState(userNot)
+
   return (
     <nav className={style.nav}>
+      {/* <button onClick={() => console.log(userNot)}>on click</button> */}
       <div className={style.dropDownWrapper}>
         <LOGO />
         {authPopUp && <AUTHPOPUP />}
@@ -106,7 +118,10 @@ function NavBar() {
         {userAuth && (
           <div>
             {!loadingRegister ? (
-              <div className="flex  gap-2">
+              <div
+                className="flex  gap-2"
+                onClick={() => setUserNotification([])}
+              >
                 <div
                   className={style.divImg}
                   onClick={() => setDropDown(!dropDown)}
@@ -115,6 +130,14 @@ function NavBar() {
                     className={style.img}
                     src={userData ? userData[0]?.imgUrl : Icons.Picture}
                   />
+
+                  {userNotification.length > 0 && (
+                    <m.div
+                      animate={{ y: [2, 0, 2, 0, 2, 0, 2, 0, 2] }}
+                      transition={{ duration: 5, repeat: Infinity }}
+                      className="bg-red-500 w-[15px] h-[15px] rounded-[50%] mt-[3rem] mr-[2rem] absolute"
+                    ></m.div>
+                  )}
                 </div>
                 <div className="flex flex-col w-[10rem]   max_sm:hidden">
                   <p className="text-gray-400">
