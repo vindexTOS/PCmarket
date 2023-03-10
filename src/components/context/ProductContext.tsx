@@ -95,6 +95,10 @@ type Cell = {
   deleteProduct: (id: string) => void
   makeSureCheck: boolean
   setMakeSureCheck: React.Dispatch<React.SetStateAction<boolean>>
+
+  FavProduct: (val: any) => void
+
+  favProducts: unknown | any
 }
 
 type FilterVal = {
@@ -496,7 +500,20 @@ export const ProductContextProvider = ({
       console.error('Error removing documt: ', error)
     }
   }
+  // add fav products
+  const fav = JSON.parse(localStorage.getItem('favProducts') || '[]')
+  const [favProducts, setFavProducts] = useState<any | unknown>(fav)
 
+  const FavProduct = (val: any) => {
+    let arr = {}
+    arr = val
+    setFavProducts([...favProducts, arr])
+    console.log(favProducts)
+  }
+
+  useEffect(() => {
+    localStorage.setItem('favProducts', JSON.stringify(favProducts))
+  }, [favProducts])
   return (
     <ProductContext.Provider
       value={{
@@ -538,6 +555,8 @@ export const ProductContextProvider = ({
         deleteProduct,
         makeSureCheck,
         setMakeSureCheck,
+        FavProduct,
+        favProducts,
       }}
     >
       {children}

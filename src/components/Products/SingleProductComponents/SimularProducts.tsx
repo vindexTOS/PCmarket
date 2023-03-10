@@ -6,6 +6,7 @@ import {
 } from 'react-icons/md'
 import CardSimularProduct from './CardSimularProduct'
 import { UseProductContext } from '../../context/ProductContext'
+
 type SimularProProps = {
   category: string
 }
@@ -94,6 +95,7 @@ const SimularProducts: FC<SimularProProps> = ({ category }): JSX.Element => {
           } = val
           return (
             <CardSimularProduct
+              key={id}
               title={title}
               imgs={imgs}
               price={price}
@@ -101,6 +103,7 @@ const SimularProducts: FC<SimularProProps> = ({ category }): JSX.Element => {
               description={description}
               name={sallType}
               id={id}
+              val={val}
             />
           )
         })}

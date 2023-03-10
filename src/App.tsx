@@ -29,6 +29,7 @@ import Messages from './components/user_profile/Direct_Messages/messages'
 import { UseProfileContext } from './components/context/ProfileContext'
 import MainMessage from './components/user_profile/Direct_Messages/MainMessage'
 
+import FavProduct from './components/Products/FavProduct'
 function App() {
   const { RouteProductPage } = UseProductContext()
   const { dmPopUp } = UseProfileContext()
@@ -153,7 +154,8 @@ function App() {
         <Route path="/user/:UserProfileMainId" element={<UserProfileMain />} />
         {/* user rating */}
         <Route path="/messages/:UserProfileMainId" element={<MainMessage />} />
-
+        {/*  fav product */}
+        <Route path="/favourite" element={<FavProduct />} />
         {/* registration and sign in forms */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
