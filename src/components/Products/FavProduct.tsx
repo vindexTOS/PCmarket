@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { UseProductContext } from '../context/ProductContext'
 
 const FavProduct = () => {
-  const { favProducts, DeleteFav } = UseProductContext()
+  const { localStorageFav, DeleteFav } = UseProductContext()
   const style = {
     section: `w-[100%] h-[100vh]  `,
     nav: `w-[100%] h-[60px] bg-white boxShaddow rounded-b-[10px]`,
@@ -15,7 +15,7 @@ const FavProduct = () => {
     <section className={style.section}>
       <nav className={style.nav}> </nav>
       <div className={style.mainDiv}>
-        {favProducts?.map((val: any) => {
+        {localStorageFav?.map((val: any) => {
           return (
             <div className={style.mapDiv} key={val.id}>
               <img className={style.img} src={val.imgs[0]} />

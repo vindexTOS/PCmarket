@@ -98,7 +98,7 @@ type Cell = {
 
   FavProduct: (val: any) => void
 
-  favProducts: unknown | any
+  localStorageFav: unknown | any
 
   DeleteFav: (id: string) => void
 }
@@ -503,34 +503,47 @@ export const ProductContextProvider = ({
     }
   }
   // add fav products
-  const fav = JSON.parse(localStorage.getItem('favProducts') || '[]')
 
-  const [favProducts, setFavProducts] = useState<any | unknown>(fav)
+  const [favProducts, setFavProducts] = useState<any | unknown>([])
+  const [localStorageFav, setLocalStorageFav] = useState<any | unknown>([])
+  const fav = localStorage.getItem('favProducts' || '[]')
+
+  useEffect(() => {
+    if (fav) {
+      setLocalStorageFav(JSON.parse(fav))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('favProducts', JSON.stringify(localStorageFav))
+  }, [localStorageFav])
 
   const FavProduct = (val: any) => {
-    let newVal = val
-    const isDuplicate = favProducts.some(
-      (item: { id: string }) => item.id === val.id,
+    const favUpdate = localStorageFav.find(
+      (favItem: any) => favItem.id === val.id,
     )
-    if (isDuplicate) {
-      setFavProducts((prevProducts: any) => [...prevProducts, newVal])
+    if (favUpdate) {
+      const updateFav = localStorageFav?.map((item: any) =>
+        item.id === val.id ? { ...item, quantity: item.quantity + 1 } : item,
+      )
+
+      setLocalStorageFav(updateFav)
+    } else {
+      setLocalStorageFav([...localStorageFav, { ...val, quantity: 1 }])
     }
-    console.log(favProducts)
+
+    console.log(localStorageFav)
   }
   // delete from fav
   const DeleteFav = (id: string) => {
-    let newVal = fav.filter((val: any) => {
+    let newVal = localStorageFav.filter((val: any) => {
       if (val.id !== id) {
         return val
       }
     })
 
-    setFavProducts(newVal)
+    setLocalStorageFav(newVal)
   }
-
-  useEffect(() => {
-    localStorage.setItem('favProducts', JSON.stringify(favProducts))
-  }, [favProducts])
 
   return (
     <ProductContext.Provider
@@ -574,8 +587,9 @@ export const ProductContextProvider = ({
         makeSureCheck,
         setMakeSureCheck,
         FavProduct,
-        favProducts,
+
         DeleteFav,
+        localStorageFav,
       }}
     >
       {children}
