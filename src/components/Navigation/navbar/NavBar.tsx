@@ -35,6 +35,8 @@ function NavBar() {
     searchBarShow,
     setSearchBarShow,
     authPopUp,
+    dropDown,
+    setDropDown,
   } = UseNavContext()
   const { resivedMessages } = UseProfileContext()
   const style = {
@@ -54,7 +56,7 @@ function NavBar() {
     } `,
     dropDownFilter: `text-[3rem] text-yellow-500 cursor-pointer   mdxl:hidden `,
   }
-  const [dropDown, setDropDown] = React.useState<boolean>(false)
+
   // notification check
   // checking if logged in users UID exists in database
 

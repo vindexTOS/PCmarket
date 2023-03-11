@@ -20,6 +20,9 @@ type Cell = {
 
   authPopUp: boolean
   setAuthPopUp: React.Dispatch<React.SetStateAction<boolean>>
+
+  dropDown: boolean
+  setDropDown: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // type SubCategoryState = {
@@ -105,7 +108,8 @@ export const NavContextProvider = ({
 
   // authorisation pop up
   const [authPopUp, setAuthPopUp] = useState<boolean>(false)
-
+  // drop down setting
+  const [dropDown, setDropDown] = React.useState<boolean>(false)
   return (
     <NavContext.Provider
       value={{
@@ -118,6 +122,8 @@ export const NavContextProvider = ({
         setSearchBarShow,
         authPopUp,
         setAuthPopUp,
+        dropDown,
+        setDropDown,
       }}
     >
       {children}

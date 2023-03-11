@@ -7,6 +7,7 @@ import { AiOutlineMessage } from 'react-icons/ai'
 import { UseProfileContext } from '../../context/ProfileContext'
 import { MdFavorite } from 'react-icons/md'
 import { motion as m } from 'framer-motion'
+import { UseNavContext } from '../../context/NavContext'
 function UserSettings() {
   const {
     handleLogOut,
@@ -15,6 +16,22 @@ function UserSettings() {
     lang,
   } = UseFormContext()
   const { resivedMessages } = UseProfileContext()
+  const { dropDown, setDropDown } = UseNavContext()
+  const refClick = React.useRef<HTMLDivElement>(null)
+  const handler = (e: MouseEvent) => {
+    if (refClick.current && !refClick.current.contains(e.target as Node)) {
+      setTimeout(() => {
+        setDropDown(false)
+      }, 100)
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('mousedown', handler)
+    return () => {
+      document.removeEventListener('mousedown', handler)
+    }
+  }, [handler])
   const style = {
     mainDiv: `absolute w-[350px] h-[310px]  max_lg:right-4    bg-white z-40 mt-5 rounded-[15px] boxShaddow`,
     img: `w-[70px] h-[70px] rounded-[50%]`,
@@ -26,7 +43,7 @@ function UserSettings() {
   )
   const [userNotification, setUserNotification] = React.useState(userNot)
   return (
-    <div className={style.mainDiv}>
+    <div className={style.mainDiv} ref={refClick}>
       <div className="flex flex-col  ">
         <div className={style.pDiv}>
           <p className="text-[1.2rem]  text-gray-600 font-bold">
