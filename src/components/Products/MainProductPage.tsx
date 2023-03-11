@@ -18,7 +18,7 @@ function MainProductPage() {
   const style = {
     section: `    ${
       gridLayOut
-        ? 'w-[100vw] h-[100%] mt-10 productGrid items-center justify-center  gap-10'
+        ? 'w-[100vw] h-[100%] mt-10   productGrid items-center justify-center  gap-10'
         : 'w-[100%] h-[100%] mt-10 productGridRow  items-center justify-start ml-[10rem] '
     }
          `,

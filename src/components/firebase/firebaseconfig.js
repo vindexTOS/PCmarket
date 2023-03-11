@@ -8,12 +8,12 @@ import { getStorage } from 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCowSTR9AOQEUBJUSww3CcON0Z6ffLPF90',
-  authDomain: 'marketlisting-f4b50.firebaseapp.com',
-  projectId: 'marketlisting-f4b50',
-  storageBucket: 'marketlisting-f4b50.appspot.com',
-  messagingSenderId: '340258705251',
-  appId: '1:340258705251:web:eaa5f66167bb3cb5fbcd56',
+  apiKey: 'AIzaSyCD_aZcy1WvypduXDjFjOZSgAzdVqaQe9I',
+  authDomain: 'pcmarket-8f5e8.firebaseapp.com',
+  projectId: 'pcmarket-8f5e8',
+  storageBucket: 'pcmarket-8f5e8.appspot.com',
+  messagingSenderId: '916396218674',
+  appId: '1:916396218674:web:e1defecc7522fc06431f2b',
 }
 
 // Initialize Firebase

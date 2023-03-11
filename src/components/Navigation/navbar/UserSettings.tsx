@@ -5,6 +5,7 @@ import { FaRegUserCircle } from 'react-icons/fa'
 import { Link, useParams } from 'react-router-dom'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { UseProfileContext } from '../../context/ProfileContext'
+import { MdFavorite } from 'react-icons/md'
 import { motion as m } from 'framer-motion'
 function UserSettings() {
   const {
@@ -33,7 +34,6 @@ function UserSettings() {
           </p>
           <p className="text-[11px] text-gray-400">{user?.uid}</p>
         </div>
-
         <div className={style.edits}>
           <Link to="/myproduct">
             <div className=" text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start ">
@@ -43,11 +43,10 @@ function UserSettings() {
           </Link>
         </div>
         <Link to={`/user/${user?.uid}`}>
-          {' '}
           <div className="text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start ">
             <FaRegUserCircle className=" w-[2rem] mt-1 text-yellow-400 hover:text-green-300  " />{' '}
             {lang ? 'Products And Profile' : 'პროდუქტი და პროფილი'}
-          </div>{' '}
+          </div>
         </Link>
         <Link to={`/messages/${user?.uid}`}>
           <div
@@ -63,9 +62,19 @@ function UserSettings() {
                 className="bg-red-500 w-[10px] h-[10px] rounded-[50%]   ml-[1rem] absolute"
               ></m.div>
             )}
-          </div>{' '}
+          </div>
         </Link>
-        <button className="bg-red-600" type="submit" onClick={handleLogOut}>
+        <Link to="/favourite">
+          <div className="text-[1.2rem] hover:bg-gray-100 text-gray-500 w-[345px] h-[3rem] pl-2 gap-2  hover:text-yellow-400 flex items-center justify-start ">
+            <MdFavorite className=" w-[2rem] mt-1 text-yellow-400 hover:text-green-300  " />{' '}
+            {lang ? 'Favorites' : 'ფავორიტი პროდუქტი'}
+          </div>
+        </Link>
+        <button
+          className="bg-red-600 h-[2rem] rounded-b-[10px]"
+          type="submit"
+          onClick={handleLogOut}
+        >
           {lang ? 'Log Out' : 'გასვლა'}
         </button>
       </div>

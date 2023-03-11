@@ -99,6 +99,8 @@ type Cell = {
   FavProduct: (val: any) => void
 
   favProducts: unknown | any
+
+  DeleteFav: (id: string) => void
 }
 
 type FilterVal = {
@@ -502,18 +504,34 @@ export const ProductContextProvider = ({
   }
   // add fav products
   const fav = JSON.parse(localStorage.getItem('favProducts') || '[]')
+
   const [favProducts, setFavProducts] = useState<any | unknown>(fav)
 
   const FavProduct = (val: any) => {
-    let arr = {}
-    arr = val
-    setFavProducts([...favProducts, arr])
+    let newVal = val
+    const isDuplicate = favProducts.some(
+      (item: { id: string }) => item.id === val.id,
+    )
+    if (isDuplicate) {
+      setFavProducts((prevProducts: any) => [...prevProducts, newVal])
+    }
     console.log(favProducts)
+  }
+  // delete from fav
+  const DeleteFav = (id: string) => {
+    let newVal = fav.filter((val: any) => {
+      if (val.id !== id) {
+        return val
+      }
+    })
+
+    setFavProducts(newVal)
   }
 
   useEffect(() => {
     localStorage.setItem('favProducts', JSON.stringify(favProducts))
   }, [favProducts])
+
   return (
     <ProductContext.Provider
       value={{
@@ -557,6 +575,7 @@ export const ProductContextProvider = ({
         setMakeSureCheck,
         FavProduct,
         favProducts,
+        DeleteFav,
       }}
     >
       {children}
