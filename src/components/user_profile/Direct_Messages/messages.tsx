@@ -4,6 +4,7 @@ import { UseProfileContext } from '../../context/ProfileContext'
 import { MdCancel } from 'react-icons/md'
 import { TbSend } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
+import { motion as m, useDragControls } from 'framer-motion'
 function Messages() {
   const { user } = UseFormContext()
   const {
@@ -18,7 +19,7 @@ function Messages() {
   } = UseProfileContext()
 
   const style = {
-    mainDiv: `flex flex-col fixed top-[14rem] max_Xll:left-[70%] max_xl:left-[65%] max_x:left-[60%]  max_lg:left-[55%] max_md2:left-[40%] max_sm:left-0  left-[74%] w-[400px] h-[500px]  border-2 z-50 boxShaddow bg-white rounded-[30px]`,
+    mainDiv: `flex flex-col   fixed top-[14rem] max_Xll:left-[70%] max_xl:left-[65%] max_x:left-[60%]  max_lg:left-[55%] max_md2:left-[40%] max_sm:left-0   left-[74%] w-[400px] h-[500px]  border-2 z-50 boxShaddow bg-white rounded-[30px]`,
     headDiv: `border-b-2 flex  items-center justify-between p-4  `,
     cancel: `cursor-pointer text-[1.7rem] text-red-500 hover:text-red-600 mt-2 mr-5 `,
     img: `w-[50px] h-[50px] rounded-[50%]`,
@@ -35,8 +36,19 @@ function Messages() {
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }, [dmPopUp])
+
+  const controls = useDragControls()
+
   return (
-    <div className={style.mainDiv}>
+    <m.div
+      drag={'y'}
+      dragControls={controls}
+      dragConstraints={{ top: 0, bottom: 0, left: 20, right: 20 }}
+      initial={{ y: 0 }}
+      animate={{ y: -300 }}
+      transition={{ duration: Infinity }}
+      className={style.mainDiv}
+    >
       <div className={style.headDiv}>
         <Link
           onClick={() => setDmPopUp(!dmPopUp)}
@@ -109,7 +121,7 @@ function Messages() {
           <TbSend className="text-[1.4rem]  " />
         </button>
       </div>
-    </div>
+    </m.div>
   )
 }
 
