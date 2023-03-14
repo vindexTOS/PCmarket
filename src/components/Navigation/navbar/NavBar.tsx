@@ -26,7 +26,7 @@ function NavBar() {
     userData,
     user,
   } = UseFormContext()
-  const { search, setSearch } = UseProductContext()
+  const { search, setSearch, productData } = UseProductContext()
   const {
     dropDownSideNav,
     setDropDownSideNav,
@@ -134,6 +134,34 @@ function NavBar() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </m.div>
+      )}
+      {search !== '' && (
+        <div className=" rounded-[12px] boxShaddow max-h-[120px] w-[31%] scroll overflow-y-scroll text-gray-400 text-[10px] px-5 py-2 ml-[28rem] mt-[10rem]  bg-white z-50 absolute ">
+          {productData
+            ?.filter((val: any) => {
+              if (search == '') {
+                return val
+              } else if (
+                val.title.toLowerCase().includes(search.toLowerCase()) ||
+                val.category.toLowerCase().includes(search.toLowerCase()) ||
+                val.description.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return val
+              }
+            })
+            .map((val: any) => {
+              return (
+                <div>
+                  <Link
+                    to={`/${val.id}`}
+                    className="underline text-blue-300 hover:text-blue-400"
+                  >
+                    {val.title}
+                  </Link>
+                </div>
+              )
+            })}
+        </div>
       )}
       <div
         className={` 
