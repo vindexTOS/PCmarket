@@ -63,13 +63,14 @@ const MainMessage = () => {
   }
 
   let location = useLocation()
-
+  const element = scroll?.current as HTMLDivElement
   React.useEffect(() => {
-    const element = scroll?.current as HTMLDivElement
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }, 500)
     }
-  }, [location])
+  }, [location, message])
 
   interface MessageTimestamps {
     [key: string]: number
@@ -176,6 +177,7 @@ const MainMessage = () => {
 
           <div className={style.textArea}>
             <textarea
+              onKeyDown={(e) => e.key === 'Enter' && sendDm(singleUser?.uid)}
               className="resize-none outline-0 text-gray-400 w-[100%]   rounded-[30px] "
               placeholder="   Send message"
               value={message}

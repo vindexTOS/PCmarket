@@ -30,12 +30,14 @@ function Messages() {
     message: `  text-start w-[88%] flex items-center justify-end ml-6 max-h-[10000px]  rounded-[30px] py-1 scroll `,
     messageUser: `w-[100%]  px-3   flex   max-h-[600px ]  rounded-[30px] py-1`,
   }
+  const element = scroll?.current as HTMLDivElement
   React.useEffect(() => {
-    const element = scroll?.current as HTMLDivElement
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }, 500)
     }
-  }, [dmPopUp])
+  }, [message])
 
   const controls = useDragControls()
 
@@ -109,6 +111,7 @@ function Messages() {
       </div>
       <div className={style.textArea}>
         <textarea
+          onKeyDown={(e) => e.key === 'Enter' && sendDm(messageUser?.uid)}
           className="resize-none outline-0 text-gray-400 w-[80%] rounded-b-[40%] "
           placeholder="   Send message"
           value={message}
