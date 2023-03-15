@@ -49,16 +49,16 @@ const MainMessage = () => {
 
   React.useEffect(() => {}, [])
   const style = {
-    mainDiv: `flex flex-col     w-[100%] h-[100%] pb-5    z-50 mt-10  bg-white  `,
-    headDiv: `border-b-2 flex  items-center justify-between p-4  `,
+    mainDiv: `flex flex-col border    w-[100%] h-[100%] pb-5 bg-yellow-100    z-50 mt-10  bg-white  `,
+    headDiv: `  flex  items-center justify-between p-4  bg-yellow-300 rounded-t-[20px]`,
     img: `w-[50px] h-[50px] rounded-[50%]`,
     imgName: `flex  items-center justify-center gap-5 hover:bg-blue-200 hover:text-white pr-2 rounded-[30px]`,
-    textArea: `flex w-[100%] outline outline-[2px] outline-gray-300 items-center justify-between rounded-[30px] h-[4rem] `,
+    textArea: `flex w-[100%] outline outline-[1px] outline-gray-300 bg-yellow-300 items-center justify-between rounded-b-[20px] h-[4rem] px-5 `,
     sender: ` text-yellow-400   `,
     receiver: `text-green-600    `,
     message: ` text-start w-[88%] flex items-center justify-end  ml-6 max-h-[10000px]  rounded-[30px] py-1   `,
     messageUser: `w-[100%]  px-3   flex   max-h-[500px]  rounded-[30px] py-1 `,
-    contact: `flex items-center gap-2 border-2 rounded-[50px]  `,
+    contact: `flex items-center gap-2 outline outline-2 rounded-[50px] bg-yellow-200  hover:bg-yellow-300 text-green-300`,
     contactImg: `w-[100px] h-[100px] rounded-[50%] `,
   }
 
@@ -109,7 +109,7 @@ const MainMessage = () => {
       >
         {/* <button onClick={() => console.log(val.uid)}>CLick</button> */}
         <img className={style.contactImg} src={val.imgUrl} />
-        <h1 className="text-[1.5rem] max_md2:w-[4rem] text-gray-400 max_md2:text-[1rem]">
+        <h1 className="text-[1.5rem] max_md2:w-[4rem]  text-blue-400 max_md2:text-[1rem]">
           {val.userName}
         </h1>
         {hasUnseenMessages && (
@@ -126,7 +126,7 @@ const MainMessage = () => {
             return <Notifications {...val} />
           })}
         </div>
-        <div className="w-[50%] max_md2:w-[80%] ">
+        <div className="w-[50%] max_md2:w-[80%]  ">
           <div className={style.headDiv}>
             {/* <button onClick={() => console.log()}>ON CLICK</button> */}
             <Link
@@ -138,7 +138,7 @@ const MainMessage = () => {
               <h1>{singleUser?.userName}</h1>
             </Link>
           </div>
-          <div className=" h-[350px] w-[100%] flex flex-col  border-l-2  gap-1 overflow-x-hidden overflow-y-scroll">
+          <div className=" h-[350px] w-[100%] flex flex-col  bg-white    gap-1 overflow-x-hidden overflow-y-scroll scroll">
             {/* <button onClick={() => console.log(resivedMessages)}>on clik</button> */}
             {resivedMessages
               ?.filter(
@@ -178,7 +178,7 @@ const MainMessage = () => {
           <div className={style.textArea}>
             <textarea
               onKeyDown={(e) => e.key === 'Enter' && sendDm(singleUser?.uid)}
-              className="resize-none outline-0 text-gray-400 w-[100%]   rounded-[30px] "
+              className="resize-none outline-0 text-gray-400 w-[90%]   bg-yellow-100 rounded-[10px] "
               placeholder="   Send message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}

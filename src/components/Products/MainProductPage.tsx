@@ -44,6 +44,7 @@ function MainProductPage() {
         {/* <h1 onClick={() => console.log(productData)}>LOg</h1> */}
 
         {reverseData
+
           ?.filter((val: any) => {
             if (search === '') {
               return val
