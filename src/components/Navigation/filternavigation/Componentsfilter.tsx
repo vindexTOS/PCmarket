@@ -9,8 +9,8 @@ function PCfilter() {
   const { location, dropDownFilter } = UseProductContext()
   const style = {
     mainDiv: ` w-[270px]    h-[50px]   max_md:h-[40px]  max_sm:h-[40px]   rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
-    arrowDiv: `flex w-[100%] justify-end`,
-    linkDiv: `bg-white z-50 absolute border-[1px] w-[220px] h-[230px] rounded-[12px] boxShaddow flex flex-col px-2 max_sm:mt-[8rem] mt-[17.6rem] `,
+    arrowDiv: `flex w-[100%] justify-around items-center`,
+    linkDiv: ` bg-white gap-2 py-2 z-50 absolute border-[1px] w-[220px] h-[300px] rounded-[12px] boxShaddow flex flex-col px-2 max_sm:mt-[8rem] mt-[21.6rem] `,
     link: `w-[100%] hover:bg-gray-300 p-[2px] px-2 cursor-pointer rounded-[12px] hover:text-blue-500 `,
   }
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)
@@ -58,8 +58,8 @@ function PCfilter() {
       className={style.mainDiv}
       onClick={() => setsubCategoryDropDown(!subCategoryDropDown)}
     >
-      <p className="  w-[10rem]  text-[1em]">{routeName()}</p>
       <div className={style.arrowDiv}>
+        <p className="  w-[10rem]   text-[1em]">{routeName()}</p>
         {!subCategoryDropDown ? (
           <IoIosArrowDown className="mr-2 text-gray-400" />
         ) : (

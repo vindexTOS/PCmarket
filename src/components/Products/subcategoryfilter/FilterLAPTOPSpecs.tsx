@@ -74,7 +74,7 @@ function FilterPCSpecs() {
     },
   ]
   const style = {
-    mainDiv: `w-[220px] h-[50px]   max_sm:h-[40px]  max_lg:w-[200px]       rounded-[16px] border-[1px] flex items-center justify-between  cursor-pointer`,
+    mainDiv: `w-[220px] h-[50px]   max_sm:h-[40px]  max_lg:w-[200px]    rounded-[16px] border-[1px] flex items-center justify-between  cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
     linkDiv: `  z-50 absolute   max_sm:w-[220px] max_sm:items-center max_sm:justify-center  justify-center items-start max-w-[1000x]  flex-col  rounded-[12px]   flex  max_sm:flex-col      px-2 gap-1 `,
     cpudiv: `w-[140px] h-[50px] rounded-[9px] border-2 flex itesm-center justify-center flex-col cursor-pointer outline-none`,
@@ -215,7 +215,15 @@ function FilterPCSpecs() {
         <div className={style.linkDiv}>
           {SubStringArray.map((val, index) => {
             const { arr, en, ge } = val
-            return <SubString arr={arr} en={en} ge={ge} index={index} />
+            return (
+              <SubString
+                key={String(val.arr)}
+                arr={arr}
+                en={en}
+                ge={ge}
+                index={index}
+              />
+            )
           })}
           {btn && (
             <button onClick={Filter} className={style.button}>

@@ -49,7 +49,7 @@ const MainMessage = () => {
 
   React.useEffect(() => {}, [])
   const style = {
-    mainDiv: `flex flex-col border    w-[100%] h-[100%] pb-5 bg-yellow-100    z-50 mt-10  bg-white  `,
+    mainDiv: `flex flex-col border     w-[100%] h-[100%] pb-[12rem] p-5   z-50 mt-10    `,
     headDiv: `  flex  items-center justify-between p-4  bg-yellow-300 rounded-t-[20px]`,
     img: `w-[50px] h-[50px] rounded-[50%]`,
     imgName: `flex  items-center justify-center gap-5 hover:bg-blue-200 hover:text-white pr-2 rounded-[30px]`,
@@ -58,7 +58,7 @@ const MainMessage = () => {
     receiver: `text-green-600    `,
     message: ` text-start w-[88%] flex items-center justify-end  ml-6 max-h-[10000px]  rounded-[30px] py-1   `,
     messageUser: `w-[100%]  px-3   flex   max-h-[500px]  rounded-[30px] py-1 `,
-    contact: `flex items-center gap-2 outline outline-2 rounded-[50px] bg-yellow-200  hover:bg-yellow-300 text-green-300`,
+    contact: `flex items-center gap-2 outline outline-2 rounded-[50px]  bg-white  hover:bg-yellow-300 text-green-300`,
     contactImg: `w-[100px] h-[100px] rounded-[50%] `,
   }
 

@@ -10,7 +10,7 @@ function PCfilter() {
   const style = {
     mainDiv: ` w-[220px]    h-[50px]   max_md:h-[40px]  max_sm:h-[40px]   rounded-[16px] border-[1px] flex items-center justify-between cursor-pointer`,
     arrowDiv: `flex w-[100%] justify-end`,
-    linkDiv: `bg-white z-50 absolute border-[1px] w-[220px] h-[90px] rounded-[12px] boxShaddow flex flex-col px-2 max_sm:mt-[8rem] mt-[10.6rem] `,
+    linkDiv: `bg-white py-5 z-50  absolute border-[1px] w-[220px] gap-2 h-[140px] rounded-[12px] boxShaddow flex flex-col px-2 mt-[11.8rem] `,
     link: `w-[100%] hover:bg-gray-300 p-[2px] px-2 cursor-pointer rounded-[12px] hover:text-blue-500 `,
   }
   const [subCategoryDropDown, setsubCategoryDropDown] = useState<boolean>(false)

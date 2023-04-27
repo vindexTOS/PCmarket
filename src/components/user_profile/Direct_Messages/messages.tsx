@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { UseFormContext } from '../../context/FormContext'
 import { UseProfileContext } from '../../context/ProfileContext'
 import { MdCancel } from 'react-icons/md'
@@ -19,7 +19,7 @@ function Messages() {
   } = UseProfileContext()
 
   const style = {
-    mainDiv: `flex  scroll flex-col pb-2 items-center justify-center  fixed top-[14rem] max_Xll:left-[70%] max_xl:left-[65%] max_x:left-[60%]  max_lg:left-[55%] max_md2:left-[40%] max_sm:left-0   left-[74%] w-[400px] h-[300px]   border-2 z-50 boxShaddow bg-white rounded-[40%]`,
+    mainDiv: `flex  scroll flex-col pb-2 items-center justify-center  fixed top-[14rem] max_Xll:left-[70%] max_xl:left-[65%] max_x:left-[60%]  max_lg:left-[55%] max_md2:left-[40%] max_sm:left-0   left-[74%] w-[500px] h-[300px] max_sm:w-[100%] max_sm:h-[360px]  border-2 z-50 boxShaddow bg-white rounded-[20%]`,
     headDiv: ` flex  items-center justify-between p-4  rounded-t-[45%] w-[300px] `,
     cancel: `cursor-pointer text-[1.7rem] text-red-500 hover:text-red-600 mt-2 mr-5 `,
     img: `w-[50px] h-[50px] rounded-[50%]`,
@@ -40,15 +40,30 @@ function Messages() {
   }, [message])
 
   const controls = useDragControls()
+  const [width, setWidth] = useState(window.innerWidth)
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  const [dragTurnOff, setDragTurnOff] = useState<boolean>(true)
+  useEffect(() => {
+    if (width < 450) {
+      setDragTurnOff(false)
+    } else {
+      setDragTurnOff(true)
+    }
+  }, [width])
   return (
     <m.div
-      drag={'y'}
-      dragControls={controls}
-      dragConstraints={{ top: 0, bottom: 0, left: 20, right: 20 }}
-      initial={{ y: 0 }}
-      animate={{ y: -300 }}
-      transition={{ duration: Infinity }}
+      drag={dragTurnOff}
+      dragConstraints={{ left: -1000, right: 1000, top: -500, bottom: 500 }}
+      dragElastic={false}
+      dragMomentum={false}
+      initial={{ y: -2800 }}
+      animate={{ y: -70, x: dragTurnOff ? 2 : 0 }}
+      transition={{ duration: 0.6, type: 'spring' }}
       className={style.mainDiv}
     >
       <div className={style.headDiv}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { UseProductContext } from '../context/ProductContext'
-
 const FavProduct = () => {
   const { localStorageFav, DeleteFav } = UseProductContext()
   const style = {

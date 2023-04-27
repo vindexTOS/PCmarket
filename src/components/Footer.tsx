@@ -3,7 +3,7 @@ import { BsLinkedin, BsYoutube, BsGithub } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 function Footer() {
   const style = {
-    footer: `w-[100%]  max_md2:h-[200px] max_md2:flex-wrap  max_md2:justify-center max_md2:gap-10 h-[60px] flex items-center justify-between bg-white border-[1px] mt-10 px-5`,
+    footer: `w-[100%]    max_md2:h-[200px] max_md2:flex-wrap  max_md2:justify-center max_md2:gap-10 h-[60px] flex items-center justify-between bg-white border-[1px] mt-10 px-5`,
   }
   return (
     <footer className={style.footer}>

@@ -12,6 +12,7 @@
 }
 * {
   font-family: 'Noto Serif Georgian', serif;
+  user-select: none;
 }
 
 body {
