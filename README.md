@@ -1,3 +1,5 @@
+Live Link: https://pcmarket.netlify.app/
+
 PC Market App
 This is a web application that allows users to buy and sell computer components. It is built using React, TypeScript, Firebase, Tailwind CSS, and Framer Motion.
 
