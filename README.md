@@ -1,33 +1,42 @@
-Live Link: https://pcmarket.netlify.app/
+ # PC Market App
 
-PC Market App
-This is a web application that allows users to buy and sell computer components. It is built using React, TypeScript, Firebase, Tailwind CSS, and Framer Motion.
+[![Live Link](https://img.shields.io/badge/Live%20Link-https%3A%2F%2Fpcmarket.netlify.app%2F-blue)](https://pcmarket.netlify.app/)
 
-Getting Started
+## Description
+
+PC Market App is a web application that allows users to buy and sell computer components. It is built using React, TypeScript, Firebase, Tailwind CSS, and Framer Motion.
+
+## Getting Started
+
 To get started with the PC Market App, you will need to have the following tools installed:
 
-Node.js
-Git
-Once you have installed these tools, you can clone the repository and install the dependencies by running the following commands in your terminal:
+- Node.js
+- Git
 
-sh
-Copy code
+Once you have installed these tools, you can proceed with the following steps:
+
+
+# Clone the repository
 git clone https://github.com/vindexTOS/PCmarket.git
+
+# Navigate to the project directory
 cd pc-market-app
+
+# Install the dependencies
 npm install
 You will also need to create a Firebase project and add the configuration details to a .env file in the root directory of the project. You can find more information on how to set up a Firebase project in the Firebase documentation...
 
 Usage
 To start the application, run the following command in your terminal:
 
-sh
+shell
 Copy code
 npm start
 This will start a local development server on http://localhost:3000. You can view the application in your web browser by navigating to this URL.
 
 To build the application for production, run the following command:
 
-sh
+shell
 Copy code
 npm run build
 This will create a production-ready build of the application in the build directory.
@@ -56,7 +65,4 @@ Fork the repository.
 Create a new branch for your changes.
 Make your changes and commit them.
 Push your changes to your forked repository.
-Create a pull request in the original repository.
-License
-The PC Market App is released under the MIT License.
-Created by vindexTOS
+Create a pull request in the original repository.```shell
