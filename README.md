@@ -1,6 +1,8 @@
  # PC Market App
 
 [![Live Link](https://img.shields.io/badge/Live%20Link-https%3A%2F%2Fpcmarket.netlify.app%2F-blue)](https://pcmarket.netlify.app/)
+![Alt Text](https://firebasestorage.googleapis.com/v0/b/img-upload-7d368.appspot.com/o/PC%20market%20background.jpg?alt=media&token=c8f20072-42f8-4cf1-959a-31e400ec1a79
+)
 
 ## Description
 
